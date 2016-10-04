@@ -55,8 +55,8 @@ class RedirectController extends ActionController
      */
     public function redirectAction($browserLanguage = '', $referrer = '', $ip = '')
     {
-        $redirectService = $this->objectManager->get(RedirectService::class);
-        $uri = $redirectService->getRedirectUri($browserLanguage, $referrer, $ip);
+        $redirectService = $this->objectManager->get(RedirectService::class, $browserLanguage, $referrer, $ip);
+        $uri = $redirectService->getRedirectUri();
         $parameters = ['error' => true];
         if (!empty($uri)) {
             $parameters = [
