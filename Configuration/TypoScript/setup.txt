@@ -1,0 +1,51 @@
+plugin.tx_ipandlanguageredirect {
+	settings {
+		configuration = {$plugin.tx_ipandlanguageredirect.settings.configuration}
+	}
+}
+
+page {
+	includeJSFooter.ipandlanguageredirect = EXT:ipandlanguageredirect/Resources/Public/JavaScripts/Frontend.min.js
+	includeCSS.ipandlanguageredirect = EXT:ipandlanguageredirect/Resources/Public/Css/Frontend.min.css
+
+	1555 = COA
+	1555 {
+		wrap = <script id="ipandlanguageredirect_container"|></script>
+
+		# Uri to send AJAX request
+		10 = TEXT
+		10 {
+			noTrimWrap = | data-redirect-uri="|"|
+			typolink {
+				parameter.data = TSFE:id
+				additionalParams = &type=1555
+				returnLast = url
+				forceAbsoluteUrl = 1
+			}
+		}
+	}
+}
+
+redirectAjax = PAGE
+redirectAjax {
+	typeNum = 1555
+	config {
+		no_cache = 1
+		disableAllHeaderCode = 1
+		disablePrefixComment = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+		debug = 0
+	}
+
+	10  = USER
+	10 {
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		extensionName = Ipandlanguageredirect
+		pluginName = Pi1
+		vendorName = In2code
+		controller = Redirect
+		action = redirect
+		switchableControllerActions.Redirect.1 = redirect
+	}
+}

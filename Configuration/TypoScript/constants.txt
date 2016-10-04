@@ -1,0 +1,6 @@
+plugin.tx_ipandlanguageredirect {
+	settings {
+		# cat=main/file/0000; type=string; label= Path to configuration file
+		configuration = EXT:ipandlanguageredirect/Configuration/Redirect/Redirect.php
+	}
+}

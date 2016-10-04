@@ -1,0 +1,13 @@
+{
+  "name": "ipandlanguageredirect",
+  "description": "TYPO3 frontend redirect depending on browser language and ip-address",
+  "author": "in2code",
+  "private": true,
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.1.1",
+    "gulp-uglify": "^1.5.1"
+  }
+}

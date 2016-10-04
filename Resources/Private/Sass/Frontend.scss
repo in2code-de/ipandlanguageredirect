@@ -1,0 +1,16 @@
+body {
+  border: 1px solid red;
+  padding: 1px;
+}
+
+.fadeInExample {
+  max-height: 0;
+  transition: max-height .5s ease-out;
+  overflow: hidden;
+  background: #d5d5d5;
+
+  &.animated {
+    max-height: 500px;
+    transition: max-height .5s ease-in;
+  }
+}
