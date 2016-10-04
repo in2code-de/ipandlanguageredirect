@@ -49,3 +49,9 @@ redirectAjax {
 		switchableControllerActions.Redirect.1 = redirect
 	}
 }
+testAjax < redirectAjax
+testAjax {
+	typeNum = 1556
+	10.action = test
+	10.switchableControllerActions.Redirect.1 = test
+}
