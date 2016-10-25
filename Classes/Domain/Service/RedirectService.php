@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Ipandlanguageredirect\Domain\Service;
 
+use In2code\Ipandlanguageredirect\Domain\Model\Configuration;
+use In2code\Ipandlanguageredirect\Domain\Model\ConfigurationSet;
 use In2code\Ipandlanguageredirect\Utility\ConfigurationUtility;
 use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
@@ -16,7 +18,7 @@ class RedirectService
      *
      * @var array
      */
-    protected $configuartion = [];
+    protected $configuration = [];
 
     /**
      * @var string
@@ -44,7 +46,7 @@ class RedirectService
         $this->browserLanguage = $browserLanguage;
         $this->referrer = $referrer;
         $this->ip = $ip;
-        $this->configuartion = ConfigurationUtility::getRedirectConfiguration();
+        $this->configuration = ConfigurationUtility::getRedirectConfiguration();
     }
 
     /**
@@ -52,16 +54,29 @@ class RedirectService
      */
     public function getRedirectUri()
     {
-        return $this->getUriToPage($this->getBestFittingPageIdentifier());
+        return $this->getUriToPage($this->getBestMatchingRootPage());
     }
 
     /**
      * @return int
      */
-    protected function getBestFittingPageIdentifier()
+    protected function getBestMatchingRootPage()
     {
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this, 'in2code: ' . __CLASS__ . ':' . __LINE__);
+        $bestConfiguration = $this->getBestConfiguration();
+        if ($bestConfiguration !== null) {
+            return $this->getBestConfiguration()->getRootPage();
+        }
         return 1;
+    }
+
+    /**
+     * @return Configuration|null
+     */
+    protected function getBestConfiguration()
+    {
+        $configurationSet = ObjectUtility::getObjectManager()->get(ConfigurationSet::class, $this->configuration);
+        $configurationSet->calculateQuantifiers($this->browserLanguage, $this->referrer, $this->ip);
+        return $configurationSet->getBestFittingConfiguration();
     }
 
     /**

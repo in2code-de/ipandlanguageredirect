@@ -47,6 +47,7 @@ class ConfigurationUtility
      * Get extension configuration from LocalConfiguration.php
      *
      * @return array
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected static function getTypo3ConfigurationVariables()
     {
