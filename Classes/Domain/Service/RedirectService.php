@@ -33,19 +33,24 @@ class RedirectService
     /**
      * @var string
      */
-    protected $ip = '';
+    protected $ipAddress = '';
+
+    /**
+     * @var string
+     */
+    protected $languageParameter = 'L';
 
     /**
      * RedirectService constructor.
      * @param string $browserLanguage
      * @param string $referrer
-     * @param string $ip
+     * @param string $ipAddress
      */
-    public function __construct($browserLanguage = '', $referrer = '', $ip = '')
+    public function __construct($browserLanguage = '', $referrer = '', $ipAddress = '')
     {
         $this->browserLanguage = $browserLanguage;
         $this->referrer = $referrer;
-        $this->ip = $ip;
+        $this->ipAddress = $ipAddress;
         $this->configuration = ConfigurationUtility::getRedirectConfiguration();
     }
 
@@ -54,7 +59,10 @@ class RedirectService
      */
     public function getRedirectUri()
     {
-        return $this->getUriToPage($this->getBestMatchingRootPage());
+        return $this->getUriToPageAndLanguage(
+            $this->getBestMatchingRootPage(),
+            $this->getBestMatchingLanguageParameter()
+        );
     }
 
     /**
@@ -70,24 +78,40 @@ class RedirectService
     }
 
     /**
+     * @return int
+     */
+    protected function getBestMatchingLanguageParameter()
+    {
+        $bestConfiguration = $this->getBestConfiguration();
+        if ($bestConfiguration !== null) {
+            return $this->getBestConfiguration()->getLanguageParameter();
+        }
+        return 0;
+    }
+
+    /**
      * @return Configuration|null
      */
     protected function getBestConfiguration()
     {
         $configurationSet = ObjectUtility::getObjectManager()->get(ConfigurationSet::class, $this->configuration);
-        $configurationSet->calculateQuantifiers($this->browserLanguage, $this->referrer, $this->ip);
+        $configurationSet->calculateQuantifiers($this->browserLanguage, $this->referrer, $this->ipAddress);
         return $configurationSet->getBestFittingConfiguration();
     }
 
     /**
      * @param int $pageIdentifier
+     * @param int $languageParameter
      * @return string
      */
-    protected function getUriToPage($pageIdentifier = 0)
+    protected function getUriToPageAndLanguage($pageIdentifier = 0, $languageParameter = 0)
     {
         $uriBuilder = ObjectUtility::getObjectManager()->get(UriBuilder::class);
         $uriBuilder->setTargetPageUid($pageIdentifier);
         $uriBuilder->setCreateAbsoluteUri(true);
+        if ($languageParameter > 0) {
+            $uriBuilder->setArguments([$this->languageParameter => $languageParameter]);
+        }
         return $uriBuilder->buildFrontendUri();
     }
 }

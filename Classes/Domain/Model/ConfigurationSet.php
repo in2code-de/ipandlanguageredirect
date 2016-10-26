@@ -40,10 +40,11 @@ class ConfigurationSet
         $this->rawNoMatchingConfiguration = $configuration['noMatchingConfiguration'];
         $this->rawRedirectConfiguration = $configuration['redirectConfiguration'];
         foreach ($this->rawRedirectConfiguration as $pageIdentifier => $treeConfiguration) {
-            foreach ($treeConfiguration as $setConfiguration) {
+            foreach ($treeConfiguration as $languageParameter => $setConfiguration) {
                 $configuration = ObjectUtility::getObjectManager()->get(
                     Configuration::class,
                     $pageIdentifier,
+                    $languageParameter,
                     $setConfiguration
                 );
                 $this->addConfiguration($configuration);

@@ -13,6 +13,11 @@ class Configuration
     protected $rootPage = 0;
 
     /**
+     * @var int
+     */
+    protected $languageParameter = 0;
+
+    /**
      * @var array
      */
     protected $browserLanguages = [];
@@ -31,11 +36,13 @@ class Configuration
      * Configuration constructor.
      *
      * @param int $rootPage
+     * @param int $languageParameter
      * @param array $setConfiguration
      */
-    public function __construct($rootPage, array $setConfiguration)
+    public function __construct($rootPage, $languageParameter, array $setConfiguration)
     {
         $this->setRootPage($rootPage);
+        $this->setLanguageParameter($languageParameter);
         $this->setBrowserLanguages($setConfiguration['browserLanguage']);
         $this->setCountries($setConfiguration['countryBasedOnIp']);
     }
@@ -55,6 +62,24 @@ class Configuration
     public function setRootPage($rootPage)
     {
         $this->rootPage = $rootPage;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLanguageParameter()
+    {
+        return $this->languageParameter;
+    }
+
+    /**
+     * @param int $languageParameter
+     * @return Configuration
+     */
+    public function setLanguageParameter($languageParameter)
+    {
+        $this->languageParameter = $languageParameter;
         return $this;
     }
 
