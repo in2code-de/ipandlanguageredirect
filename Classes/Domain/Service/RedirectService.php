@@ -41,6 +41,11 @@ class RedirectService
     protected $languageParameter = 'L';
 
     /**
+     * @var bool
+     */
+    protected $error = false;
+
+    /**
      * RedirectService constructor.
      * @param string $browserLanguage
      * @param string $referrer
@@ -96,7 +101,11 @@ class RedirectService
     {
         $configurationSet = ObjectUtility::getObjectManager()->get(ConfigurationSet::class, $this->configuration);
         $configurationSet->calculateQuantifiers($this->browserLanguage, $this->referrer, $this->ipAddress);
-        return $configurationSet->getBestFittingConfiguration();
+        $bestConfiguration = $configurationSet->getBestFittingConfiguration();
+        if ($bestConfiguration === null) {
+            $this->setError();
+        }
+        return $bestConfiguration;
     }
 
     /**
@@ -113,5 +122,22 @@ class RedirectService
             $uriBuilder->setArguments([$this->languageParameter => $languageParameter]);
         }
         return $uriBuilder->buildFrontendUri();
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isError()
+    {
+        return $this->error;
+    }
+
+    /**
+     * @return RedirectService
+     */
+    public function setError()
+    {
+        $this->error = true;
+        return $this;
     }
 }

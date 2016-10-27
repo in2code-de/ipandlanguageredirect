@@ -61,7 +61,7 @@ class RedirectController extends ActionController
         if (!empty($uri)) {
             $parameters = [
                 'uri' => $uri,
-                'error' => false
+                'error' => $redirectService->isError()
             ];
         }
         return json_encode($parameters);
