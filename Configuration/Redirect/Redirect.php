@@ -11,7 +11,8 @@ return [
         ]
     ],
     'noMatchingConfiguration' => [
-
+        'identifierUsage' => 'worldwide_english',
+        'matchMinQuantifier' => 15
     ],
     'redirectConfiguration' => [
         // pid
@@ -19,6 +20,7 @@ return [
         1 => [
             // language parameter
             0 => [
+                'identifier' => 'worldwide_english',
                 'browserLanguage' => [
                     '*'
                 ],
@@ -27,6 +29,7 @@ return [
                 ]
             ],
             1 => [
+                'identifier' => 'worldwide_german',
                 'browserLanguage' => [
                     'de'
                 ],
@@ -35,6 +38,7 @@ return [
                 ]
             ],
             2 => [
+                'identifier' => 'worldwide_chinese',
                 'browserLanguage' => [
                     'cn'
                 ],
@@ -46,6 +50,7 @@ return [
         // Canada
         2 => [
             0 => [
+                'identifier' => 'canada_english',
                 'browserLanguage' => [
                     '*'
                 ],
@@ -57,6 +62,7 @@ return [
         // USA, South America
         3 => [
             0 => [
+                'identifier' => 'america_english',
                 'browserLanguage' => [
                     '*'
                 ],
@@ -82,6 +88,7 @@ return [
         // Asia (without china), Australia, New Zealand
         4 => [
             0 => [
+                'identifier' => 'asia_english',
                 'browserLanguage' => [
                     '*',
                 ],
@@ -142,6 +149,7 @@ return [
                 ]
             ],
             2 => [
+                'identifier' => 'asia_chinese',
                 'browserLanguage' => [
                     'cn',
                 ],
@@ -205,6 +213,7 @@ return [
         // China
         5 => [
             0 => [
+                'identifier' => 'china_english',
                 'browserLanguage' => [
                     '*',
                 ],
@@ -213,6 +222,7 @@ return [
                 ]
             ],
             2 => [
+                'identifier' => 'china_chinese',
                 'browserLanguage' => [
                     'cn',
                 ],

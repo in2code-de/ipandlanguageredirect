@@ -8,6 +8,11 @@ class Configuration
 {
 
     /**
+     * @var string
+     */
+    protected $identifier = '';
+
+    /**
      * @var int
      */
     protected $rootPage = 0;
@@ -41,10 +46,29 @@ class Configuration
      */
     public function __construct($rootPage, $languageParameter, array $setConfiguration)
     {
+        $this->setIdentifier($setConfiguration['identifier']);
         $this->setRootPage($rootPage);
         $this->setLanguageParameter($languageParameter);
         $this->setBrowserLanguages($setConfiguration['browserLanguage']);
         $this->setCountries($setConfiguration['countryBasedOnIp']);
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    /**
+     * @param string $identifier
+     * @return Configuration
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
+        return $this;
     }
 
     /**

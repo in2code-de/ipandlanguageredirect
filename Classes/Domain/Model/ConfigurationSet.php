@@ -147,6 +147,45 @@ class ConfigurationSet
                 $bestConfiguration = $configuration;
             }
         }
+        $this->getBestFittingConfigurationFromNoMatchingConfiguration($bestConfiguration);
+        return $bestConfiguration;
+    }
+
+    /**
+     * Find a configuration by it's identifier
+     *
+     * @param string $identifier
+     * @return Configuration|null
+     */
+    public function getConfigurationByIdentifier($identifier)
+    {
+        foreach ($this->getConfigurations() as $configuration) {
+            if ($configuration->getIdentifier() === $identifier) {
+                return $configuration;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * If there is no best matching configuration or if the best matching configuration has a too low quantifier
+     * 
+     * @param Configuration|null $bestConfiguration
+     * @return Configuration|null
+     */
+    protected function getBestFittingConfigurationFromNoMatchingConfiguration($bestConfiguration = null)
+    {
+        if (
+            $bestConfiguration === null ||
+            $bestConfiguration->getQuantifier() < $this->rawNoMatchingConfiguration['matchMinQuantifier']
+        ) {
+            $noMatchingConfiguration = $this->getConfigurationByIdentifier(
+                $this->rawNoMatchingConfiguration['identifierUsage']
+            );
+            if ($noMatchingConfiguration !== null) {
+                $bestConfiguration = $noMatchingConfiguration;
+            }
+        }
         return $bestConfiguration;
     }
 }
