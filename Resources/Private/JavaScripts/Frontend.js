@@ -31,7 +31,7 @@ function IpandlanguageredirectFrontend() {
 		if (uri) {
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
+				if (this.readyState === 4 && this.status === 200) {
 					var returnObject = JSON.parse(this.responseText);
 					console.log(returnObject);
 				}
@@ -69,8 +69,9 @@ function IpandlanguageredirectFrontend() {
 	var getParametersForAjaxCall = function() {
 		return {
 			'tx_ipandlanguageredirect_pi1[browserLanguage]': getBrowserLanguage(),
-			'tx_ipandlanguageredirect_pi1[ip]': '',
-			'tx_ipandlanguageredirect_pi1[referrer]': getReferrer()
+			'tx_ipandlanguageredirect_pi1[ipAddress]': '',
+			'tx_ipandlanguageredirect_pi1[referrer]': getReferrer(),
+			'tx_ipandlanguageredirect_pi1[uri]': getCurrentUri()
 		};
 	};
 
@@ -90,6 +91,13 @@ function IpandlanguageredirectFrontend() {
 	 */
 	var getReferrer = function() {
 		return document.referrer;
+	};
+
+	/**
+	 * @returns {string}
+	 */
+	var getCurrentUri = function() {
+		return window.location.href;
 	};
 
 	/**

@@ -39,8 +39,8 @@ class RedirectController extends ActionController
     public function initializeRedirectAction()
     {
         $arguments = $this->request->getArguments();
-        if (empty($arguments['ip'])) {
-            $this->request->setArgument('ip', GeneralUtility::getIndpEnv('REMOTE_ADDR'));
+        if (empty($arguments['ipAddress'])) {
+            $this->request->setArgument('ipAddress', GeneralUtility::getIndpEnv('REMOTE_ADDR'));
         }
     }
 
@@ -50,21 +50,20 @@ class RedirectController extends ActionController
      *
      * @param string $browserLanguage
      * @param string $referrer
-     * @param string $ip
+     * @param string $currentUri
+     * @param string $ipAddress
      * @return string
      */
-    public function redirectAction($browserLanguage = '', $referrer = '', $ip = '')
+    public function redirectAction($browserLanguage = '', $referrer = '', $currentUri = '', $ipAddress = '')
     {
-        $redirectService = $this->objectManager->get(RedirectService::class, $browserLanguage, $referrer, $ip);
-        $uri = $redirectService->getRedirectUri();
-        $parameters = ['error' => true];
-        if (!empty($uri)) {
-            $parameters = [
-                'uri' => $uri,
-                'error' => $redirectService->isError()
-            ];
-        }
-        return json_encode($parameters);
+        $redirectService = $this->objectManager->get(
+            RedirectService::class,
+            $browserLanguage,
+            $referrer,
+            $currentUri,
+            $ipAddress
+        );
+        return json_encode($redirectService->buildParameters());
     }
 
     /**

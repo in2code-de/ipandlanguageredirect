@@ -8,6 +8,35 @@ return [
         'countryBasedOnIp' => [
             'totalMatch' => 13,
             'wildCardMatch' => 5
+        ],
+        'actions' => [
+            'referrers' => [
+                'totalMatch' => 7,
+                'wildCardMatch' => 3,
+            ]
+        ]
+    ],
+    'actions' => [
+        [
+            'referrers' => [
+                'google.',
+                'bing.',
+                'yahoo.',
+                't-online.',
+                'yandex.',
+                'baidu.',
+            ],
+            'events' => [
+                'redirect'
+            ]
+        ],
+        [
+            'referrers' => [
+                '*'
+            ],
+            'events' => [
+                'suggest'
+            ]
         ]
     ],
     'noMatchingConfiguration' => [

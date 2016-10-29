@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Ipandlanguageredirect\Domain\Service;
 
+use In2code\Ipandlanguageredirect\Domain\Model\ActionSet;
 use In2code\Ipandlanguageredirect\Domain\Model\Configuration;
 use In2code\Ipandlanguageredirect\Domain\Model\ConfigurationSet;
 use In2code\Ipandlanguageredirect\Utility\ConfigurationUtility;
@@ -33,6 +34,11 @@ class RedirectService
     /**
      * @var string
      */
+    protected $currentUri = '';
+
+    /**
+     * @var string
+     */
     protected $ipAddress = '';
 
     /**
@@ -46,23 +52,50 @@ class RedirectService
     protected $error = false;
 
     /**
+     * @var array
+     */
+    protected $defaultParameters = [
+        'error' => true,
+        'events' => ['none']
+    ];
+
+    /**
      * RedirectService constructor.
      * @param string $browserLanguage
      * @param string $referrer
+     * @param string $currentUri
      * @param string $ipAddress
      */
-    public function __construct($browserLanguage = '', $referrer = '', $ipAddress = '')
+    public function __construct($browserLanguage = '', $referrer = '', $currentUri = '', $ipAddress = '')
     {
         $this->browserLanguage = $browserLanguage;
         $this->referrer = $referrer;
+        $this->currentUri = $currentUri;
         $this->ipAddress = $ipAddress;
         $this->configuration = ConfigurationUtility::getRedirectConfiguration();
     }
 
     /**
+     * @return array
+     */
+    public function buildParameters()
+    {
+        $uri = $this->getRedirectUri();
+        $parameters = $this->defaultParameters;
+        if (!empty($uri)) {
+            $parameters = [
+                'uri' => $uri,
+                'error' => $this->isError(),
+                'events' => $this->getEvents()
+            ];
+        }
+        return $parameters;
+    }
+    
+    /**
      * @return string
      */
-    public function getRedirectUri()
+    protected function getRedirectUri()
     {
         return $this->getUriToPageAndLanguage(
             $this->getBestMatchingRootPage(),
@@ -100,7 +133,7 @@ class RedirectService
     protected function getBestConfiguration()
     {
         $configurationSet = ObjectUtility::getObjectManager()->get(ConfigurationSet::class, $this->configuration);
-        $configurationSet->calculateQuantifiers($this->browserLanguage, $this->referrer, $this->ipAddress);
+        $configurationSet->calculateQuantifiers($this->browserLanguage, $this->ipAddress);
         $bestConfiguration = $configurationSet->getBestFittingConfiguration();
         if ($bestConfiguration === null) {
             $this->setError();
@@ -125,9 +158,19 @@ class RedirectService
     }
 
     /**
+     * @return array
+     */
+    protected function getEvents()
+    {
+        $actionSet = ObjectUtility::getObjectManager()->get(ActionSet::class, $this->configuration);
+        $actionSet->calculateQuantifiers($this->referrer);
+        return $actionSet->getEvents();
+    }
+
+    /**
      * @return boolean
      */
-    public function isError()
+    protected function isError()
     {
         return $this->error;
     }
@@ -135,7 +178,7 @@ class RedirectService
     /**
      * @return RedirectService
      */
-    public function setError()
+    protected function setError()
     {
         $this->error = true;
         return $this;

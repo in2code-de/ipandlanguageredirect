@@ -56,11 +56,10 @@ class ConfigurationSet
      * Calculate quantifiers for Configuration
      *
      * @param string $browserLanguage
-     * @param string $referrer
-     * @param string $ip
+     * @param string $ipAddress
      * @return void
      */
-    public function calculateQuantifiers($browserLanguage = '', $referrer = '', $ip = '')
+    public function calculateQuantifiers($browserLanguage = '', $ipAddress = '')
     {
         $configurations = $this->getConfigurations();
         foreach ($configurations as $configuration) {
@@ -72,7 +71,7 @@ class ConfigurationSet
             $regionQuantifier = $this->getQuantifier(
                 'countryBasedOnIp',
                 $configuration->getCountries(),
-                IpUtility::getCountryCodeFromIp($ip)
+                IpUtility::getCountryCodeFromIp($ipAddress)
             );
             $configuration->setQuantifier($browserQuantifier * $regionQuantifier);
         }
