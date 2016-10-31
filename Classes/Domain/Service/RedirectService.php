@@ -64,6 +64,16 @@ class RedirectService
     protected $bestConfiguration = null;
 
     /**
+     * @var bool
+     */
+    protected $isActivatedBecauseOfDifferentLanguages = false;
+
+    /**
+     * @var bool
+     */
+    protected $isActivatedBecauseOfDifferentRootpages = false;
+
+    /**
      * @var array
      */
     protected $defaultParameters = [
@@ -100,7 +110,9 @@ class RedirectService
             $parameters = [
                 'redirectUri' => $redirectUri,
                 'activated' => $this->isActivated(),
-                'events' => $this->getEvents()
+                'events' => $this->getEvents(),
+                'differentLanguages' => $this->isActivatedBecauseOfDifferentLanguages,
+                'differentRootpages' => $this->isActivatedBecauseOfDifferentRootpages
             ];
         }
         return $parameters;
@@ -170,9 +182,7 @@ class RedirectService
         $uriBuilder = ObjectUtility::getObjectManager()->get(UriBuilder::class);
         $uriBuilder->setTargetPageUid($pageIdentifier);
         $uriBuilder->setCreateAbsoluteUri(true);
-        if ($languageParameter > 0) {
-            $uriBuilder->setArguments([$this->languageParameter => $languageParameter]);
-        }
+        $uriBuilder->setArguments([$this->languageParameter => $languageParameter]);
         return $uriBuilder->buildFrontendUri();
     }
 
@@ -187,15 +197,38 @@ class RedirectService
     }
 
     /**
-     * Check if there are no errors, if the current language is different to best machting language and if current
-     * rootpage is different to best matching rootpage
+     * Check if
+     *      - the redirect is turned on,
+     *      - AND
+     *          - if the current language is different to best matching language
+     *          - OR if current rootpage is different to best matching rootpage
      *
      * @return boolean
      */
     protected function isActivated()
     {
-        return $this->activated && $this->getBestMatchingLanguageParameter() !== $this->languageParameter
-            && $this->getBestMatchingRootPage() !== $this->rootpageUid;
+        return $this->activated
+            && ($this->isActivatedBecauseOfDifferentLanguages() || $this->isActivatedBecauseOfDifferentRootpages());
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isActivatedBecauseOfDifferentLanguages()
+    {
+        $isDifferent = $this->getBestMatchingLanguageParameter() !== $this->languageUid;
+        $this->isActivatedBecauseOfDifferentLanguages = $isDifferent;
+        return $isDifferent;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isActivatedBecauseOfDifferentRootpages()
+    {
+        $isDifferent = $this->getBestMatchingRootPage() !== $this->rootpageUid;
+        $this->isActivatedBecauseOfDifferentRootpages = $isDifferent;
+        return $isDifferent;
     }
 
     /**
