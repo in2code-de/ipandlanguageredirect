@@ -34,11 +34,6 @@ class RedirectService
     /**
      * @var string
      */
-    protected $currentUri = '';
-
-    /**
-     * @var string
-     */
     protected $ipAddress = '';
 
     /**
@@ -47,15 +42,32 @@ class RedirectService
     protected $languageParameter = 'L';
 
     /**
+     * @var int
+     */
+    protected $languageUid = 0;
+
+    /**
+     * @var int
+     */
+    protected $rootpageUid = 1;
+
+    /**
+     * Enables/Disables function for JavaScript
+     *
      * @var bool
      */
-    protected $error = false;
+    protected $activated = true;
+
+    /**
+     * @var null|Configuration
+     */
+    protected $bestConfiguration = null;
 
     /**
      * @var array
      */
     protected $defaultParameters = [
-        'error' => true,
+        'activated' => false,
         'events' => ['none']
     ];
 
@@ -63,15 +75,17 @@ class RedirectService
      * RedirectService constructor.
      * @param string $browserLanguage
      * @param string $referrer
-     * @param string $currentUri
      * @param string $ipAddress
+     * @param int $languageUid current FE language uid
+     * @param int $rootpageUid current rootpage uid
      */
-    public function __construct($browserLanguage = '', $referrer = '', $currentUri = '', $ipAddress = '')
+    public function __construct($browserLanguage, $referrer, $ipAddress, $languageUid, $rootpageUid)
     {
         $this->browserLanguage = $browserLanguage;
         $this->referrer = $referrer;
-        $this->currentUri = $currentUri;
         $this->ipAddress = $ipAddress;
+        $this->languageUid = $languageUid;
+        $this->rootpageUid = $rootpageUid;
         $this->configuration = ConfigurationUtility::getRedirectConfiguration();
     }
 
@@ -80,12 +94,12 @@ class RedirectService
      */
     public function buildParameters()
     {
-        $uri = $this->getRedirectUri();
+        $redirectUri = $this->getRedirectUri();
         $parameters = $this->defaultParameters;
-        if (!empty($uri)) {
+        if (!empty($redirectUri)) {
             $parameters = [
-                'uri' => $uri,
-                'error' => $this->isError(),
+                'redirectUri' => $redirectUri,
+                'activated' => $this->isActivated(),
                 'events' => $this->getEvents()
             ];
         }
@@ -132,11 +146,16 @@ class RedirectService
      */
     protected function getBestConfiguration()
     {
-        $configurationSet = ObjectUtility::getObjectManager()->get(ConfigurationSet::class, $this->configuration);
-        $configurationSet->calculateQuantifiers($this->browserLanguage, $this->ipAddress);
-        $bestConfiguration = $configurationSet->getBestFittingConfiguration();
-        if ($bestConfiguration === null) {
-            $this->setError();
+        if ($this->bestConfiguration === null) {
+            $configurationSet = ObjectUtility::getObjectManager()->get(ConfigurationSet::class, $this->configuration);
+            $configurationSet->calculateQuantifiers($this->browserLanguage, $this->ipAddress);
+            $bestConfiguration = $configurationSet->getBestFittingConfiguration();
+            $this->bestConfiguration = $bestConfiguration;
+            if ($bestConfiguration === null) {
+                $this->setDeactivated();
+            }
+        } else {
+            $bestConfiguration = $this->bestConfiguration;
         }
         return $bestConfiguration;
     }
@@ -168,19 +187,23 @@ class RedirectService
     }
 
     /**
+     * Check if there are no errors, if the current language is different to best machting language and if current
+     * rootpage is different to best matching rootpage
+     *
      * @return boolean
      */
-    protected function isError()
+    protected function isActivated()
     {
-        return $this->error;
+        return $this->activated && $this->getBestMatchingLanguageParameter() !== $this->languageParameter
+            && $this->getBestMatchingRootPage() !== $this->rootpageUid;
     }
 
     /**
      * @return RedirectService
      */
-    protected function setError()
+    protected function setDeactivated()
     {
-        $this->error = true;
+        $this->activated = false;
         return $this;
     }
 }

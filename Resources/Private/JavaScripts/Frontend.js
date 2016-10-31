@@ -49,7 +49,7 @@ function IpandlanguageredirectFrontend() {
 	var getAjaxUri = function() {
 		var container = getContainer();
 		if (container !== null) {
-			return container.getAttribute('data-redirect-uri');
+			return container.getAttribute('data-ajax-uri');
 		}
 		return '';
 	};
@@ -71,7 +71,8 @@ function IpandlanguageredirectFrontend() {
 			'tx_ipandlanguageredirect_pi1[browserLanguage]': getBrowserLanguage(),
 			'tx_ipandlanguageredirect_pi1[ipAddress]': '',
 			'tx_ipandlanguageredirect_pi1[referrer]': getReferrer(),
-			'tx_ipandlanguageredirect_pi1[uri]': getCurrentUri()
+			'tx_ipandlanguageredirect_pi1[languageuid]': getLanguageUid(),
+			'tx_ipandlanguageredirect_pi1[rootpageuid]': getRootpageUid()
 		};
 	};
 
@@ -96,8 +97,23 @@ function IpandlanguageredirectFrontend() {
 	/**
 	 * @returns {string}
 	 */
-	var getCurrentUri = function() {
-		return window.location.href;
+	var getLanguageUid = function() {
+		var container = getContainer();
+		if (container !== null) {
+			return container.getAttribute('data-language-uid');
+		}
+		return 0;
+	};
+
+	/**
+	 * @returns {string}
+	 */
+	var getRootpageUid = function() {
+		var container = getContainer();
+		if (container !== null) {
+			return container.getAttribute('data-rootpage-uid');
+		}
+		return 1;
 	};
 
 	/**

@@ -12,16 +12,31 @@ page {
 	1555 {
 		wrap = <script id="ipandlanguageredirect_container"|></script>
 
-		# Uri to send AJAX request
+		# Uri to send AJAX request to
 		10 = TEXT
 		10 {
-			noTrimWrap = | data-redirect-uri="|"|
+			noTrimWrap = | data-ajax-uri="|"|
 			typolink {
 				parameter.data = TSFE:id
 				additionalParams = &type=1555
 				returnLast = url
 				forceAbsoluteUrl = 1
 			}
+		}
+
+		# FE language
+		20 = TEXT
+		20 {
+			noTrimWrap = | data-language-uid="|"|
+			data = GP:L
+			intval = 1
+		}
+
+		# Root page uid
+		30 = TEXT
+		30 {
+			noTrimWrap = | data-rootpage-uid="|"|
+			data = leveluid:0
 		}
 	}
 }

@@ -77,7 +77,7 @@ return [
             ],
         ],
         // Canada
-        2 => [
+        16 => [
             0 => [
                 'identifier' => 'canada_english',
                 'browserLanguage' => [
@@ -89,7 +89,7 @@ return [
             ]
         ],
         // USA, South America
-        3 => [
+        22 => [
             0 => [
                 'identifier' => 'america_english',
                 'browserLanguage' => [
@@ -115,7 +115,7 @@ return [
             ]
         ],
         // Asia (without china), Australia, New Zealand
-        4 => [
+        26 => [
             0 => [
                 'identifier' => 'asia_english',
                 'browserLanguage' => [
@@ -240,7 +240,7 @@ return [
             ]
         ],
         // China
-        5 => [
+        30 => [
             0 => [
                 'identifier' => 'china_english',
                 'browserLanguage' => [

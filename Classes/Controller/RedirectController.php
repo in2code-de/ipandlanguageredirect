@@ -21,13 +21,17 @@ class RedirectController extends ActionController
     protected $testArguments = [
         [
             'browserLanguage' => 'de',
-            'ip' => '192.168.0.1',
-            'referrer' => 'http://www.google.de?foo=bar'
+            'referrer' => 'http://www.google.de?foo=bar',
+            'ipAddress' => '192.168.0.1',
+            'languageUid' => '0',
+            'rootpageUid' => '1'
         ],
         [
             'browserLanguage' => 'de',
-            'ip' => '',
-            'referrer' => 'http://www.google.de?foo=bar'
+            'referrer' => 'http://www.google.de?foo=bar',
+            'ipAddress' => '',
+            'languageUid' => '0',
+            'rootpageUid' => '1'
         ]
     ];
 
@@ -46,22 +50,32 @@ class RedirectController extends ActionController
 
     /**
      * Can be tested with a direct call:
-     *      index.php?id=2&type=1555&tx_ipandlanguageredirect_pi1[browserLanguage]=de
+     *      index.php?id=2&type=1555
+     *      &tx_ipandlanguageredirect_pi1[browserLanguage]=de&tx_ipandlanguageredirect_pi1[referrer]=http://google.de/
+     *      &tx_ipandlanguageredirect_pi1[ipAddress]=66.85.131.18
+     *      &tx_ipandlanguageredirect_pi1[languageUid]=0&tx_ipandlanguageredirect_pi1[rootpageUid]=1
      *
-     * @param string $browserLanguage
-     * @param string $referrer
-     * @param string $currentUri
-     * @param string $ipAddress
+     * @param string $browserLanguage browser language
+     * @param string $referrer referrer address
+     * @param string $ipAddress given IP address
+     * @param int $languageUid current FE language uid
+     * @param int $rootpageUid current rootpage uid
      * @return string
      */
-    public function redirectAction($browserLanguage = '', $referrer = '', $currentUri = '', $ipAddress = '')
-    {
+    public function redirectAction(
+        $browserLanguage = '',
+        $referrer = '',
+        $ipAddress = '',
+        $languageUid = 0,
+        $rootpageUid = 1
+    ) {
         $redirectService = $this->objectManager->get(
             RedirectService::class,
             $browserLanguage,
             $referrer,
-            $currentUri,
-            $ipAddress
+            $ipAddress,
+            $languageUid,
+            $rootpageUid
         );
         return json_encode($redirectService->buildParameters());
     }
