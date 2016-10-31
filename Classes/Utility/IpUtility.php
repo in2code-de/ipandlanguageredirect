@@ -24,7 +24,9 @@ class IpUtility
      *      '66.85.131.18' => 'United States'
      *      '182.118.23.7' => 'China'
      *
-     * Alternative: https://ipapi.co/208.67.222.222/json/
+     * Possible services:
+     *      http://ip-api.com/json/208.67.222.222/
+     *      https://ipapi.co/208.67.222.222/json/
      *
      * @param string $ipAddress
      * @return string Countryname
@@ -36,7 +38,7 @@ class IpUtility
         }
         $geoInfo = null;
         if (empty(self::$ipAddresses[$ipAddress])) {
-            $json = GeneralUtility::getUrl('http://ip-api.com/json/' . $ipAddress);
+            $json = GeneralUtility::getUrl('https://ipapi.co/' . $ipAddress . '/json/');
             if ($json) {
                 $geoInfo = json_decode($json);
                 self::$ipAddresses[$ipAddress] = $geoInfo;
@@ -44,8 +46,8 @@ class IpUtility
         } else {
             $geoInfo = self::$ipAddresses[$ipAddress];
         }
-        if ($geoInfo !== null && !empty($geoInfo->countryCode)) {
-            return strtolower($geoInfo->countryCode);
+        if ($geoInfo !== null && !empty($geoInfo->country)) {
+            return strtolower($geoInfo->country);
         }
         return '';
     }

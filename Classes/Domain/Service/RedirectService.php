@@ -5,6 +5,7 @@ use In2code\Ipandlanguageredirect\Domain\Model\ActionSet;
 use In2code\Ipandlanguageredirect\Domain\Model\Configuration;
 use In2code\Ipandlanguageredirect\Domain\Model\ConfigurationSet;
 use In2code\Ipandlanguageredirect\Utility\ConfigurationUtility;
+use In2code\Ipandlanguageredirect\Utility\IpUtility;
 use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 
@@ -35,6 +36,11 @@ class RedirectService
      * @var string
      */
     protected $ipAddress = '';
+
+    /**
+     * @var string
+     */
+    protected $countryCode = '';
 
     /**
      * @var string
@@ -96,6 +102,7 @@ class RedirectService
         $this->ipAddress = $ipAddress;
         $this->languageUid = $languageUid;
         $this->rootpageUid = $rootpageUid;
+        $this->countryCode = IpUtility::getCountryCodeFromIp($ipAddress);
         $this->configuration = ConfigurationUtility::getRedirectConfiguration();
     }
 
