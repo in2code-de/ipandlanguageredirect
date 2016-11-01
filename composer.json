@@ -1,0 +1,26 @@
+{
+  "name": "in2code/ipandlanguagesuggest",
+  "description": "TYPO3 FE visitor automatic or manual redirect to another language or another root page.",
+  "keywords": ["typo3", "redirect", "ip address", "browserlanguage"],
+  "homepage": "https://github.com/einpraegsam/ipandlanguageredirect",
+  "authors": [
+    {
+      "name": "Alex Kellner",
+      "email": "alexander.kellner@in2code.de"
+    }
+  ],
+  "type": "typo3-cms-extension",
+  "license": "GPL-3.0",
+  "require": {
+    "typo3/cms-core": ">=7.6.0 <9.0.0"
+  },
+  "replace": {
+    "ipandlanguageredirect": "self.version",
+    "typo3-ter/ipandlanguageredirect": "self.version"
+  },
+  "autoload": {
+    "psr-4": {
+      "In2code\\Ipandlanguageredirect\\": "Classes/"
+    }
+  }
+}

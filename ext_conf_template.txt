@@ -1,0 +1,2 @@
+# cat=basic//010; type=text; label= Path to configuration file: Redirect configuration file path
+configurationFilePath = EXT:ipandlanguageredirect/Configuration/Redirect/Redirect.php
