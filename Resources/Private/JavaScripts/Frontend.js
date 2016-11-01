@@ -29,6 +29,15 @@ function IpandlanguageredirectFrontend() {
 	var alreadyRedirectedParameter = {r: 1};
 
 	/**
+	 * If cookieMode is different to "permanent", cookie will be deleted with browserclose.
+	 * "permanent" will add a cookie with 1 year livetime.
+	 * And because of the fast moving internet world, 1 year is rather permanent :)
+	 *
+	 * @type {string}
+	 */
+	var cookieMode = 'permanent';
+
+	/**
 	 * Show redirect URI instead of redirecting
 	 *
 	 * @type {boolean}
@@ -42,8 +51,32 @@ function IpandlanguageredirectFrontend() {
 	 */
 	this.initialize = function() {
 		setDebug();
+		addHideMessageListener();
 		if (isActivated()) {
 			ajaxConnection(getAjaxUri(), getParametersForAjaxCall());
+		}
+	};
+
+	/**
+	 * Set debug value if &formselectiondebug=1
+	 *
+	 * @returns {void}
+	 */
+	var setDebug = function() {
+		if (window.location.search.indexOf('ipandlanguagedebug=1') !== -1) {
+			debugMode = true;
+			console.log('ipandlanguageredirect debug activated');
+		}
+	};
+
+	/**
+	 * Add listener to hide message function
+	 */
+	var addHideMessageListener = function() {
+		var element = getFirstContainerByDataAttribute('data-ipandlanguageredirect-action', 'hideMessage');
+		element.onclick = function() {
+			setHideMessageCookie();
+			hideSuggestContainer();
 		}
 	};
 
@@ -105,13 +138,15 @@ function IpandlanguageredirectFrontend() {
 	 * @param jsonObject
 	 */
 	this.suggestEvent = function(jsonObject) {
-		var uri = buildRedirectUri(jsonObject.redirectUri);
-		if (debugMode) {
-			console.log('Suggest the following URI:');
-			console.log(uri);
-		} else {
-			updateRedirectUriInSuggestContainer(jsonObject);
-			showSuggestContainer();
+		if (!isHideMessageCookieSet()) {
+			var uri = buildRedirectUri(jsonObject.redirectUri);
+			if (debugMode) {
+				console.log('Suggest the following URI:');
+				console.log(uri);
+			} else {
+				updateRedirectUriInSuggestContainer(jsonObject);
+				showSuggestContainer();
+			}
 		}
 	};
 
@@ -119,7 +154,7 @@ function IpandlanguageredirectFrontend() {
 	 * @param jsonObject
 	 */
 	var updateRedirectUriInSuggestContainer = function(jsonObject) {
-		var linkContainer = getContainerByName('link');
+		var linkContainer = getFirstContainerByDataAttribute('data-ipandlanguageredirect-container', 'link');
 		linkContainer.setAttribute('href', jsonObject.redirectUri);
 	};
 
@@ -129,8 +164,18 @@ function IpandlanguageredirectFrontend() {
 	 * @returns {void}
 	 */
 	var showSuggestContainer = function() {
-		var suggestContainer = getContainerByName('suggest');
+		var suggestContainer = getFirstContainerByDataAttribute('data-ipandlanguageredirect-container', 'suggest');
 		suggestContainer.classList.add(showSuggestClassname);
+	};
+
+	/**
+	 * Hide suggest container
+	 *
+	 * @returns {void}
+	 */
+	var hideSuggestContainer = function() {
+		var suggestContainer = getFirstContainerByDataAttribute('data-ipandlanguageredirect-container', 'suggest');
+		suggestContainer.classList.remove(showSuggestClassname);
 	};
 
 	/**
@@ -161,16 +206,18 @@ function IpandlanguageredirectFrontend() {
 	};
 
 	/**
-	 * Get a container by its data-attribute name
+	 * Get the first container by its data-attribute name
 	 * 		"suggest" delivers element with data-ipandlanguageredirect-container="suggest"
 	 *
-	 * @returns {object}
+	 * @param {string} dataKey
+	 * @param {string} value
+	 * @returns {object|null}
 	 */
-	var getContainerByName = function(name) {
-		var elements = document.querySelectorAll('[data-ipandlanguageredirect-container]');
+	var getFirstContainerByDataAttribute = function(dataKey, value) {
+		var elements = document.querySelectorAll('[' + dataKey + ']');
 		for (var key in elements) {
 			if (elements.hasOwnProperty(key)) {
-				if (elements[key].getAttribute('data-ipandlanguageredirect-container') === name) {
+				if (elements[key].getAttribute(dataKey) === value) {
 					return elements[key];
 				}
 			}
@@ -247,18 +294,6 @@ function IpandlanguageredirectFrontend() {
 	};
 
 	/**
-	 * Set debug value if &formselectiondebug=1
-	 *
-	 * @returns {void}
-	 */
-	var setDebug = function() {
-		if (window.location.search.indexOf('ipandlanguagedebug=1') !== -1) {
-			debugMode = true;
-			console.log('ipandlanguageredirect debug activated');
-		}
-	};
-
-	/**
 	 * Build an uri string for an ajax call together with params from an object
 	 * 		{
 	 * 			'x': 123,
@@ -285,6 +320,52 @@ function IpandlanguageredirectFrontend() {
 			}
 		}
 		return uri;
+	};
+
+	/**
+	 * @returns {boolean}
+	 */
+	var isHideMessageCookieSet = function() {
+		return getCookieByName('ipandlanguageredirect_hidemessage') === '1';
+	};
+
+	/**
+	 * Set hide message cookie
+	 *
+	 * @returns {void}
+	 */
+	var setHideMessageCookie = function() {
+		if (cookieMode === 'permanent') {
+			var now = new Date();
+			var time = now.getTime();
+			time += 3600 * 24 * 365 * 1000; // 1 year from now
+			now.setTime(time);
+			document.cookie = 'ipandlanguageredirect_hidemessage=1; expires=' + now.toUTCString() + '; path=/';
+			console.log(document.cookie);
+		} else {
+			document.cookie = 'ipandlanguageredirect_hidemessage=1; path=/';
+		}
+	};
+
+	/**
+	 * Get cookie value by its name
+	 *
+	 * @param cookieName
+	 * @returns {string}
+	 */
+	var getCookieByName = function(cookieName) {
+		var name = cookieName + '=';
+		var ca = document.cookie.split(';');
+		for(var i=0; i<ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) === ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) === 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return '';
 	};
 }
 
