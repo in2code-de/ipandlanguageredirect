@@ -60,6 +60,7 @@ class RedirectController extends ActionController
      * @param string $ipAddress given IP address
      * @param int $languageUid current FE language uid
      * @param int $rootpageUid current rootpage uid
+     * @param string $countryCode overrides ip2country function for testing
      * @return string
      */
     public function redirectAction(
@@ -67,7 +68,8 @@ class RedirectController extends ActionController
         $referrer = '',
         $ipAddress = '',
         $languageUid = 0,
-        $rootpageUid = 1
+        $rootpageUid = 1,
+        $countryCode = ''
     ) {
         $redirectService = $this->objectManager->get(
             RedirectService::class,
@@ -75,7 +77,8 @@ class RedirectController extends ActionController
             $referrer,
             $ipAddress,
             $languageUid,
-            $rootpageUid
+            $rootpageUid,
+            $countryCode
         );
         return json_encode($redirectService->buildParameters());
     }

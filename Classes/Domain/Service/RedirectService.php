@@ -45,6 +45,11 @@ class RedirectService
     /**
      * @var string
      */
+    protected $countryCodeOverlay = '';
+
+    /**
+     * @var string
+     */
     protected $languageParameter = 'L';
 
     /**
@@ -94,15 +99,21 @@ class RedirectService
      * @param string $ipAddress
      * @param int $languageUid current FE language uid
      * @param int $rootpageUid current rootpage uid
+     * @param string $countryCode
      */
-    public function __construct($browserLanguage, $referrer, $ipAddress, $languageUid, $rootpageUid)
+    public function __construct($browserLanguage, $referrer, $ipAddress, $languageUid, $rootpageUid, $countryCode)
     {
         $this->browserLanguage = $browserLanguage;
         $this->referrer = $referrer;
         $this->ipAddress = $ipAddress;
         $this->languageUid = $languageUid;
         $this->rootpageUid = $rootpageUid;
-        $this->countryCode = IpUtility::getCountryCodeFromIp($ipAddress);
+        $this->countryCodeOverlay = $countryCode;
+        if ($this->countryCodeOverlay === '') {
+            $this->countryCode = IpUtility::getCountryCodeFromIp($ipAddress);
+        } else {
+            $this->countryCode = $this->countryCodeOverlay;
+        }
         $this->configuration = ConfigurationUtility::getRedirectConfiguration();
     }
 
@@ -127,7 +138,8 @@ class RedirectService
                     'referrer' => $this->referrer,
                     'ipAddress' => $this->ipAddress,
                     'languageUid' => $this->languageUid,
-                    'rootpageUid' => $this->rootpageUid
+                    'rootpageUid' => $this->rootpageUid,
+                    'countryCodeOverlay' => $this->countryCodeOverlay
                 ]
             ];
         }
@@ -176,7 +188,7 @@ class RedirectService
     {
         if ($this->bestConfiguration === null) {
             $configurationSet = ObjectUtility::getObjectManager()->get(ConfigurationSet::class, $this->configuration);
-            $configurationSet->calculateQuantifiers($this->browserLanguage, $this->ipAddress);
+            $configurationSet->calculateQuantifiers($this->browserLanguage, $this->countryCode);
             $bestConfiguration = $configurationSet->getBestFittingConfiguration();
             $this->bestConfiguration = $bestConfiguration;
             if ($bestConfiguration === null) {

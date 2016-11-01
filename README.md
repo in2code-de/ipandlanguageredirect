@@ -151,6 +151,25 @@ return [
 ];
 ```
 
+## Testing
+
+### Simulate browserlanguage, country and referrer
+
+```
+http://domain.org/index.php?id=1
+&tx_ipandlanguageredirect_pi1[ipAddress]=66.85.131.18
+&tx_ipandlanguageredirect_pi1[browserLanguage]=de
+&tx_ipandlanguageredirect_pi1[referrer]=www.google.de
+&tx_ipandlanguageredirect_pi1[countryCode]=af
+```
+
+### Don't redirect or suggest but show the redirectUri in the browserconsole
+
+```
+http://domain.org/index.php?id=1
+&ipandlanguagedebug=1
+```
+
 ## Todos
 
 * Add some more documentation with FAQ and best practice
