@@ -364,7 +364,6 @@ function IpandlanguageredirectFrontend() {
 			time += 3600 * 24 * 365 * 1000; // 1 year from now
 			now.setTime(time);
 			document.cookie = 'ipandlanguageredirect_hidemessage=1; expires=' + now.toUTCString() + '; path=/';
-			console.log(document.cookie);
 		} else {
 			document.cookie = 'ipandlanguageredirect_hidemessage=1; path=/';
 		}

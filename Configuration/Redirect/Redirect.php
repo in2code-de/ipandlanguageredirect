@@ -25,6 +25,7 @@ return [
                 't-online.',
                 'yandex.',
                 'baidu.',
+                'links.playground.localhost.de',
             ],
             'events' => [
                 'redirect'
