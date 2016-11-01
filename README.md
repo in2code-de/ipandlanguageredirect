@@ -170,6 +170,9 @@ http://domain.org/index.php?id=1
 &ipandlanguagedebug=1
 ```
 
-## Todos
+## Changelog
 
-* Add some more documentation with FAQ and best practice
+| Version    | Date       | Description                                          |
+| ---------- | ---------- | ---------------------------------------------------- |
+| 1.1.0      | 2016-11-01 | Add testing features                                 |
+| 1.0.0      | 2016-11-01 | Initial release                                      |
