@@ -45,10 +45,10 @@ return [
         'matchMinQuantifier' => 15
     ],
     'redirectConfiguration' => [
-        // pid
-        // PCO AG (worldwide, europe)
+        // this number means: pid
+        // Worldwide, Europe
         1 => [
-            // language parameter
+            // this number means: language parameter
             0 => [
                 'identifier' => 'worldwide_english',
                 'browserLanguage' => [
