@@ -259,38 +259,39 @@ function IpandlanguageredirectFrontend() {
 	};
 
 	/**
-	 * @returns {string}
+	 * @returns {int}
 	 */
 	var getLanguageUid = function() {
 		var container = getContainer();
 		if (container !== null) {
-			return container.getAttribute('data-language-uid');
+			var uid = container.getAttribute('data-language-uid');
+			return parseInt(uid);
 		}
 		return 0;
 	};
 
 	/**
-	 * @returns {string}
+	 * @returns {int}
 	 */
 	var getRootpageUid = function() {
 		var container = getContainer();
 		if (container !== null) {
-			return container.getAttribute('data-rootpage-uid');
+			var uid = container.getAttribute('data-rootpage-uid');
+			return parseInt(uid);
 		}
 		return 1;
 	};
 
 	/**
 	 * Check if we should send an AJAX request
-	 * 		- only if already redirected parameter is not set
 	 * 		- only if container is in DOM
+	 * 		- only if already redirected parameter is not set
 	 *
 	 * @returns {boolean}
 	 */
 	var isActivated = function() {
 		var container = getContainer();
-		return container !== null
-			&& window.location.href.indexOf('?r=1') === -1 && window.location.href.indexOf('&r=1') === -1;
+		return container !== null && getGetParameterByName('r') !== '1';
 	};
 
 	/**
@@ -320,6 +321,28 @@ function IpandlanguageredirectFrontend() {
 			}
 		}
 		return uri;
+	};
+
+	/**
+	 * Get a GET parameter by given key
+	 * 		for index.php?id=123&r=x&y=z:
+	 * 		getGetParameterByName('r') will return "x"
+	 *
+	 * @param {string} parameterName
+	 * @returns {string|null}
+	 */
+	var getGetParameterByName = function(parameterName) {
+		var result = null, tmp = [];
+		window.location.search
+			.substr(1)
+			.split('&')
+			.forEach(function (item) {
+				tmp = item.split('=');
+				if (tmp[0] === parameterName) {
+					result = decodeURIComponent(tmp[1]);
+				}
+			});
+		return result;
 	};
 
 	/**
