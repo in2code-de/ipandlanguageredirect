@@ -188,8 +188,8 @@ function IpandlanguageredirectFrontend() {
 			'tx_ipandlanguageredirect_pi1[browserLanguage]': getBrowserLanguage(),
 			'tx_ipandlanguageredirect_pi1[ipAddress]': '',
 			'tx_ipandlanguageredirect_pi1[referrer]': getReferrer(),
-			'tx_ipandlanguageredirect_pi1[languageuid]': getLanguageUid(),
-			'tx_ipandlanguageredirect_pi1[rootpageuid]': getRootpageUid()
+			'tx_ipandlanguageredirect_pi1[languageUid]': getLanguageUid(),
+			'tx_ipandlanguageredirect_pi1[rootpageUid]': getRootpageUid()
 		};
 	};
 

@@ -118,8 +118,17 @@ class RedirectService
                 'redirectUri' => $redirectUri,
                 'activated' => $this->isActivated(),
                 'events' => $this->getEvents(),
-                'differentLanguages' => $this->isActivatedBecauseOfDifferentLanguages,
-                'differentRootpages' => $this->isActivatedBecauseOfDifferentRootpages
+                'activatedReasons' => [
+                    'differentLanguages' => $this->isActivatedBecauseOfDifferentLanguages,
+                    'differentRootpages' => $this->isActivatedBecauseOfDifferentRootpages,
+                ],
+                'givenParameters' => [
+                    'browserLanguage' => $this->browserLanguage,
+                    'referrer' => $this->referrer,
+                    'ipAddress' => $this->ipAddress,
+                    'languageUid' => $this->languageUid,
+                    'rootpageUid' => $this->rootpageUid
+                ]
             ];
         }
         return $parameters;
