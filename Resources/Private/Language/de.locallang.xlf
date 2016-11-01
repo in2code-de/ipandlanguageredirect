@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-05-02T12:00:00Z" product-name="ipandlanguageredirect">
+		<header/>
+		<body>
+			<trans-unit id="betterVersion">
+				<source>Show convenient version of this site</source>
+				<target state="translated">Zeige besser passende Version dieser Seite</target>
+			</trans-unit>
+			<trans-unit id="hideMessage">
+				<source>Don't show this message again</source>
+				<target state="translated">Diese Meldung nicht mehr anzeigen</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
