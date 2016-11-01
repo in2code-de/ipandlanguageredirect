@@ -1,16 +1,27 @@
-body {
-  border: 1px solid red;
-  padding: 1px;
+.ipandlanguageredirect_suggest_container {
+  height: 0;
+  transition: height .5s ease-out;
+  overflow: hidden;
+  background: #FF9900;
+  color: white;
+
+  &.fadein {
+    height: 20px;
+    transition: height .5s ease-in;
+    padding: 15px;
+  }
 }
 
-.fadeInExample {
-  max-height: 0;
-  transition: max-height .5s ease-out;
-  overflow: hidden;
-  background: #d5d5d5;
+.ipandlanguageredirect_suggest_container__message {
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0 6px;
 
-  &.animated {
-    max-height: 500px;
-    transition: max-height .5s ease-in;
+  &:first-child {
+    border-right: 1px solid white;
+  }
+
+  a {
+    color: white;
   }
 }

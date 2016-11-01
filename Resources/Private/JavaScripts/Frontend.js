@@ -19,6 +19,11 @@ function IpandlanguageredirectFrontend() {
 	var containerId = 'ipandlanguageredirect_container';
 
 	/**
+	 * @type {string}
+	 */
+	var showSuggestClassname = 'fadein';
+
+	/**
 	 * @type {{r: number}}
 	 */
 	var alreadyRedirectedParameter = {r: 1};
@@ -105,8 +110,27 @@ function IpandlanguageredirectFrontend() {
 			console.log('Suggest the following URI:');
 			console.log(uri);
 		} else {
-			alert('TODO: Suggest this URI: ' + uri);
+			updateRedirectUriInSuggestContainer(jsonObject);
+			showSuggestContainer();
 		}
+	};
+
+	/**
+	 * @param jsonObject
+	 */
+	var updateRedirectUriInSuggestContainer = function(jsonObject) {
+		var linkContainer = getContainerByName('link');
+		linkContainer.setAttribute('href', jsonObject.redirectUri);
+	};
+
+	/**
+	 * Show suggest container
+	 *
+	 * @returns {void}
+	 */
+	var showSuggestContainer = function() {
+		var suggestContainer = getContainerByName('suggest');
+		suggestContainer.classList.add(showSuggestClassname);
 	};
 
 	/**
@@ -134,6 +158,24 @@ function IpandlanguageredirectFrontend() {
 	 */
 	var getContainer = function() {
 		return document.getElementById(containerId);
+	};
+
+	/**
+	 * Get a container by its data-attribute name
+	 * 		"suggest" delivers element with data-ipandlanguageredirect-container="suggest"
+	 *
+	 * @returns {object}
+	 */
+	var getContainerByName = function(name) {
+		var elements = document.querySelectorAll('[data-ipandlanguageredirect-container]');
+		for (var key in elements) {
+			if (elements.hasOwnProperty(key)) {
+				if (elements[key].getAttribute('data-ipandlanguageredirect-container') === name) {
+					return elements[key];
+				}
+			}
+		}
+		return null;
 	};
 
 	/**

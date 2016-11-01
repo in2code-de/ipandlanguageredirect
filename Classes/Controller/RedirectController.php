@@ -97,4 +97,13 @@ class RedirectController extends ActionController
         $uri = ObjectUtility::getContentObject()->typoLink_URL($configuration);
         HttpUtility::redirect($uri, HttpUtility::HTTP_STATUS_307);
     }
+
+    /**
+     * Render a suggest container that can be slided down in FE
+     * 
+     * @return void
+     */
+    public function suggestAction()
+    {
+    }
 }

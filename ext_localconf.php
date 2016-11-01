@@ -12,7 +12,7 @@ call_user_func(function () {
         'In2code.ipandlanguageredirect',
         'Pi1',
         [
-            'Redirect' => 'redirect'
+            'Redirect' => 'redirect,suggest'
         ],
         [
             'Redirect' => 'redirect'

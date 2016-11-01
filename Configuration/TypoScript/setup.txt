@@ -1,4 +1,10 @@
 plugin.tx_ipandlanguageredirect {
+	view {
+		templateRootPaths {
+			0 = EXT:ipandlanguageredirect/Resources/Private/Templates/
+			1 = {$plugin.tx_ipandlanguageredirect.view.templateRootPath}
+		}
+	}
 	settings {
 		configuration = {$plugin.tx_ipandlanguageredirect.settings.configuration}
 	}
@@ -8,6 +14,19 @@ page {
 	includeJSFooter.ipandlanguageredirect = EXT:ipandlanguageredirect/Resources/Public/JavaScripts/Frontend.min.js
 	includeCSS.ipandlanguageredirect = EXT:ipandlanguageredirect/Resources/Public/Css/Frontend.min.css
 
+	# Suggest container that can be slided down
+	5 = USER
+	5 {
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		extensionName = Ipandlanguageredirect
+		pluginName = Pi1
+		vendorName = In2code
+		controller = Redirect
+		action = suggest
+		switchableControllerActions.Redirect.1 = suggest
+	}
+
+	# Container for informations that will be send to an AJAX service
 	1555 = COA
 	1555 {
 		wrap = <script id="ipandlanguageredirect_container"|></script>
@@ -41,6 +60,7 @@ page {
 	}
 }
 
+# AJAX types
 redirectAjax = PAGE
 redirectAjax {
 	typeNum = 1555
