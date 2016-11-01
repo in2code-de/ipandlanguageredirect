@@ -151,6 +151,28 @@ return [
 ];
 ```
 
-## Todos
+## Testing
 
-* Add some more documentation with FAQ and best practice
+### Simulate browserlanguage, country and referrer
+
+```
+http://domain.org/index.php?id=1
+&tx_ipandlanguageredirect_pi1[ipAddress]=66.85.131.18
+&tx_ipandlanguageredirect_pi1[browserLanguage]=de
+&tx_ipandlanguageredirect_pi1[referrer]=www.google.de
+&tx_ipandlanguageredirect_pi1[countryCode]=af
+```
+
+### Don't redirect or suggest but show the redirectUri in the browserconsole
+
+```
+http://domain.org/index.php?id=1
+&ipandlanguagedebug=1
+```
+
+## Changelog
+
+| Version    | Date       | Description                                          |
+| ---------- | ---------- | ---------------------------------------------------- |
+| 1.1.0      | 2016-11-01 | Add testing features                                 |
+| 1.0.0      | 2016-11-01 | Initial release                                      |

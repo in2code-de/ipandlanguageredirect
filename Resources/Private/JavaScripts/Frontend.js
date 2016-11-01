@@ -193,7 +193,7 @@ function IpandlanguageredirectFrontend() {
 	var getAjaxUri = function() {
 		var container = getContainer();
 		if (container !== null) {
-			return container.getAttribute('data-ajax-uri');
+			return container.getAttribute('data-ipandlanguageredirect-ajaxuri');
 		}
 		return '';
 	};
@@ -233,29 +233,71 @@ function IpandlanguageredirectFrontend() {
 	var getParametersForAjaxCall = function() {
 		return {
 			'tx_ipandlanguageredirect_pi1[browserLanguage]': getBrowserLanguage(),
-			'tx_ipandlanguageredirect_pi1[ipAddress]': '',
+			'tx_ipandlanguageredirect_pi1[ipAddress]': getIpAddress(),
 			'tx_ipandlanguageredirect_pi1[referrer]': getReferrer(),
 			'tx_ipandlanguageredirect_pi1[languageUid]': getLanguageUid(),
-			'tx_ipandlanguageredirect_pi1[rootpageUid]': getRootpageUid()
+			'tx_ipandlanguageredirect_pi1[rootpageUid]': getRootpageUid(),
+			'tx_ipandlanguageredirect_pi1[countryCode]': getCountryCode()
 		};
 	};
 
 	/**
 	 * Get Browserlanguage (get "de" from "de" or from "de-DE")
+	 * Overload browserlanguage from data-ipandlanguageredirect-browserlanguage="de"
 	 *
 	 * @returns {string}
 	 */
 	var getBrowserLanguage = function() {
-		var userLang = navigator.language || navigator.userLanguage;
-		var parts = userLang.split('-');
-		return parts[0];
+		var browserLanguage = null;
+		var container = getContainer();
+
+		if (container !== null) {
+			browserLanguage = container.getAttribute('data-ipandlanguageredirect-browserlanguage');
+		}
+
+		if (browserLanguage === null) {
+			var userLang = navigator.language || navigator.userLanguage;
+			var parts = userLang.split('-');
+			browserLanguage = parts[0];
+		}
+
+		return browserLanguage;
 	};
 
 	/**
+	 * Get ipAddress for testing only - otherwise let it empty
+	 * use from data-ipandlanguageredirect-ipaddress="1.1.1.1"
+	 *
+	 * @returns {string}
+	 */
+	var getIpAddress = function() {
+		var ipAddress = '';
+		var container = getContainer();
+		if (container !== null) {
+			ipAddress = container.getAttribute('data-ipandlanguageredirect-ipaddress');
+		}
+		return ipAddress;
+	};
+
+	/**
+	 * Get referrer
+	 * Overload it from data-ipandlanguageredirect-referrer="www.google.de"
+	 *
 	 * @returns {string}
 	 */
 	var getReferrer = function() {
-		return document.referrer;
+		var referrer = null;
+		var container = getContainer();
+
+		if (container !== null) {
+			referrer = container.getAttribute('data-ipandlanguageredirect-referrer');
+		}
+
+		if (referrer === null) {
+			referrer = document.referrer;
+		}
+
+		return referrer;
 	};
 
 	/**
@@ -264,7 +306,7 @@ function IpandlanguageredirectFrontend() {
 	var getLanguageUid = function() {
 		var container = getContainer();
 		if (container !== null) {
-			var uid = container.getAttribute('data-language-uid');
+			var uid = container.getAttribute('data-ipandlanguageredirect-languageuid');
 			return parseInt(uid);
 		}
 		return 0;
@@ -276,10 +318,27 @@ function IpandlanguageredirectFrontend() {
 	var getRootpageUid = function() {
 		var container = getContainer();
 		if (container !== null) {
-			var uid = container.getAttribute('data-rootpage-uid');
+			var uid = container.getAttribute('data-ipandlanguageredirect-rootpageuid');
 			return parseInt(uid);
 		}
 		return 1;
+	};
+
+	/**
+	 * Get countrycode for testing only
+	 * Get it from data-ipandlanguageredirect-countrycode="us"
+	 *
+	 * @returns {string}
+	 */
+	var getCountryCode = function() {
+		var container = getContainer();
+		if (container !== null) {
+			var countryCode = container.getAttribute('data-ipandlanguageredirect-countrycode');
+			if (countryCode !== null) {
+				return countryCode;
+			}
+		}
+		return '';
 	};
 
 	/**

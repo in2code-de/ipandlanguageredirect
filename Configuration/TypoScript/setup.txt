@@ -34,7 +34,7 @@ page {
 		# Uri to send AJAX request to
 		10 = TEXT
 		10 {
-			noTrimWrap = | data-ajax-uri="|"|
+			noTrimWrap = | data-ipandlanguageredirect-ajaxuri="|"|
 			typolink {
 				parameter.data = TSFE:id
 				additionalParams = &type=1555
@@ -46,7 +46,7 @@ page {
 		# FE language
 		20 = TEXT
 		20 {
-			noTrimWrap = | data-language-uid="|"|
+			noTrimWrap = | data-ipandlanguageredirect-languageuid="|"|
 			data = GP:L
 			intval = 1
 		}
@@ -54,8 +54,44 @@ page {
 		# Root page uid
 		30 = TEXT
 		30 {
-			noTrimWrap = | data-rootpage-uid="|"|
+			noTrimWrap = | data-ipandlanguageredirect-rootpageuid="|"|
 			data = leveluid:0
+		}
+
+		# Fake browser language for testing - e.g. &tx_ipandlanguageredirect_pi1[browserLanguage]=en
+		40 = TEXT
+		40 {
+			noTrimWrap = | data-ipandlanguageredirect-browserlanguage="|"|
+			data = GP:tx_ipandlanguageredirect_pi1|browserLanguage
+			htmlSpecialChars = 1
+			required = 1
+		}
+
+		# Fake ip-address for testing - e.g. &tx_ipandlanguageredirect_pi1[ipAddress]=66.85.131.18 (USA)
+		50 = TEXT
+		50 {
+			noTrimWrap = | data-ipandlanguageredirect-ipaddress="|"|
+			data = GP:tx_ipandlanguageredirect_pi1|ipAddress
+			htmlSpecialChars = 1
+			required = 1
+		}
+
+		# Fake country for testing (overlays ip-address) - e.g. &tx_ipandlanguageredirect_pi1[countryCode]=us (USA)
+		60 = TEXT
+		60 {
+			noTrimWrap = | data-ipandlanguageredirect-countrycode="|"|
+			data = GP:tx_ipandlanguageredirect_pi1|countryCode
+			htmlSpecialChars = 1
+			required = 1
+		}
+
+		# Fake referrer for testing - e.g. &tx_ipandlanguageredirect_pi1[referrer]=www.google.de
+		70 = TEXT
+		70 {
+			noTrimWrap = | data-ipandlanguageredirect-referrer="|"|
+			data = GP:tx_ipandlanguageredirect_pi1|referrer
+			htmlSpecialChars = 1
+			required = 1
 		}
 	}
 }
