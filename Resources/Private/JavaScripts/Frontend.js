@@ -71,12 +71,19 @@ function IpandlanguageredirectFrontend() {
 
 	/**
 	 * Add listener to hide message function
+	 *
+	 * @returns {void}
 	 */
 	var addHideMessageListener = function() {
-		var element = getFirstContainerByDataAttribute('data-ipandlanguageredirect-action', 'hideMessage');
-		element.onclick = function() {
-			setHideMessageCookie();
-			hideSuggestContainer();
+		var elements = getContainersByDataAttribute('data-ipandlanguageredirect-action', 'hideMessage');
+		for (var key in elements) {
+			if (elements.hasOwnProperty(key)) {
+				var element = elements[key];
+				element.onclick = function() {
+					setHideMessageCookie();
+					hideSuggestContainer();
+				}
+			}
 		}
 	};
 
@@ -206,15 +213,15 @@ function IpandlanguageredirectFrontend() {
 	};
 
 	/**
-	 * Get the first container by its data-attribute name
-	 * 		"suggest" delivers element with data-ipandlanguageredirect-container="suggest"
+	 * Get the first container by its data-attribute name and value
+	 * 		"data-x", "suggest" delivers element with data-x="suggest"
 	 *
 	 * @param {string} dataKey
 	 * @param {string} value
 	 * @returns {object|null}
 	 */
 	var getFirstContainerByDataAttribute = function(dataKey, value) {
-		var elements = document.querySelectorAll('[' + dataKey + ']');
+		var elements = getContainersByDataAttribute(dataKey, value);
 		for (var key in elements) {
 			if (elements.hasOwnProperty(key)) {
 				if (elements[key].getAttribute(dataKey) === value) {
@@ -223,6 +230,18 @@ function IpandlanguageredirectFrontend() {
 			}
 		}
 		return null;
+	};
+
+	/**
+	 * Get all containers by its data-attribute name and value
+	 * 		"data-x", "suggest" delivers element with data-x="suggest"
+	 *
+	 * @param {string} dataKey
+	 * @param {string} value
+	 * @returns {NodeList}
+	 */
+	var getContainersByDataAttribute = function(dataKey, value) {
+		return document.querySelectorAll('[' + dataKey + '="' + value + '"]');
 	};
 
 	/**
