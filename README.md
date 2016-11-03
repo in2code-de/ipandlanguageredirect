@@ -16,7 +16,7 @@ frontend language
 ## Screens
 
 Suggest another URI because the current page does not fit (sorry for the technical view - a nicer view will follow):
-<img src="https://box.everhelper.me/attachment/629316/84725fb7-0b3e-4c40-b52e-29d7620777bb/262407-tgYIf9Rx25uX0xFz/screen.png" />
+<img src="https://box.everhelper.me/attachment/631917/84725fb7-0b3e-4c40-b52e-29d7620777bb/262407-qrl0UOFHZ0iLpuqM/screen.png" />
 
 ## Installation
 
@@ -170,9 +170,19 @@ http://domain.org/index.php?id=1
 &ipandlanguagedebug=1
 ```
 
+## FAQ
+
+* Hide Suggest Message
+  * Q: How to disable the suggest message on click on one of my own links?
+  * A: You could add links or other dom elements with *data-ipandlanguageredirect-action="hideMessage"* anywhere
+    on your page to disable the suggest message permanently (cookie 365 days).
+    Use case: If the user changes the region or language manually on your site, the message should be dissapear in
+    future.
+
 ## Changelog
 
-| Version    | Date       | Description                                          |
-| ---------- | ---------- | ---------------------------------------------------- |
-| 1.1.0      | 2016-11-01 | Add testing features                                 |
-| 1.0.0      | 2016-11-01 | Initial release                                      |
+| Version    | Date       | State      | Description                                                                  |
+| ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 1.2.0      | 2016-11-03 | Feature    | Allow hideMessage on multi-links now                                         |
+| 1.1.0      | 2016-11-01 | Feature    | Add testing features                                                         |
+| 1.0.0      | 2016-11-01 | Initial    | Initial release                                                              |
