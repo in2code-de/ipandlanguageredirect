@@ -75,6 +75,17 @@ function IpandlanguageredirectFrontend() {
 	 * @returns {void}
 	 */
 	var addHideMessageListener = function() {
+		addHideMessageListenerFromDataAttribute();
+		addHideMessageListenerFromGetParameter();
+	};
+
+	/**
+	 * Add listener to hide message function
+	 * if an element with data-ipandlanguageredirect-action="hideMessage" was clicked
+	 *
+	 * @returns {void}
+	 */
+	var addHideMessageListenerFromDataAttribute = function() {
 		var elements = getContainersByDataAttribute('data-ipandlanguageredirect-action', 'hideMessage');
 		for (var key in elements) {
 			if (elements.hasOwnProperty(key)) {
@@ -84,6 +95,19 @@ function IpandlanguageredirectFrontend() {
 					hideSuggestContainer();
 				}
 			}
+		}
+	};
+
+	/**
+	 * Add listener to hide message function
+	 * if the GET parameter &h=1 is set
+	 *
+	 * @returns {void}
+	 */
+	var addHideMessageListenerFromGetParameter = function() {
+		if (getGetParameterByName('h') === '1') {
+			setHideMessageCookie();
+			hideSuggestContainer();
 		}
 	};
 
@@ -114,7 +138,7 @@ function IpandlanguageredirectFrontend() {
 	 * @param jsonObject
 	 */
 	var doAction = function(jsonObject) {
-		if (jsonObject.activated &&  Array.isArray(jsonObject.events)) {
+		if (jsonObject.activated && Array.isArray(jsonObject.events)) {
 			// iterate through events
 			for (var key in jsonObject.events) {
 				if (jsonObject.events.hasOwnProperty(key)) {
