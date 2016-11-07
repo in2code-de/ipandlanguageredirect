@@ -173,16 +173,21 @@ http://domain.org/index.php?id=1
 ## FAQ
 
 * Hide Suggest Message
-  * Q: How to disable the suggest message on click on one of my own links?
-  * A: You could add links or other dom elements with *data-ipandlanguageredirect-action="hideMessage"* anywhere
-    on your page to disable the suggest message permanently (cookie 365 days).
+  * Q1: How to disable the suggest message on click on one of my own links?
+  * A1: You could add links or other dom elements with **data-ipandlanguageredirect-action="hideMessage"** anywhere
+    on your page to disable the suggest message.
     Use case: If the user changes the region or language manually on your site, the message should be dissapear in
     future.
+  * Q2: How to disable the suggest message with a GET parameter?
+  * A2: The message will be hidden and the cookie to hide it will be set if the GET parameter **&h=1** is given
+* Cookie Livetime
+  * The default cookie livetime is temporarely - as long as the browser is open. This is not adjustable at the moment.
 
 ## Changelog
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 1.3.0      | 2016-11-07 | Feature    | Hide suggest message on GET parameter                                        |
 | 1.2.0      | 2016-11-03 | Feature    | Allow hideMessage on multi-links now                                         |
 | 1.1.0      | 2016-11-01 | Feature    | Add testing features                                                         |
 | 1.0.0      | 2016-11-01 | Initial    | Initial release                                                              |
