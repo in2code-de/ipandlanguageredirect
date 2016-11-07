@@ -35,7 +35,7 @@ function IpandlanguageredirectFrontend() {
 	 *
 	 * @type {string}
 	 */
-	var cookieMode = 'permanent';
+	var cookieMode = 'temp';
 
 	/**
 	 * Show redirect URI instead of redirecting
