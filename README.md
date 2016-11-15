@@ -161,7 +161,9 @@ http://domain.org/index.php?id=1
 &tx_ipandlanguageredirect_pi1[browserLanguage]=de
 &tx_ipandlanguageredirect_pi1[referrer]=www.google.de
 &tx_ipandlanguageredirect_pi1[countryCode]=af
+&no_cache=1
 ```
+Note: Be aware that this settings are cached by default. So you have to always add a &no_cache=1
 
 ### Don't redirect or suggest but show the redirectUri in the browserconsole
 
@@ -187,6 +189,7 @@ http://domain.org/index.php?id=1
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 1.4.0      | 2016-11-15 | Feature    | Semantic code cleanup for HTML and CSS                                       |
 | 1.3.0      | 2016-11-07 | Feature    | Hide suggest message on GET parameter                                        |
 | 1.2.0      | 2016-11-03 | Feature    | Allow hideMessage on multi-links now                                         |
 | 1.1.0      | 2016-11-01 | Feature    | Add testing features                                                         |

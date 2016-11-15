@@ -3,11 +3,16 @@
 	Change the TypoScript if you want to adjust something.
 </f:comment>
 
-<div class="ipandlanguageredirect_suggest_container" data-ipandlanguageredirect-container="suggest">
-	<span class="ipandlanguageredirect_suggest_container__message ipandlanguageredirect_suggest_container__message--link">
-		<a href="#" data-ipandlanguageredirect-container="link"><f:translate key="betterVersion">Get convenient version of this site</f:translate></a>
-	</span>
-	<span class="ipandlanguageredirect_suggest_container__message ipandlanguageredirect_suggest_container__message--hide" data-ipandlanguageredirect-action="hideMessage">
-		<f:translate key="hideMessage">Hide message</f:translate>
-	</span>
-</div>
+<ul class="ipandlanguageredirect" data-ipandlanguageredirect-container="suggest">
+	<li class="ipandlanguageredirect__item ipandlanguageredirect__item--first">
+		<a class="ipandlanguageredirect__button" href="#" data-ipandlanguageredirect-container="link">
+			<f:translate key="betterVersion">
+				Get convenient version of this site
+			</f:translate></a>
+	</li>
+	<li class="ipandlanguageredirect__item">
+		<button class="ipandlanguageredirect__button" data-ipandlanguageredirect-action="hideMessage">
+			<f:translate key="hideMessage">Hide message</f:translate>
+		</button>
+	</li>
+</ul>
