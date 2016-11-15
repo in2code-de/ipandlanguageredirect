@@ -1,32 +1,79 @@
-.ipandlanguageredirect_suggest_container {
-  max-height: 0;
-  transition: max-height .1s ease-out;
-  overflow: hidden;
-  background: #FF9900;
+.ipandlanguageredirect {
+  background: #ff9900;
   color: white;
+  list-style: none;
+  margin: {
+    top: 0;
+    bottom: 0;
+  };
+  text-align: center;
 
+  /**
+   * The following block comes from the extensions CSS and is necessary for the
+   * slide in and out effect of the suggest message.
+   */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .1s ease-out;
+  // This class will be set by the extensions JavaScript, so the name is fixed.
   &.fadein {
     max-height: 300px;
+    padding: 15px;
     transition: max-height .8s ease-in;
   }
-}
 
-.ipandlanguageredirect_suggest_container__message {
-  text-decoration: underline;
-  cursor: pointer;
-  padding: 15px;
-  display: inline-block;
+  &__item {
+    display: block;
 
-  &:first-child {
-    padding-right: 0;
-    &:after {
-      content: "|";
-      display: inline-block;
-      margin-left: 15px;
+    &--first {
+      &::after {
+        border-bottom: 1px solid white;
+        content: '';
+        display: block;
+        margin: 15px auto;
+        width: 25%;
+      }
     }
   }
 
-  a {
+  &__button {
+    background-color: transparent;
+    border: 0;
     color: white;
+    font-size: 16px;
+    outline: none;
+    padding: 0;
+    text-decoration: none;
+
+    &:visited,
+    &:hover,
+    &:active {
+      color: white;
+    }
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (min-width: 680px) {
+  .ipandlanguageredirect {
+    &__item {
+      display: inline;
+
+      &--first {
+        &::after {
+          border: {
+            right: 1px solid white;
+            bottom: 0;
+          };
+          display: inline;
+          margin: 0 15px;
+          width: auto;
+        }
+      }
+    }
   }
 }
