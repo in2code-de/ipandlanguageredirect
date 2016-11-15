@@ -16,7 +16,7 @@ frontend language
 ## Screens
 
 Suggest another URI because the current page does not fit (sorry for the technical view - a nicer view will follow):
-<img src="https://box.everhelper.me/attachment/631917/84725fb7-0b3e-4c40-b52e-29d7620777bb/262407-qrl0UOFHZ0iLpuqM/screen.png" />
+<img src="https://box.everhelper.me/attachment/646846/84725fb7-0b3e-4c40-b52e-29d7620777bb/262407-wlKVfm63J1ZcviVA/screen.png" />
 
 ## Installation
 
@@ -151,6 +151,142 @@ return [
 ];
 ```
 
+## TypoScript
+
+If you add the static TypoScript, this lines have an effect:
+
+```
+plugin.tx_ipandlanguageredirect {
+	view {
+		templateRootPaths {
+			0 = EXT:ipandlanguageredirect/Resources/Private/Templates/
+			1 = {$plugin.tx_ipandlanguageredirect.view.templateRootPath}
+		}
+	}
+	settings {
+		configuration = {$plugin.tx_ipandlanguageredirect.settings.configuration}
+	}
+}
+
+page {
+	includeJSFooter.ipandlanguageredirect = EXT:ipandlanguageredirect/Resources/Public/JavaScripts/Frontend.min.js
+	includeCSS.ipandlanguageredirect = EXT:ipandlanguageredirect/Resources/Public/Css/Frontend.min.css
+
+	# Suggest container that can be slided down
+	5 = USER
+	5 {
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		extensionName = Ipandlanguageredirect
+		pluginName = Pi1
+		vendorName = In2code
+		controller = Redirect
+		action = suggest
+		switchableControllerActions.Redirect.1 = suggest
+	}
+
+	# Container for informations that will be send to an AJAX service
+	1555 = COA
+	1555 {
+		wrap = <script id="ipandlanguageredirect_container"|></script>
+
+		# Uri to send AJAX request to
+		10 = TEXT
+		10 {
+			noTrimWrap = | data-ipandlanguageredirect-ajaxuri="|"|
+			typolink {
+				parameter.data = TSFE:id
+				additionalParams = &type=1555
+				returnLast = url
+				forceAbsoluteUrl = 1
+			}
+		}
+
+		# FE language
+		20 = TEXT
+		20 {
+			noTrimWrap = | data-ipandlanguageredirect-languageuid="|"|
+			data = GP:L
+			intval = 1
+		}
+
+		# Root page uid
+		30 = TEXT
+		30 {
+			noTrimWrap = | data-ipandlanguageredirect-rootpageuid="|"|
+			data = leveluid:0
+		}
+
+		# Fake browser language for testing - e.g. &tx_ipandlanguageredirect_pi1[browserLanguage]=en
+		40 = TEXT
+		40 {
+			noTrimWrap = | data-ipandlanguageredirect-browserlanguage="|"|
+			data = GP:tx_ipandlanguageredirect_pi1|browserLanguage
+			htmlSpecialChars = 1
+			required = 1
+		}
+
+		# Fake ip-address for testing - e.g. &tx_ipandlanguageredirect_pi1[ipAddress]=66.85.131.18 (USA)
+		50 = TEXT
+		50 {
+			noTrimWrap = | data-ipandlanguageredirect-ipaddress="|"|
+			data = GP:tx_ipandlanguageredirect_pi1|ipAddress
+			htmlSpecialChars = 1
+			required = 1
+		}
+
+		# Fake country for testing (overlays ip-address) - e.g. &tx_ipandlanguageredirect_pi1[countryCode]=us (USA)
+		60 = TEXT
+		60 {
+			noTrimWrap = | data-ipandlanguageredirect-countrycode="|"|
+			data = GP:tx_ipandlanguageredirect_pi1|countryCode
+			htmlSpecialChars = 1
+			required = 1
+		}
+
+		# Fake referrer for testing - e.g. &tx_ipandlanguageredirect_pi1[referrer]=www.google.de
+		70 = TEXT
+		70 {
+			noTrimWrap = | data-ipandlanguageredirect-referrer="|"|
+			data = GP:tx_ipandlanguageredirect_pi1|referrer
+			htmlSpecialChars = 1
+			required = 1
+		}
+	}
+}
+
+# AJAX types
+redirectAjax = PAGE
+redirectAjax {
+	typeNum = 1555
+	config {
+		additionalHeaders = Content-Type: application/json
+		no_cache = 1
+		disableAllHeaderCode = 1
+		disablePrefixComment = 1
+		xhtml_cleaning = 0
+		admPanel = 0
+		debug = 0
+	}
+
+	10  = USER
+	10 {
+		userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+		extensionName = Ipandlanguageredirect
+		pluginName = Pi1
+		vendorName = In2code
+		controller = Redirect
+		action = redirect
+		switchableControllerActions.Redirect.1 = redirect
+	}
+}
+testAjax < redirectAjax
+testAjax {
+	typeNum = 1556
+	10.action = test
+	10.switchableControllerActions.Redirect.1 = test
+}
+```
+
 ## Testing
 
 ### Simulate browserlanguage, country and referrer
@@ -184,11 +320,18 @@ http://domain.org/index.php?id=1
   * A2: The message will be hidden and the cookie to hide it will be set if the GET parameter **&h=1** is given
 * Cookie Livetime
   * The default cookie livetime is temporarely - as long as the browser is open. This is not adjustable at the moment.
+* Testing
+  * Q1: How can I test another IP-address, region or browserlanguage?
+  * A1: See part testing
+  * Q2: Where can I see which parameters are send and received via AJAX?
+  * A2: Open your browser console and check the post request to ?type=1555 - check the parameters or answers
+
 
 ## Changelog
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 1.4.1      | 2016-11-15 | Task       | Semantic code cleanup for HTML and CSS                                       |
 | 1.4.0      | 2016-11-15 | Feature    | Semantic code cleanup for HTML and CSS                                       |
 | 1.3.0      | 2016-11-07 | Feature    | Hide suggest message on GET parameter                                        |
 | 1.2.0      | 2016-11-03 | Feature    | Allow hideMessage on multi-links now                                         |
