@@ -1,12 +1,13 @@
 <?php
 namespace In2code\Ipandlanguageredirect\Domain\Model;
 
+use In2code\Ipandlanguageredirect\Utility\PageUtility;
+
 /**
  * Class Action
  */
 class Action
 {
-
     /**
      * @var array
      */
@@ -18,19 +19,29 @@ class Action
     protected $referrers = [];
 
     /**
+     * @var array
+     */
+    protected $pidInRootline = [];
+
+    /**
      * @var float
      */
     protected $quantifier = 1.0;
 
     /**
      * Action constructor.
-     * @param array $events
-     * @param array $referrers
+     * @param array $configuration
      */
-    public function __construct(array $events, array $referrers)
+    public function __construct(array $configuration)
     {
-        $this->setEvents($events);
-        $this->setReferrers($referrers);
+        $this->setEvents($configuration['events']);
+
+        if (array_key_exists('referrers', $configuration)) {
+            $this->setReferrers($configuration['referrers']);
+        }
+        if (array_key_exists('pidInRootline', $configuration)) {
+            $this->setPidInRootline($configuration['pidInRootline']);
+        }
     }
 
     /**
@@ -70,6 +81,23 @@ class Action
     }
 
     /**
+     * @return array
+     */
+    public function getPidInRootline(): array
+    {
+        return $this->pidInRootline;
+    }
+
+    /**
+     * @param array $pidInRootline
+     * @return void
+     */
+    public function setPidInRootline(array $pidInRootline)
+    {
+        $this->pidInRootline = $pidInRootline;
+    }
+
+    /**
      * @return float
      */
     public function getQuantifier()
@@ -96,6 +124,15 @@ class Action
             }
             if ($multiplier > 0) {
                 $quantifier *= $multiplier;
+            }
+        }
+        $pidInRootline = $this->getPidInRootline();
+        if (!empty($pidInRootline)) {
+            foreach ($pidInRootline as $pid) {
+                if (PageUtility::isInCurrentRootline($pid)) {
+                    $quantifier = 9999;
+                    break;
+                }
             }
         }
         $this->quantifier = $quantifier;
