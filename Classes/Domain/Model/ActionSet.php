@@ -36,8 +36,7 @@ class ActionSet
         foreach ($this->rawActionsConfiguration as $actionConfiguration) {
             $action = ObjectUtility::getObjectManager()->get(
                 Action::class,
-                $actionConfiguration['events'],
-                $actionConfiguration['referrers']
+                $actionConfiguration
             );
             $this->addAction($action);
         }

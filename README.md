@@ -73,7 +73,17 @@ return [
             'events' => [
                 'suggest'
             ]
-        ]
+        ],
+        [
+            // Disable redirect for pages inside the given pid
+            'pidInRootline' => [
+                '129',
+                '11',
+            ],
+            'events' => [
+                'none',
+            ],
+        ],
     ],
     // configuration if nothing matches
     'noMatchingConfiguration' => [
