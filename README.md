@@ -341,6 +341,7 @@ http://domain.org/index.php?id=1
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 1.5.0      | 2017-01-25 | Feature    | New option to disable functions for a pagetree                               |
 | 1.4.1      | 2016-11-15 | Task       | Semantic code cleanup for HTML and CSS                                       |
 | 1.4.0      | 2016-11-15 | Feature    | Semantic code cleanup for HTML and CSS                                       |
 | 1.3.0      | 2016-11-07 | Feature    | Hide suggest message on GET parameter                                        |
