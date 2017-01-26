@@ -75,6 +75,11 @@ class RedirectService
     protected $bestConfiguration = null;
 
     /**
+     * @var null|array
+     */
+    protected $bestEvents = null;
+
+    /**
      * @var bool
      */
     protected $isActivatedBecauseOfDifferentLanguages = false;
@@ -145,7 +150,7 @@ class RedirectService
         }
         return $parameters;
     }
-    
+
     /**
      * @return string
      */
@@ -219,9 +224,14 @@ class RedirectService
      */
     protected function getEvents()
     {
-        $actionSet = ObjectUtility::getObjectManager()->get(ActionSet::class, $this->configuration);
-        $actionSet->calculateQuantifiers($this->referrer);
-        return $actionSet->getEvents();
+        if ($this->bestEvents === null) {
+            $actionSet = ObjectUtility::getObjectManager()->get(ActionSet::class, $this->configuration);
+            $actionSet->calculateQuantifiers($this->referrer);
+            $events = $actionSet->getEvents();
+        } else {
+            $events = $this->bestEvents;
+        }
+        return $events;
     }
 
     /**
@@ -235,8 +245,15 @@ class RedirectService
      */
     protected function isActivated()
     {
-        return $this->activated
+        $activated = $this->activated
             && ($this->isActivatedBecauseOfDifferentLanguages() || $this->isActivatedBecauseOfDifferentRootpages());
+
+        $events = $this->getEvents();
+        if (!empty($events) && $events[0] === 'none') {
+            $activated = false;
+        }
+
+        return $activated;
     }
 
     /**
