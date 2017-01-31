@@ -341,6 +341,7 @@ http://domain.org/index.php?id=1
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 1.5.2      | 2017-01-31 | Task       | Remove unused typoscript                                                     |
 | 1.5.1      | 2017-01-26 | Bugfix     | Avoid JS exception if state == none                                          |
 | 1.5.0      | 2017-01-25 | Feature    | New option to disable functions for a pagetree                               |
 | 1.4.1      | 2016-11-15 | Task       | Semantic code cleanup for HTML and CSS                                       |
