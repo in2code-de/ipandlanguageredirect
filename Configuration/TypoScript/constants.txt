@@ -3,8 +3,4 @@ plugin.tx_ipandlanguageredirect {
 		# cat=main/file/0000; type=string; label= Path to template root (FE)
 		templateRootPath = EXT:ipandlanguageredirect/Resources/Private/Templates/
 	}
-	settings {
-		# cat=main/file/0100; type=string; label= Path to configuration file
-		configuration = EXT:ipandlanguageredirect/Configuration/Redirect/Redirect.php
-	}
 }
