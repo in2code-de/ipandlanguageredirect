@@ -16,7 +16,7 @@ class PageUtility
      * @param int $pid
      * @return bool
      */
-    public static function isInCurrentRootline(int $pid)
+    public static function isInCurrentRootline($pid)
     {
         $tsfe = self::getTSFE();
         $currentPageUid = $tsfe->id;

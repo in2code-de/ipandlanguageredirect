@@ -83,7 +83,7 @@ class Action
     /**
      * @return array
      */
-    public function getPidInRootline(): array
+    public function getPidInRootline()
     {
         return $this->pidInRootline;
     }
