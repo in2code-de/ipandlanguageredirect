@@ -6,12 +6,10 @@ TYPO3 FE visitor automatic or manual redirect to another language or another roo
 This extension allows **multi-language** and **multi-domain** handling with redirects to best fitting pages with best
 fitting language based on the visitors browser language and region (IP-Address).
 
-An AJAX-request will handle the serverside-domain-logic to redirect or suggest a new webpage or a new language.
+An AJAX-request (VanillaJS only - no JavaScript framework is needed) will handle the serverside-domain-logic to redirect or suggest a new webpage or a new language.
 
 Define in your PHP-configuration which countries belongs to which pagetree and which browserlanguage belongs to which
 frontend language
-
-**Note:** At the moment this extension is in a very early alpha status.
 
 ## Screens
 
@@ -341,6 +339,7 @@ http://domain.org/index.php?id=1
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 1.5.3      | 2017-02-01 | Bugfix     | Make code readable for PHP 5.5                                               |
 | 1.5.2      | 2017-01-31 | Task       | Remove unused typoscript                                                     |
 | 1.5.1      | 2017-01-26 | Bugfix     | Avoid JS exception if state == none                                          |
 | 1.5.0      | 2017-01-25 | Feature    | New option to disable functions for a pagetree                               |
