@@ -325,7 +325,13 @@ http://domain.org/index.php?id=1
     Use case: If the user changes the region or language manually on your site, the message should be dissapear in
     future.
   * Q2: How to disable the suggest message with a GET parameter?
-  * A2: The message will be hidden and the cookie to hide it will be set if the GET parameter **&h=1** is given
+  * A2: The message will be hidden and the cookie to hide it will be set if the GET parameter **&h=1** or **&h=3** is given
+* Disable redirect
+  * Q1: How to disable the redirect on click on one of my own links?
+  * A1: You could add links or other dom elements with **data-ipandlanguageredirect-action="disableRedirect"** anywhere
+    on your page to disable redirect.
+  * Q2: How to disable the redirect with a GET parameter?
+  * A2: The redirect will be disabled by settings a cookie if the GET parameter **&h=2** or **&h=3** is given
 * Cookie Livetime
   * The default cookie livetime is temporarely - as long as the browser is open. This is not adjustable at the moment.
 * Testing
