@@ -52,6 +52,7 @@ function IpandlanguageredirectFrontend() {
 	this.initialize = function() {
 		setDebug();
 		addHideMessageListener();
+		addDisableRedirectListener();
 		if (isActivated()) {
 			ajaxConnection(getAjaxUri(), getParametersForAjaxCall());
 		}
@@ -80,6 +81,16 @@ function IpandlanguageredirectFrontend() {
 	};
 
 	/**
+	 * Add listener to disable the redirect
+	 *
+	 * @returns {void}
+	 */
+	var addDisableRedirectListener = function() {
+		addDisableRedirectListenerFromDataAttribute();
+		addDisableRedirectListenerFromGetParameter();
+	};
+
+	/**
 	 * Add listener to hide message function
 	 * if an element with data-ipandlanguageredirect-action="hideMessage" was clicked
 	 *
@@ -100,14 +111,46 @@ function IpandlanguageredirectFrontend() {
 
 	/**
 	 * Add listener to hide message function
-	 * if the GET parameter &h=1 is set
+	 * if the GET parameter &h=1 or &h=3 is set
 	 *
 	 * @returns {void}
 	 */
 	var addHideMessageListenerFromGetParameter = function() {
-		if (getGetParameterByName('h') === '1') {
+		var getParameter = getGetParameterByName('h');
+		if (getParameter === '1' || getParameter === '3') {
 			setHideMessageCookie();
 			hideSuggestContainer();
+		}
+	};
+
+	/**
+	 * Add listener to disable the redirect
+	 * if an element with data-ipandlanguageredirect-action="disableRedirect" was clicked
+	 *
+	 * @returns {void}
+	 */
+	var addDisableRedirectListenerFromDataAttribute = function() {
+		var elements = getContainersByDataAttribute('data-ipandlanguageredirect-action', 'disableRedirect');
+		for (var key in elements) {
+			if (elements.hasOwnProperty(key)) {
+				var element = elements[key];
+				element.onclick = function() {
+					setDisableRedirectCookie();
+				}
+			}
+		}
+	};
+
+	/**
+	 * Add listener to disable the redirect
+	 * if the GET parameter &h=2 or &h=3 is set
+	 *
+	 * @returns {void}
+	 */
+	var addDisableRedirectListenerFromGetParameter = function() {
+		var getParameter = getGetParameterByName('h');
+		if (getParameter === '2' || getParameter === '3') {
+			setDisableRedirectCookie();
 		}
 	};
 
@@ -154,12 +197,19 @@ function IpandlanguageredirectFrontend() {
 	 * @param jsonObject
 	 */
 	this.redirectEvent = function(jsonObject) {
-		var uri = buildRedirectUri(jsonObject.redirectUri);
-		if (debugMode) {
-			console.log('Redirect to following URI:');
-			console.log(uri);
+		if (!isDisableRedirectCookieSet()) {
+			var uri = buildRedirectUri(jsonObject.redirectUri);
+			setDisableRedirectCookie();
+			if (debugMode) {
+				console.log('Cookie set and redirect to following URI:');
+				console.log(uri);
+			} else {
+				window.location = uri;
+			}
 		} else {
-			window.location = uri;
+			if (debugMode) {
+				console.log('Cookie already set');
+			}
 		}
 	};
 
@@ -455,20 +505,48 @@ function IpandlanguageredirectFrontend() {
 	};
 
 	/**
+	 * @returns {boolean}
+	 */
+	var isDisableRedirectCookieSet = function() {
+		return getCookieByName('ipandlanguageredirect_disableredirect') === '1';
+	};
+
+	/**
+	 * Set hide message cookie
+	 *
+	 * @param {string} name
+	 * @param {string} value
+	 * @param {string} mode
+	 * @returns {void}
+	 */
+	var setCookie = function(name, value, mode) {
+		if (mode === 'permanent') {
+			var now = new Date();
+			var time = now.getTime();
+			time += 3600 * 24 * 365 * 1000; // 1 year from now
+			now.setTime(time);
+			document.cookie = name + '=' + value + '; expires=' + now.toUTCString() + '; path=/';
+		} else {
+			document.cookie = name + '=' + value + '; path=/';
+		}
+	};
+
+	/**
 	 * Set hide message cookie
 	 *
 	 * @returns {void}
 	 */
 	var setHideMessageCookie = function() {
-		if (cookieMode === 'permanent') {
-			var now = new Date();
-			var time = now.getTime();
-			time += 3600 * 24 * 365 * 1000; // 1 year from now
-			now.setTime(time);
-			document.cookie = 'ipandlanguageredirect_hidemessage=1; expires=' + now.toUTCString() + '; path=/';
-		} else {
-			document.cookie = 'ipandlanguageredirect_hidemessage=1; path=/';
-		}
+		setCookie('ipandlanguageredirect_hidemessage', '1', cookieMode);
+	};
+
+	/**
+	 * Set hide message cookie
+	 *
+	 * @returns {void}
+	 */
+	var setDisableRedirectCookie = function() {
+		setCookie('ipandlanguageredirect_disableredirect', '1', cookieMode);
 	};
 
 	/**
