@@ -320,7 +320,7 @@ http://domain.org/index.php?id=1
 
 * Hide Suggest Message
   * Q1: How to disable the suggest message on click on one of my own links?
-  * A1: You could add links or other dom elements with **data-ipandlanguageredirect-action="hideMessage"** anywhere
+  * A1: You could add links or other dom elements with attribute **data-ipandlanguageredirect-action="hideMessage"** anywhere
     on your page to disable the suggest message.
     Use case: If the user changes the region or language manually on your site, the message should be dissapear in
     future.
@@ -328,7 +328,7 @@ http://domain.org/index.php?id=1
   * A2: The message will be hidden and the cookie to hide it will be set if the GET parameter **&h=1** or **&h=3** is given
 * Disable redirect
   * Q1: How to disable the redirect on click on one of my own links?
-  * A1: You could add links or other dom elements with **data-ipandlanguageredirect-action="disableRedirect"** anywhere
+  * A1: You could add links or other dom elements with attribute **data-ipandlanguageredirect-action="disableRedirect"** anywhere
     on your page to disable redirect.
   * Q2: How to disable the redirect with a GET parameter?
   * A2: The redirect will be disabled by settings a cookie if the GET parameter **&h=2** or **&h=3** is given
@@ -345,6 +345,7 @@ http://domain.org/index.php?id=1
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 1.6.0      | 2017-02-04 | Feature    | Redirection should be only once in a session                                 |
 | 1.5.3      | 2017-02-01 | Bugfix     | Make code readable for PHP 5.5                                               |
 | 1.5.2      | 2017-01-31 | Task       | Remove unused typoscript                                                     |
 | 1.5.1      | 2017-01-26 | Bugfix     | Avoid JS exception if state == none                                          |
