@@ -345,6 +345,7 @@ http://domain.org/index.php?id=1
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 1.6.1      | 2017-04-12 | Bugfix     | Fix getting browserlanguage from chrome                                      |
 | 1.6.0      | 2017-02-04 | Feature    | Redirection should be only once in a session                                 |
 | 1.5.3      | 2017-02-01 | Bugfix     | Make code readable for PHP 5.5                                               |
 | 1.5.2      | 2017-01-31 | Task       | Remove unused typoscript                                                     |
