@@ -343,18 +343,27 @@ function IpandlanguageredirectFrontend() {
 	var getBrowserLanguage = function() {
 		var browserLanguage = null;
 		var container = getContainer();
-
 		if (container !== null) {
 			browserLanguage = container.getAttribute('data-ipandlanguageredirect-browserlanguage');
 		}
-
 		if (browserLanguage === null) {
-			var userLang = navigator.language || navigator.userLanguage;
-			var parts = userLang.split('-');
-			browserLanguage = parts[0];
+			browserLanguage = getBrowserLanguageFromBrowser();
 		}
-
 		return browserLanguage;
+	};
+
+	/**
+	 * Get Browserlanguage directly from browser
+	 *
+	 * @returns {string}
+	 */
+	var getBrowserLanguageFromBrowser = function() {
+		var userLang = navigator.language || navigator.userLanguage;
+		if (navigator.languages !== undefined && navigator.languages[0] !== undefined) {
+			userLang = navigator.languages[0];
+		}
+		var parts = userLang.split('-');
+		return parts[0];
 	};
 
 	/**
