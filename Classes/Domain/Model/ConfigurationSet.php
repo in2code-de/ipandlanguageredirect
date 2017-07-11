@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Ipandlanguageredirect\Domain\Model;
 
 use In2code\Ipandlanguageredirect\Utility\IpUtility;
@@ -32,6 +33,7 @@ class ConfigurationSet
 
     /**
      * ConfigurationSet constructor.
+     *
      * @param array $configuration
      */
     public function __construct(array $configuration)
@@ -134,7 +136,7 @@ class ConfigurationSet
 
     /**
      * Return configuration with the highest quantifier
-     * 
+     *
      * @return Configuration|null
      */
     public function getBestFittingConfiguration()
@@ -168,16 +170,14 @@ class ConfigurationSet
 
     /**
      * If there is no best matching configuration or if the best matching configuration has a too low quantifier
-     * 
+     *
      * @param Configuration|null $bestConfiguration
      * @return Configuration|null
      */
     protected function getBestFittingConfigurationFromNoMatchingConfiguration($bestConfiguration = null)
     {
-        if (
-            $bestConfiguration === null ||
-            $bestConfiguration->getQuantifier() < $this->rawNoMatchingConfiguration['matchMinQuantifier']
-        ) {
+        if ($bestConfiguration === null ||
+            $bestConfiguration->getQuantifier() < $this->rawNoMatchingConfiguration['matchMinQuantifier']) {
             $noMatchingConfiguration = $this->getConfigurationByIdentifier(
                 $this->rawNoMatchingConfiguration['identifierUsage']
             );
