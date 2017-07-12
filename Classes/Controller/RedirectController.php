@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Ipandlanguageredirect\Controller;
 
 use In2code\Ipandlanguageredirect\Domain\Service\RedirectService;
@@ -37,7 +38,7 @@ class RedirectController extends ActionController
 
     /**
      * Enrich call with ip-address if not given
-     * 
+     *
      * @throws InvalidArgumentNameException
      */
     public function initializeRedirectAction()
@@ -103,7 +104,7 @@ class RedirectController extends ActionController
 
     /**
      * Render a suggest container that can be slided down in FE
-     * 
+     *
      * @return void
      */
     public function suggestAction()
