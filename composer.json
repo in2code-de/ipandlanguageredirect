@@ -1,6 +1,6 @@
 {
-  "name": "in2code/ipandlanguagesuggest",
-  "description": "TYPO3 FE visitor automatic or manual redirect to another language or another root page.",
+  "name": "in2code/ipandlanguageredirect",
+  "description": "Redirects TYPO3 visitors automatic or with a suggestlink to another language and/or root page.",
   "keywords": ["typo3", "redirect", "ip address", "browserlanguage"],
   "homepage": "https://github.com/einpraegsam/ipandlanguageredirect",
   "authors": [
