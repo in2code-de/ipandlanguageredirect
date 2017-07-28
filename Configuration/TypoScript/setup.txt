@@ -5,6 +5,7 @@ plugin.tx_ipandlanguageredirect {
 			1 = {$plugin.tx_ipandlanguageredirect.view.templateRootPath}
 		}
 	}
+	features.requireCHashArgumentForActionArguments = 0
 }
 
 page {
