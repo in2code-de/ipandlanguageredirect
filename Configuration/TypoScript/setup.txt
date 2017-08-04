@@ -100,6 +100,7 @@ redirectAjax {
 	typeNum = 1555
 	config {
 		additionalHeaders = Content-Type: application/json
+		additionalHeaders.10.header = Content-Type: application/json
 		no_cache = 1
 		disableAllHeaderCode = 1
 		disablePrefixComment = 1
