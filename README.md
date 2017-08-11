@@ -345,6 +345,7 @@ http://domain.org/index.php?id=1
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 1.6.4      | 2017-08-11 | Bugfix     | Fix header output in TYPO3 8                                                 |
 | 1.6.3      | 2017-07-28 | Bugfix     | Disable cHash check for AJAX requests in T3 8                                |
 | 1.6.2      | 2017-07-12 | Bugfix     | Fix small typo in composer.json                                              |
 | 1.6.1      | 2017-04-12 | Bugfix     | Fix getting browserlanguage from chrome                                      |
