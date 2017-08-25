@@ -1,2 +1,6 @@
 # cat=basic//010; type=text; label= Path to configuration file: Redirect configuration file path
 configurationFilePath = EXT:ipandlanguageredirect/Configuration/Redirect/Redirect.php
+
+
+# cat=basic/enable/101; type=string; label=LLL:EXT:ipandlanguageredirect/Resources/Private/Language/locallang.xlf:enterYourKey
+ipApiKey =

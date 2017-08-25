@@ -38,7 +38,16 @@ class IpUtility
         }
         $geoInfo = null;
         if (empty(self::$ipAddresses[$ipAddress])) {
-            $json = GeneralUtility::getUrl('https://ipapi.co/' . $ipAddress . '/json/');
+            // Get global credentials from settings file
+            $settings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ipandlanguageredirect']);
+
+            $key = $settings['ipApiKey'];
+            if ($key !== '') {
+                $key = '?key=' . $key;
+            }
+            
+            $json = GeneralUtility::getUrl('https://ipapi.co/' . $ipAddress . '/json/' . $key);
+
             if ($json) {
                 $geoInfo = json_decode($json);
                 self::$ipAddresses[$ipAddress] = $geoInfo;
