@@ -12,6 +12,15 @@
 				<source>Don't show this message again</source>
 				<target state="translated">Diese Meldung nicht mehr anzeigen</target>
 			</trans-unit>
+
+			<trans-unit id="configuration.configurationFilePath">
+				<source>Path to configuration file: Redirect configuration file path (e.g. EXT:template/Configuration/Redirect/Redirect.php)</source>
+				<target state="translated">Pfad zur Konfigurationsdatei: Bitte Pfad zur Konfigurationsdatei eintragen (z.B. EXT:template/Configuration/Redirect/Redirect.php)</target>
+			</trans-unit>
+			<trans-unit id="configuration.enterYourKey">
+				<source>IpApi Key: Please enter your key for ipapi.co (optional), otherwise extension will have limited access to the service (less then 1000 visitors a day). See ipapi.co for details.</source>
+				<target state="translated">IpApi Key: Ipapi.co Key hier eintragen (optional). Falls kein Key hinterlegt wird, besteht nur limitierter Zugang zur IP Umwandling (aktuell bis 1000 Besucher pro Tag). Siehe ipapi.com für weitere Details.</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

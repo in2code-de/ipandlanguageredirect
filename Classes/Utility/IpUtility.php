@@ -10,6 +10,8 @@ class IpUtility
 {
 
     /**
+     * Array for caching IPs and countries
+     *
      * @var array
      */
     protected static $ipAddresses = [];
@@ -38,15 +40,7 @@ class IpUtility
         }
         $geoInfo = null;
         if (empty(self::$ipAddresses[$ipAddress])) {
-            // Get global credentials from settings file
-            $settings = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ipandlanguageredirect']);
-
-            $key = $settings['ipApiKey'];
-            if ($key !== '') {
-                $key = '?key=' . $key;
-            }
-            
-            $json = GeneralUtility::getUrl('https://ipapi.co/' . $ipAddress . '/json/' . $key);
+            $json = GeneralUtility::getUrl('https://ipapi.co/' . $ipAddress . '/json/' . self::getIpApiKey());
 
             if ($json) {
                 $geoInfo = json_decode($json);
@@ -59,5 +53,18 @@ class IpUtility
             return strtolower($geoInfo->country);
         }
         return '';
+    }
+
+    /**
+     * @return string
+     */
+    protected static function getIpApiKey()
+    {
+        $key = '';
+        $keyFromConfiguration = ConfigurationUtility::getExtensionConfiguration('ipApiKey');
+        if (!empty($keyFromConfiguration)) {
+            $key = $keyFromConfiguration;
+        }
+        return $key;
     }
 }

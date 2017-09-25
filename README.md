@@ -13,7 +13,7 @@ frontend language
 
 ## Screens
 
-Suggest another URI because the current page does not fit (sorry for the technical view - a nicer view will follow):
+Suggest another URI because the current page does not fit:
 <img src="https://box.everhelper.me/attachment/646846/84725fb7-0b3e-4c40-b52e-29d7620777bb/262407-wlKVfm63J1ZcviVA/screen.png" />
 
 ## Installation
@@ -345,6 +345,7 @@ http://domain.org/index.php?id=1
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 1.7.0      | 2017-09-25 | Feature    | Support paid variant of IpApi.co for more then 1000 visitors a day           |
 | 1.6.4      | 2017-08-11 | Bugfix     | Fix header output in TYPO3 8                                                 |
 | 1.6.3      | 2017-07-28 | Bugfix     | Disable cHash check for AJAX requests in T3 8                                |
 | 1.6.2      | 2017-07-12 | Bugfix     | Fix small typo in composer.json                                              |
