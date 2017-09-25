@@ -21,25 +21,12 @@ class ConfigurationUtility
     }
 
     /**
-     * @return string
-     */
-    protected static function getConfigurationLocation()
-    {
-        $location = self::CONFIGURATION_PATH;
-        $configuredLocation = self::getExtensionConfiguration('configurationFilePath');
-        if (!empty($configuredLocation)) {
-            $location = $configuredLocation;
-        }
-        return $location;
-    }
-
-    /**
      * Get extension configuration from LocalConfiguration.php
      *
      * @param string $path key or path (splitted with .)
      * @return array|string
      */
-    protected static function getExtensionConfiguration($path = '')
+    public static function getExtensionConfiguration($path = '')
     {
         $configVariables = self::getTypo3ConfigurationVariables();
         $configuration = unserialize($configVariables['EXT']['extConf']['ipandlanguageredirect']);
@@ -51,6 +38,19 @@ class ConfigurationUtility
             }
         }
         return $configuration;
+    }
+
+    /**
+     * @return string
+     */
+    protected static function getConfigurationLocation()
+    {
+        $location = self::CONFIGURATION_PATH;
+        $configuredLocation = self::getExtensionConfiguration('configurationFilePath');
+        if (!empty($configuredLocation)) {
+            $location = $configuredLocation;
+        }
+        return $location;
     }
 
     /**
