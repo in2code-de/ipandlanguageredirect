@@ -9,6 +9,9 @@
 			<trans-unit id="hideMessage">
 				<source>Don't show this message again</source>
 			</trans-unit>
+			<trans-unit id="enterYourKey">
+				<source>Please enter your key for ipapi.co, otherwise extension will have limited access to the service.</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
