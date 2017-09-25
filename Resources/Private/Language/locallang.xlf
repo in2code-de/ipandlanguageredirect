@@ -9,8 +9,12 @@
 			<trans-unit id="hideMessage">
 				<source>Don't show this message again</source>
 			</trans-unit>
-			<trans-unit id="enterYourKey">
-				<source>Please enter your key for ipapi.co, otherwise extension will have limited access to the service.</source>
+
+			<trans-unit id="configuration.configurationFilePath">
+				<source>Path to configuration file: Redirect configuration file path (e.g. EXT:template/Configuration/Redirect/Redirect.php)</source>
+			</trans-unit>
+			<trans-unit id="configuration.enterYourKey">
+				<source>IpApi Key: Please enter your key for ipapi.co (optional), otherwise extension will have limited access to the service (less then 1000 visitors a day). See ipapi.co for details.</source>
 			</trans-unit>
 		</body>
 	</file>
