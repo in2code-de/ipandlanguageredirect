@@ -340,6 +340,15 @@ http://domain.org/index.php?id=1
   * Q2: Where can I see which parameters are send and received via AJAX?
   * A2: Open your browser console and check the post request to ?type=1555 - check the parameters or answers
 
+## Your Contribution
+
+**Pull requests** are welcome in general! Nevertheless please don't forget to add a description to your pull requests. This
+is very helpful to understand what kind of issue the **PR** is going to solve.
+
+- Bugfixes: Please describe what kind of bug your fix solve and give me feedback how to reproduce the issue. I'm going
+to accept only bugfixes if I can reproduce the issue.
+- Features: Not every feature is relevant for the bulk of powermail users. In addition: I don't want to make powermail
+even more complicated in usability for an edge case feature. Please discuss a new feature before.
 
 ## Changelog
 
