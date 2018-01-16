@@ -375,7 +375,7 @@ function IpandlanguageredirectFrontend() {
 	var getIpAddress = function() {
 		var ipAddress = '';
 		var container = getContainer();
-		if (container !== null) {
+		if (container !== null && container.hasAttribute('data-ipandlanguageredirect-ipaddress')) {
 			ipAddress = container.getAttribute('data-ipandlanguageredirect-ipaddress');
 		}
 		return ipAddress;
