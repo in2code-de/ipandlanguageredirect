@@ -35,7 +35,7 @@ class IpUtility
      */
     public static function getCountryCodeFromIp($ipAddress = null)
     {
-        if ($ipAddress === null) {
+        if ($ipAddress === null || $ipAddress == 'null') {
             $ipAddress = GeneralUtility::getIndpEnv('REMOTE_ADDR');
         }
         $geoInfo = null;
