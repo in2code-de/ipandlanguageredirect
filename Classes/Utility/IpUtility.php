@@ -30,7 +30,7 @@ class IpUtility
      *      http://ip-api.com/json/208.67.222.222/
      *      https://ipapi.co/208.67.222.222/json/
      *
-     * @param string $ipAddress
+     * @param string $ipAddress pass it to the function for test cases
      * @return string Countryname
      */
     public static function getCountryCodeFromIp($ipAddress = null)
