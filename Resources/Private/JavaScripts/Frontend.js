@@ -344,7 +344,9 @@ function IpandlanguageredirectFrontend() {
 		var browserLanguage = null;
 		var container = getContainer();
 		if (container !== null) {
-			browserLanguage = container.getAttribute('data-ipandlanguageredirect-browserlanguage');
+			if (container.hasAttribute('data-ipandlanguageredirect-browserlanguage')) {
+				browserLanguage = container.getAttribute('data-ipandlanguageredirect-browserlanguage');
+			}
 		}
 		if (browserLanguage === null) {
 			browserLanguage = getBrowserLanguageFromBrowser();
@@ -375,8 +377,10 @@ function IpandlanguageredirectFrontend() {
 	var getIpAddress = function() {
 		var ipAddress = '';
 		var container = getContainer();
-		if (container !== null && container.hasAttribute('data-ipandlanguageredirect-ipaddress')) {
-			ipAddress = container.getAttribute('data-ipandlanguageredirect-ipaddress');
+		if (container !== null) {
+			if (container.hasAttribute('data-ipandlanguageredirect-ipaddress')) {
+				ipAddress = container.getAttribute('data-ipandlanguageredirect-ipaddress');
+			}
 		}
 		return ipAddress;
 	};
@@ -392,7 +396,9 @@ function IpandlanguageredirectFrontend() {
 		var container = getContainer();
 
 		if (container !== null) {
-			referrer = container.getAttribute('data-ipandlanguageredirect-referrer');
+			if (container.hasAttribute('data-ipandlanguageredirect-referrer')) {
+				referrer = container.getAttribute('data-ipandlanguageredirect-referrer');
+			}
 		}
 
 		if (referrer === null) {
@@ -406,24 +412,30 @@ function IpandlanguageredirectFrontend() {
 	 * @returns {int}
 	 */
 	var getLanguageUid = function() {
+		var uid = 0;
 		var container = getContainer();
 		if (container !== null) {
-			var uid = container.getAttribute('data-ipandlanguageredirect-languageuid');
-			return parseInt(uid);
+			if (container.hasAttribute('data-ipandlanguageredirect-languageuid')) {
+				var uidContainer = container.getAttribute('data-ipandlanguageredirect-languageuid');
+				uid = parseInt(uidContainer);
+			}
 		}
-		return 0;
+		return uid;
 	};
 
 	/**
 	 * @returns {int}
 	 */
 	var getRootpageUid = function() {
+		var rootPageUid = 1;
 		var container = getContainer();
 		if (container !== null) {
-			var uid = container.getAttribute('data-ipandlanguageredirect-rootpageuid');
-			return parseInt(uid);
+			if (container.hasAttribute('data-ipandlanguageredirect-rootpageuid')) {
+				var uidContainer = container.getAttribute('data-ipandlanguageredirect-rootpageuid');
+				rootPageUid = parseInt(uidContainer);
+			}
 		}
-		return 1;
+		return rootPageUid;
 	};
 
 	/**
@@ -433,14 +445,17 @@ function IpandlanguageredirectFrontend() {
 	 * @returns {string}
 	 */
 	var getCountryCode = function() {
+		var countryCode = '';
 		var container = getContainer();
 		if (container !== null) {
-			var countryCode = container.getAttribute('data-ipandlanguageredirect-countrycode');
-			if (countryCode !== null) {
-				return countryCode;
+			if (container.hasAttribute('data-ipandlanguageredirect-countrycode')) {
+				var countryCodeContainer = container.getAttribute('data-ipandlanguageredirect-countrycode');
+				if (countryCodeContainer !== null) {
+					countryCode = countryCodeContainer;
+				}
 			}
 		}
-		return '';
+		return countryCode;
 	};
 
 	/**
