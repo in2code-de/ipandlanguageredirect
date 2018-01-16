@@ -347,8 +347,7 @@ is very helpful to understand what kind of issue the **PR** is going to solve.
 
 - Bugfixes: Please describe what kind of bug your fix solve and give me feedback how to reproduce the issue. I'm going
 to accept only bugfixes if I can reproduce the issue.
-- Features: Not every feature is relevant for the bulk of powermail users. In addition: I don't want to make powermail
-even more complicated in usability for an edge case feature. Please discuss a new feature before.
+- Features: Not every feature is relevant for the bulk of extension users. Please discuss a new feature before.
 
 ## Changelog
 
