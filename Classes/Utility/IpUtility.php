@@ -35,7 +35,7 @@ class IpUtility
      */
     public static function getCountryCodeFromIp($ipAddress = null)
     {
-        if ($ipAddress === null) {
+        if ($ipAddress === null || $ipAddress == 'null') {
             $ipAddress = GeneralUtility::getIndpEnv('REMOTE_ADDR');
         }
         $geoInfo = null;
@@ -63,7 +63,7 @@ class IpUtility
         $key = '';
         $keyFromConfiguration = ConfigurationUtility::getExtensionConfiguration('ipApiKey');
         if (!empty($keyFromConfiguration)) {
-            $key = $keyFromConfiguration;
+            $key = '?key=' . ltrim($keyFromConfiguration, '?key=');
         }
         return $key;
     }
