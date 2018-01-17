@@ -63,7 +63,7 @@ class IpUtility
         $key = '';
         $keyFromConfiguration = ConfigurationUtility::getExtensionConfiguration('ipApiKey');
         if (!empty($keyFromConfiguration)) {
-            $key = $keyFromConfiguration;
+            $key = '?key=' . ltrim($keyFromConfiguration, '?key=');
         }
         return $key;
     }
