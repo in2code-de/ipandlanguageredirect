@@ -353,6 +353,7 @@ to accept only bugfixes if I can reproduce the issue.
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 1.7.2      | 2018-01-21 | Task       | Allow ipapi key now without &key=                                            |
 | 1.7.1      | 2018-01-16 | Bugfix     | Don't send "null" for an IP-address value if not testvalue is given          |
 | 1.7.0      | 2017-09-25 | Feature    | Support paid variant of IpApi.co for more then 1000 visitors a day           |
 | 1.6.4      | 2017-08-11 | Bugfix     | Fix header output in TYPO3 8                                                 |
