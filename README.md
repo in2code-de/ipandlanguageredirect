@@ -19,10 +19,10 @@ Automaticly redirect or show a note for the visitor to give him the best fitting
 ### What's the difference to other extensions like rmpl_language_detect?
 
 There is a basic difference in the concept. While most of the language-redirect extensions hook into the page rendering
-process via USER_INT, we choose an ansynchronical way with JavaScript and PHP (AJAX). This solution needs JavaScaript on
-the one hand but is much faster for performant and more complex websites on the other hand. This means: You can use e.g.
-[staticfilecache](https://github.com/lochmueller/staticfilecache) or another static solution to improve web performance.
-While it's not possible to use staticfilecache with a USER_INT, which is included on every single page.
+process via USER_INT, we choose an ansynchronical way with JavaScript and PHP (AJAX). This solution needs JavaScript on
+the one hand but is much faster for high availability and more complex websites on the other hand. This means:
+You can use e.g. [staticfilecache](https://github.com/lochmueller/staticfilecache) or another static solution to improve
+web performance. While it's not possible to use staticfilecache with a USER_INT, which is included on every single page.
 
 ## Screens
 
