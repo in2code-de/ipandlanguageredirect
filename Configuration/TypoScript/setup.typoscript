@@ -6,6 +6,11 @@ plugin.tx_ipandlanguageredirect {
 		}
 	}
 	features.requireCHashArgumentForActionArguments = 0
+
+	settings {
+		configurationFilePath = {$plugin.tx_ipandlanguageredirect.settings.configurationFilePath}
+		ipApiKey = {$plugin.tx_ipandlanguageredirect.settings.ipApiKey}
+	}
 }
 
 page {

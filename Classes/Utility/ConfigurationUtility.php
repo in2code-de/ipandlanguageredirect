@@ -23,16 +23,20 @@ class ConfigurationUtility
     /**
      * Get extension configuration from LocalConfiguration.php
      *
-     * @param string $path key or path (splitted with .)
+     * @param string $setting key or path (splitted with .)
      * @return array|string
      */
-    public static function getExtensionConfiguration($path = '')
+    public static function getExtensionConfiguration($setting = '')
     {
-        $configVariables = self::getTypo3ConfigurationVariables();
-        $configuration = unserialize($configVariables['EXT']['extConf']['ipandlanguageredirect']);
-        if (!empty($path)) {
+
+        $configurationManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Configuration\\ConfigurationManager');
+        $settings = $configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
+            'ipandlanguageredirect',
+            'Pi1');
+
+        if (!empty($setting)) {
             try {
-                $configuration = ArrayUtility::getValueByPath($configuration, $path, '.');
+                $configuration = $settings[$setting];
             } catch (\Exception $exception) {
                 return '';
             }
@@ -53,14 +57,4 @@ class ConfigurationUtility
         return $location;
     }
 
-    /**
-     * Get extension configuration from LocalConfiguration.php
-     *
-     * @return array
-     * @SuppressWarnings(PHPMD.Superglobals)
-     */
-    protected static function getTypo3ConfigurationVariables()
-    {
-        return $GLOBALS['TYPO3_CONF_VARS'];
-    }
 }

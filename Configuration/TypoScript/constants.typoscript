@@ -1,0 +1,13 @@
+plugin.tx_ipandlanguageredirect {
+	view {
+		# cat=ipandlanguageredirect/file/0000; type=string; label= Path to template root (FE)
+		templateRootPath = EXT:ipandlanguageredirect/Resources/Private/Templates/
+	}
+	settings {
+		# cat=ipandlanguageredirect/basic/0000 type=string; label=LLL:EXT:ipandlanguageredirect/Resources/Private/Language/locallang.xlf:configuration.configurationFilePath
+		configurationFilePath = EXT:ipandlanguageredirect/Configuration/Redirect/Redirect.php
+
+		# cat=ipandlanguageredirect/basic/0010 type=text; label=LLL:EXT:ipandlanguageredirect/Resources/Private/Language/locallang.xlf:configuration.enterYourKey
+		ipApiKey =
+	}
+}
