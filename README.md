@@ -362,6 +362,12 @@ is very helpful to understand what kind of issue the **PR** is going to solve.
 to accept only bugfixes if I can reproduce the issue.
 - Features: Not every feature is relevant for the bulk of extension users. Please discuss a new feature before.
 
+## What's not (yet?) possible at the moment
+
+* Make wildcard usage available in browserlanguage (like "en*" for all english browserlanguages)
+* Support all browserlanguages and not only the first one
+* Support also continents
+
 ## Changelog
 
 | Version    | Date       | State      | Description                                                                  |

@@ -355,7 +355,8 @@ function IpandlanguageredirectFrontend() {
 	};
 
 	/**
-	 * Get Browserlanguage directly from browser
+	 * Get first part of first Browserlanguage directly from browser
+	 * Return "de" from "de-DE,en-EN"
 	 *
 	 * @returns {string}
 	 */
