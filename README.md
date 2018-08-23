@@ -6,10 +6,23 @@ TYPO3 FE visitor automatic or manual redirect to another language or another roo
 This extension allows **multi-language** and **multi-domain** handling with redirects to best fitting pages with best
 fitting language based on the visitors browser language and region (IP-Address).
 
-An AJAX-request (VanillaJS only - no JavaScript framework is needed) will handle the serverside-domain-logic to redirect or suggest a new webpage or a new language.
+An AJAX-request (VanillaJS only - no JavaScript framework is needed) will handle the serverside-domain-logic to redirect
+or suggest a new webpage or a new language.
 
 Define in your PHP-configuration which countries belongs to which pagetree and which browserlanguage belongs to which
 frontend language
+
+### In short words
+
+Automaticly redirect or show a note for the visitor to give him the best fitting website version for his/her needs.
+
+### What's the difference to other extensions like rmpl_language_detect?
+
+There is a basic difference in the concept. While most of the language-redirect extensions hook into the page rendering
+process via USER_INT, we choose an ansynchronical way with JavaScript and PHP (AJAX). This solution needs JavaScript on
+the one hand but is much faster for high availability and more complex websites on the other hand. This means:
+You can use e.g. [staticfilecache](https://github.com/lochmueller/staticfilecache) or another static solution to improve
+web performance. While it's not possible to use staticfilecache with a USER_INT, which is included on every single page.
 
 ## Screens
 
@@ -349,10 +362,17 @@ is very helpful to understand what kind of issue the **PR** is going to solve.
 to accept only bugfixes if I can reproduce the issue.
 - Features: Not every feature is relevant for the bulk of extension users. Please discuss a new feature before.
 
+## What's not (yet?) possible at the moment
+
+* Make wildcard usage available in browserlanguage (like "en*" for all english browserlanguages)
+* Support all browserlanguages and not only the first one
+* Support also continents
+
 ## Changelog
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 1.8.0      | 2018-08-23 | Task       | Add extension icon, add some documentation                                   |
 | 1.7.2      | 2018-01-21 | Task       | Allow ipapi key now without &key=                                            |
 | 1.7.1      | 2018-01-16 | Bugfix     | Don't send "null" for an IP-address value if not testvalue is given          |
 | 1.7.0      | 2017-09-25 | Feature    | Support paid variant of IpApi.co for more then 1000 visitors a day           |
