@@ -93,6 +93,10 @@ return [
             // Build URI to language 0 if browser language is not defined here
             0 => [
                 'identifier' => 'worldwide_english',
+                'domain' => [
+                    'www.domain.com',
+                    'test.domain.org'
+                ],
                 'browserLanguage' => [
                     '*'
                 ],
@@ -104,6 +108,10 @@ return [
             // Build URI to language 1 if browser language is german "de"
             1 => [
                 'identifier' => 'worldwide_german',
+                'domain' => [
+                    'www.domain.com',
+                    'test.domain.org'
+                ],
                 'browserLanguage' => [
                     'de'
                 ],
@@ -115,6 +123,10 @@ return [
             // Build URI to language 2 if browser language is chinese "cn"
             2 => [
                 'identifier' => 'worldwide_chinese',
+                'domain' => [
+                    'www.domain.com',
+                    'test.domain.org'
+                ],
                 'browserLanguage' => [
                     'cn'
                 ],
@@ -130,6 +142,10 @@ return [
             // Build URI to language 0 if browser language is not defined here
             0 => [
                 'identifier' => 'america_english',
+                'domain' => [
+                    'www.seconddomain.org',
+                    'test.seconddomain.org'
+                ],
                 'browserLanguage' => [
                     '*'
                 ],
@@ -143,6 +159,10 @@ return [
             // Build URI to language 1 if browser language is german "de"
             1 => [
                 'identifier' => 'worldwide_german',
+                'domain' => [
+                    'www.seconddomain.org',
+                    'test.seconddomain.org'
+                ],
                 'browserLanguage' => [
                     'de'
                 ],
@@ -161,6 +181,10 @@ return [
         'countryBasedOnIp' => [
             'totalMatch' => 13,
             'wildCardMatch' => 5
+        ],
+        'domain' => [
+            'totalMatch' => 10,
+            'wildCardMatch' => 4
         ],
         'actions' => [
             'referrers' => [
@@ -318,6 +342,7 @@ http://domain.org/index.php?id=1
 &tx_ipandlanguageredirect_pi1[browserLanguage]=de
 &tx_ipandlanguageredirect_pi1[referrer]=www.google.de
 &tx_ipandlanguageredirect_pi1[countryCode]=af
+&tx_ipandlanguageredirect_pi1[domain]=www.domain.org
 &no_cache=1
 ```
 Note: Be aware that this settings are cached by default. So you have to always add a &no_cache=1

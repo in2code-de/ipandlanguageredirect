@@ -33,30 +33,34 @@ class Configuration
     protected $countries = [];
 
     /**
+     * @var array
+     */
+    protected $domains = [];
+
+    /**
      * @var float
      */
     protected $quantifier = 1.0;
 
     /**
-     * Configuration constructor.
-     *
      * @param int $rootPage
      * @param int $languageParameter
      * @param array $setConfiguration
      */
-    public function __construct($rootPage, $languageParameter, array $setConfiguration)
+    public function __construct(int $rootPage, int $languageParameter, array $setConfiguration)
     {
         $this->setIdentifier($setConfiguration['identifier']);
         $this->setRootPage($rootPage);
         $this->setLanguageParameter($languageParameter);
-        $this->setBrowserLanguages($setConfiguration['browserLanguage']);
-        $this->setCountries($setConfiguration['countryBasedOnIp']);
+        $this->setBrowserLanguages((array)$setConfiguration['browserLanguage']);
+        $this->setCountries((array)$setConfiguration['countryBasedOnIp']);
+        $this->setDomains((array)$setConfiguration['domain']);
     }
 
     /**
      * @return string
      */
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
@@ -65,7 +69,7 @@ class Configuration
      * @param string $identifier
      * @return Configuration
      */
-    public function setIdentifier($identifier)
+    public function setIdentifier(string $identifier): Configuration
     {
         $this->identifier = $identifier;
         return $this;
@@ -74,7 +78,7 @@ class Configuration
     /**
      * @return int
      */
-    public function getRootPage()
+    public function getRootPage(): int
     {
         return $this->rootPage;
     }
@@ -83,7 +87,7 @@ class Configuration
      * @param int $rootPage
      * @return Configuration
      */
-    public function setRootPage($rootPage)
+    public function setRootPage(int $rootPage): Configuration
     {
         $this->rootPage = $rootPage;
         return $this;
@@ -92,7 +96,7 @@ class Configuration
     /**
      * @return int
      */
-    public function getLanguageParameter()
+    public function getLanguageParameter(): int
     {
         return $this->languageParameter;
     }
@@ -101,7 +105,7 @@ class Configuration
      * @param int $languageParameter
      * @return Configuration
      */
-    public function setLanguageParameter($languageParameter)
+    public function setLanguageParameter(int $languageParameter): Configuration
     {
         $this->languageParameter = $languageParameter;
         return $this;
@@ -110,7 +114,7 @@ class Configuration
     /**
      * @return array
      */
-    public function getBrowserLanguages()
+    public function getBrowserLanguages(): array
     {
         return $this->browserLanguages;
     }
@@ -119,7 +123,7 @@ class Configuration
      * @param array $browserLanguages
      * @return Configuration
      */
-    public function setBrowserLanguages($browserLanguages)
+    public function setBrowserLanguages(array $browserLanguages): Configuration
     {
         $this->browserLanguages = $browserLanguages;
         return $this;
@@ -128,7 +132,7 @@ class Configuration
     /**
      * @return array
      */
-    public function getCountries()
+    public function getCountries(): array
     {
         return $this->countries;
     }
@@ -137,7 +141,7 @@ class Configuration
      * @param array $countries
      * @return Configuration
      */
-    public function setCountries($countries)
+    public function setCountries(array $countries): Configuration
     {
         $this->countries = $countries;
         return $this;
@@ -146,7 +150,7 @@ class Configuration
     /**
      * @return float
      */
-    public function getQuantifier()
+    public function getQuantifier(): float
     {
         return $this->quantifier;
     }
@@ -158,6 +162,24 @@ class Configuration
     public function setQuantifier($quantifier)
     {
         $this->quantifier = $quantifier;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDomains(): array
+    {
+        return $this->domains;
+    }
+
+    /**
+     * @param array $domains
+     * @return Configuration
+     */
+    public function setDomains(array $domains)
+    {
+        $this->domains = $domains;
         return $this;
     }
 }

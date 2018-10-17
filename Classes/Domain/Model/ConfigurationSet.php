@@ -1,8 +1,6 @@
 <?php
-
 namespace In2code\Ipandlanguageredirect\Domain\Model;
 
-use In2code\Ipandlanguageredirect\Utility\IpUtility;
 use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
 
 /**
@@ -32,8 +30,6 @@ class ConfigurationSet
     protected $rawRedirectConfiguration = [];
 
     /**
-     * ConfigurationSet constructor.
-     *
      * @param array $configuration
      */
     public function __construct(array $configuration)
@@ -55,13 +51,12 @@ class ConfigurationSet
     }
 
     /**
-     * Calculate quantifiers for Configuration
-     *
      * @param string $browserLanguage
      * @param string $countryCode
+     * @param string $domain
      * @return void
      */
-    public function calculateQuantifiers($browserLanguage = '', $countryCode = '')
+    public function calculateQuantifiers(string $browserLanguage = '', string $countryCode = '', string $domain = '')
     {
         $configurations = $this->getConfigurations();
         foreach ($configurations as $configuration) {
@@ -70,24 +65,21 @@ class ConfigurationSet
                 $configuration->getBrowserLanguages(),
                 $browserLanguage
             );
-            $regionQuantifier = $this->getQuantifier(
-                'countryBasedOnIp',
-                $configuration->getCountries(),
-                $countryCode
-            );
-            $configuration->setQuantifier($browserQuantifier * $regionQuantifier);
+            $regionQuantifier = $this->getQuantifier('countryBasedOnIp', $configuration->getCountries(), $countryCode);
+            $domainQuantifier = $this->getQuantifier('domain', $configuration->getDomains(), $domain);
+            $configuration->setQuantifier($browserQuantifier * $regionQuantifier * $domainQuantifier);
         }
     }
 
     /**
      * Calculate a single quantifier by given key
      *
-     * @param string $key
+     * @param string $key "browserLanguage", "countryBasedOnIp"
      * @param array $configuration
-     * @param string $givenValue
+     * @param string $givenValue - e.g. "*" or "de"
      * @return int
      */
-    protected function getQuantifier($key, array $configuration, $givenValue)
+    protected function getQuantifier(string $key, array $configuration, string $givenValue): int
     {
         $quantifier = 1;
         foreach ($configuration as $singleConfiguration) {
@@ -109,7 +101,7 @@ class ConfigurationSet
     /**
      * @return Configuration[]
      */
-    public function getConfigurations()
+    public function getConfigurations(): array
     {
         return $this->configurations;
     }
@@ -118,7 +110,7 @@ class ConfigurationSet
      * @param Configuration[] $configurations
      * @return ConfigurationSet
      */
-    public function setConfigurations($configurations)
+    public function setConfigurations(array $configurations): ConfigurationSet
     {
         $this->configurations = $configurations;
         return $this;
@@ -128,7 +120,7 @@ class ConfigurationSet
      * @param Configuration $configuration
      * @return ConfigurationSet
      */
-    public function addConfiguration(Configuration $configuration)
+    public function addConfiguration(Configuration $configuration): ConfigurationSet
     {
         $this->configurations[] = $configuration;
         return $this;

@@ -7,6 +7,7 @@ use In2code\Ipandlanguageredirect\Domain\Model\ConfigurationSet;
 use In2code\Ipandlanguageredirect\Utility\ConfigurationUtility;
 use In2code\Ipandlanguageredirect\Utility\IpUtility;
 use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 
 /**
@@ -46,6 +47,11 @@ class RedirectService
      * @var string
      */
     protected $countryCodeOverlay = '';
+
+    /**
+     * @var string
+     */
+    protected $domain = '';
 
     /**
      * @var string
@@ -98,16 +104,23 @@ class RedirectService
     ];
 
     /**
-     * RedirectService constructor.
      * @param string $browserLanguage
      * @param string $referrer
      * @param string $ipAddress
      * @param int $languageUid current FE language uid
      * @param int $rootpageUid current rootpage uid
      * @param string $countryCode
+     * @param string $domain
      */
-    public function __construct($browserLanguage, $referrer, $ipAddress, $languageUid, $rootpageUid, $countryCode)
-    {
+    public function __construct(
+        string $browserLanguage,
+        string $referrer,
+        string $ipAddress,
+        int $languageUid,
+        int $rootpageUid,
+        string $countryCode,
+        string $domain
+    ) {
         $this->browserLanguage = $browserLanguage;
         $this->referrer = $referrer;
         $this->ipAddress = $ipAddress;
@@ -118,6 +131,11 @@ class RedirectService
             $this->countryCode = IpUtility::getCountryCodeFromIp($ipAddress);
         } else {
             $this->countryCode = $this->countryCodeOverlay;
+        }
+        if ($domain === '') {
+            $this->domain = GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY');
+        } else {
+            $this->domain = $domain;
         }
         $this->configuration = ConfigurationUtility::getRedirectConfiguration();
     }
@@ -144,7 +162,8 @@ class RedirectService
                     'ipAddress' => $this->ipAddress,
                     'languageUid' => $this->languageUid,
                     'rootpageUid' => $this->rootpageUid,
-                    'countryCodeOverlay' => $this->countryCodeOverlay
+                    'countryCodeOverlay' => $this->countryCodeOverlay,
+                    'domain' => $this->domain
                 ]
             ];
         }
@@ -193,7 +212,7 @@ class RedirectService
     {
         if ($this->bestConfiguration === null) {
             $configurationSet = ObjectUtility::getObjectManager()->get(ConfigurationSet::class, $this->configuration);
-            $configurationSet->calculateQuantifiers($this->browserLanguage, $this->countryCode);
+            $configurationSet->calculateQuantifiers($this->browserLanguage, $this->countryCode, $this->domain);
             $bestConfiguration = $configurationSet->getBestFittingConfiguration();
             $this->bestConfiguration = $bestConfiguration;
             if ($bestConfiguration === null) {
@@ -210,7 +229,7 @@ class RedirectService
      * @param int $languageParameter
      * @return string
      */
-    protected function getUriToPageAndLanguage($pageIdentifier = 0, $languageParameter = 0)
+    protected function getUriToPageAndLanguage($pageIdentifier = 0, $languageParameter = 0): string
     {
         $uriBuilder = ObjectUtility::getObjectManager()->get(UriBuilder::class);
         $uriBuilder->setTargetPageUid($pageIdentifier);
@@ -220,7 +239,7 @@ class RedirectService
     }
 
     /**
-     * @return array
+     * @return array|null
      */
     protected function getEvents()
     {
@@ -243,7 +262,7 @@ class RedirectService
      *
      * @return boolean
      */
-    protected function isActivated()
+    protected function isActivated(): bool
     {
         $activated = $this->activated
             && ($this->isActivatedBecauseOfDifferentLanguages() || $this->isActivatedBecauseOfDifferentRootpages());
@@ -259,7 +278,7 @@ class RedirectService
     /**
      * @return bool
      */
-    protected function isActivatedBecauseOfDifferentLanguages()
+    protected function isActivatedBecauseOfDifferentLanguages(): bool
     {
         $isDifferent = $this->getBestMatchingLanguageParameter() !== $this->languageUid;
         $this->isActivatedBecauseOfDifferentLanguages = $isDifferent;
@@ -269,7 +288,7 @@ class RedirectService
     /**
      * @return bool
      */
-    protected function isActivatedBecauseOfDifferentRootpages()
+    protected function isActivatedBecauseOfDifferentRootpages(): bool
     {
         $isDifferent = $this->getBestMatchingRootPage() !== $this->rootpageUid;
         $this->isActivatedBecauseOfDifferentRootpages = $isDifferent;
@@ -279,7 +298,7 @@ class RedirectService
     /**
      * @return RedirectService
      */
-    protected function setDeactivated()
+    protected function setDeactivated(): RedirectService
     {
         $this->activated = false;
         return $this;
