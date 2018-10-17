@@ -43,23 +43,6 @@ Suggest another URI because the current page does not fit:
 ```
 <?php
 return [
-    // Quantifiers for the matches (shouldn't be touched)
-    'quantifier' => [
-        'browserLanguage' => [
-            'totalMatch' => 7,
-            'wildCardMatch' => 3
-        ],
-        'countryBasedOnIp' => [
-            'totalMatch' => 13,
-            'wildCardMatch' => 5
-        ],
-        'actions' => [
-            'referrers' => [
-                'totalMatch' => 7,
-                'wildCardMatch' => 3,
-            ]
-        ]
-    ],
     // Example action
     'actions' => [
         [
@@ -168,6 +151,23 @@ return [
                 ]
             ],
         ],
+    ],
+    // Quantifiers for the matches (shouldn't be touched)
+    'quantifier' => [
+        'browserLanguage' => [
+            'totalMatch' => 7,
+            'wildCardMatch' => 3
+        ],
+        'countryBasedOnIp' => [
+            'totalMatch' => 13,
+            'wildCardMatch' => 5
+        ],
+        'actions' => [
+            'referrers' => [
+                'totalMatch' => 7,
+                'wildCardMatch' => 3,
+            ]
+        ]
     ]
 ];
 ```
