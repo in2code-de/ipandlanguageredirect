@@ -19,7 +19,7 @@ gulp.task('css', function() {
 	var config = {};
 	config.outputStyle = 'compressed';
 
-	gulp.src(__dirname + '/../Sass/*.scss')
+	return gulp.src(__dirname + '/../Sass/*.scss')
 		.pipe(plumber())
 		.pipe(sass(config))
 		.pipe(rename({
@@ -29,7 +29,7 @@ gulp.task('css', function() {
 });
 
 gulp.task('js', function() {
-	gulp.src([__dirname + '/../JavaScripts/*.js'])
+	return gulp.src([__dirname + '/../JavaScripts/*.js'])
 		.pipe(plumber())
 		.pipe(uglify())
 		.pipe(rename({
