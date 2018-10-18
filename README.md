@@ -14,13 +14,20 @@ frontend language
 
 ### In short words
 
-Automaticly redirect or show a note for the visitor to give him the best fitting website version for his/her needs.
+Automaticly **redirect** or **show a note** for the visitor to give him the best fitting website version for his/her needs.
+
+### Screens
+
+Example suggest message in frontend:
+<img src="https://box.everhelper.me/attachment/646846/84725fb7-0b3e-4c40-b52e-29d7620777bb/262407-wlKVfm63J1ZcviVA/screen.png" />
 
 ### Which way is used to get the country code of the user?
 
-You can choose between different ip2country service classes. There is a local table with ip-ranges and countries on
-the one hand and on the other hand, you can also use external services to convert the visitors ip to a countryCode.
-While the first methods respects all privacy the second method is more current of course.
+This is completely your choice now. You can choose between different ip2country service classes.
+There is a local table with ip-ranges and countries on the one hand and on the other hand, you can also use external services
+to convert the visitors ip to a countryCode. While the first methods respects all privacy the second method is more current
+of course.
+
 Or: You can combine different methods: Because the service of IpApi is for free for 1000 requests a day, you can use
 this and in addition the offline-table variant.
 
@@ -47,11 +54,6 @@ web performance. While it's not possible to use staticfilecache with a USER_INT,
 
 This extension allows you to test how your website will react if a visitor from a different country checks out your
 website. See below for a lot of testings possibilities.
-
-## Screens
-
-Example suggest message in frontend:
-<img src="https://box.everhelper.me/attachment/646846/84725fb7-0b3e-4c40-b52e-29d7620777bb/262407-wlKVfm63J1ZcviVA/screen.png" />
 
 ## Installation
 
