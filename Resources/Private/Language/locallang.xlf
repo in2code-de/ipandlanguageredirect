@@ -13,8 +13,8 @@
 			<trans-unit id="configuration.configurationFilePath">
 				<source>Path to configuration file: Redirect configuration file path (e.g. EXT:template/Configuration/Redirect/Redirect.php)</source>
 			</trans-unit>
-			<trans-unit id="configuration.enterYourKey">
-				<source>IpApi Key: Please enter your key for ipapi.co (optional), otherwise extension will have limited access to the service (less then 1000 visitors a day). See ipapi.co for details.</source>
+			<trans-unit id="configuration.ipToCountryService">
+				<source>Add names for own IpToCountry Serviceclasses (commaseparated) (e.g. In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi). All classes will be called as long as a countrycode could be determinded.</source>
 			</trans-unit>
 		</body>
 	</file>

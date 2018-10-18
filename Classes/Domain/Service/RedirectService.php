@@ -129,7 +129,8 @@ class RedirectService
         $this->rootpageUid = $rootpageUid;
         $this->countryCodeOverlay = $countryCode;
         if ($this->countryCodeOverlay === '') {
-            $this->countryCode = IpUtility::getCountryCodeFromIp($ipAddress);
+            $ipToCountry = ObjectUtility::getObjectManager()->get(IpToCountry::class);
+            $this->countryCode = $ipToCountry->getCountryFromIp($ipAddress);
         } else {
             $this->countryCode = $this->countryCodeOverlay;
         }
@@ -157,6 +158,7 @@ class RedirectService
                     'differentLanguages' => $this->isActivatedBecauseOfDifferentLanguages,
                     'differentRootpages' => $this->isActivatedBecauseOfDifferentRootpages,
                 ],
+                'country' => $this->countryCode,
                 'givenParameters' => [
                     'browserLanguage' => $this->browserLanguage,
                     'referrer' => $this->referrer,

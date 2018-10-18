@@ -1,8 +1,6 @@
 <?php
 namespace In2code\Ipandlanguageredirect\Utility;
 
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-
 /**
  * Class FrontendUtility
  */
@@ -17,7 +15,7 @@ class FrontendUtility
      */
     public static function getCurrentPageIdentifier()
     {
-        return (int)self::getTyposcriptFrontendController()->id;
+        return (int)ObjectUtility::getTyposcriptFrontendController()->id;
     }
 
     /**
@@ -31,14 +29,5 @@ class FrontendUtility
             $string .= '&' . self::PLUGIN_NAME . '[' . $key . ']=' . $value;
         }
         return $string;
-    }
-
-    /**
-     * @return TypoScriptFrontendController
-     * @SuppressWarnings(PHPMD.Superglobals)
-     */
-    protected static function getTyposcriptFrontendController()
-    {
-        return $GLOBALS['TSFE'];
     }
 }

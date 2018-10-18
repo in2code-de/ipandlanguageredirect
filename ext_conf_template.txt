@@ -1,5 +1,5 @@
 # cat=basic//010; type=text; label=LLL:EXT:ipandlanguageredirect/Resources/Private/Language/locallang.xlf:configuration.configurationFilePath
 configurationFilePath = EXT:ipandlanguageredirect/Configuration/Redirect/Redirect.php
 
-# cat=basic//020; type=text; label=LLL:EXT:ipandlanguageredirect/Resources/Private/Language/locallang.xlf:configuration.enterYourKey
-ipApiKey =
+# cat=basic//020; type=text; label=LLL:EXT:ipandlanguageredirect/Resources/Private/Language/locallang.xlf:configuration.ipToCountryService
+ipToCountryService = In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi

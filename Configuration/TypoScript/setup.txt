@@ -6,6 +6,16 @@ plugin.tx_ipandlanguageredirect {
 		}
 	}
 	features.requireCHashArgumentForActionArguments = 0
+
+	settings {
+		# Add configuration to your IpToCountry service classes
+		ipToCountry {
+			In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi {
+				# IpApi Key: Please enter your key for ipapi.co (optional), otherwise extension will have limited access to the service (less then 1000 visitors a day). See ipapi.co for details.
+				ipApiKey =
+			}
+		}
+	}
 }
 
 page {
