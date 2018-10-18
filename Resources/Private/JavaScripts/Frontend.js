@@ -330,7 +330,8 @@ function IpandlanguageredirectFrontend() {
 			'tx_ipandlanguageredirect_pi1[referrer]': getReferrer(),
 			'tx_ipandlanguageredirect_pi1[languageUid]': getLanguageUid(),
 			'tx_ipandlanguageredirect_pi1[rootpageUid]': getRootpageUid(),
-			'tx_ipandlanguageredirect_pi1[countryCode]': getCountryCode()
+			'tx_ipandlanguageredirect_pi1[countryCode]': getCountryCode(),
+			'tx_ipandlanguageredirect_pi1[domain]': getDomain()
 		};
 	};
 
@@ -457,6 +458,26 @@ function IpandlanguageredirectFrontend() {
 			}
 		}
 		return countryCode;
+	};
+
+	/**
+	 * Get domain for testing only
+	 * Get it from data-ipandlanguageredirect-domain="www.production.org"
+	 *
+	 * @returns {string}
+	 */
+	var getDomain = function() {
+		var domain = '';
+		var container = getContainer();
+		if (container !== null) {
+			if (container.hasAttribute('data-ipandlanguageredirect-domain')) {
+				var domainContainer = container.getAttribute('data-ipandlanguageredirect-domain');
+				if (domainContainer !== null) {
+					domain = domainContainer;
+				}
+			}
+		}
+		return domain;
 	};
 
 	/**

@@ -91,6 +91,15 @@ page {
 			htmlSpecialChars = 1
 			required = 1
 		}
+
+		# Fake domain for testing - e.g. &tx_ipandlanguageredirect_pi1[domain]=www.production.org
+		80 = TEXT
+		80 {
+			noTrimWrap = | data-ipandlanguageredirect-domain="|"|
+			data = GP:tx_ipandlanguageredirect_pi1|domain
+			htmlSpecialChars = 1
+			required = 1
+		}
 	}
 }
 
