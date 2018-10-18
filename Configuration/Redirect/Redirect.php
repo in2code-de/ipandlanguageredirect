@@ -1,21 +1,5 @@
 <?php
 return [
-    'quantifier' => [
-        'browserLanguage' => [
-            'totalMatch' => 7,
-            'wildCardMatch' => 3
-        ],
-        'countryBasedOnIp' => [
-            'totalMatch' => 13,
-            'wildCardMatch' => 5
-        ],
-        'actions' => [
-            'referrers' => [
-                'totalMatch' => 7,
-                'wildCardMatch' => 3,
-            ]
-        ]
-    ],
     'actions' => [
         [
             'referrers' => [
@@ -51,6 +35,10 @@ return [
             // this number means: language parameter
             0 => [
                 'identifier' => 'worldwide_english',
+                'domain' => [
+                    'www.domain.org',
+                    'local.domain.org'
+                ],
                 'browserLanguage' => [
                     '*'
                 ],
@@ -60,6 +48,10 @@ return [
             ],
             1 => [
                 'identifier' => 'worldwide_german',
+                'domain' => [
+                    'www.domain.org',
+                    'local.domain.org'
+                ],
                 'browserLanguage' => [
                     'de'
                 ],
@@ -69,6 +61,10 @@ return [
             ],
             2 => [
                 'identifier' => 'worldwide_chinese',
+                'domain' => [
+                    'www.domain.org',
+                    'local.domain.org'
+                ],
                 'browserLanguage' => [
                     'cn'
                 ],
@@ -81,6 +77,10 @@ return [
         16 => [
             0 => [
                 'identifier' => 'canada_english',
+                'domain' => [
+                    'www.domain.org',
+                    'local.domain.org'
+                ],
                 'browserLanguage' => [
                     '*'
                 ],
@@ -93,6 +93,10 @@ return [
         22 => [
             0 => [
                 'identifier' => 'america_english',
+                'domain' => [
+                    'www.domain.org',
+                    'local.domain.org'
+                ],
                 'browserLanguage' => [
                     '*'
                 ],
@@ -119,6 +123,10 @@ return [
         26 => [
             0 => [
                 'identifier' => 'asia_english',
+                'domain' => [
+                    'www.domain.org',
+                    'local.domain.org'
+                ],
                 'browserLanguage' => [
                     '*',
                 ],
@@ -180,6 +188,10 @@ return [
             ],
             2 => [
                 'identifier' => 'asia_chinese',
+                'domain' => [
+                    'www.domain.org',
+                    'local.domain.org'
+                ],
                 'browserLanguage' => [
                     'cn',
                 ],
@@ -244,6 +256,10 @@ return [
         30 => [
             0 => [
                 'identifier' => 'china_english',
+                'domain' => [
+                    'www.domain.org',
+                    'local.domain.org'
+                ],
                 'browserLanguage' => [
                     '*',
                 ],
@@ -253,12 +269,32 @@ return [
             ],
             2 => [
                 'identifier' => 'china_chinese',
+                'domain' => [
+                    'www.domain.org',
+                    'local.domain.org'
+                ],
                 'browserLanguage' => [
                     'cn',
                 ],
                 'countryBasedOnIp' => [
                     'cn'
                 ]
+            ]
+        ]
+    ],
+    'quantifier' => [
+        'browserLanguage' => [
+            'totalMatch' => 7,
+            'wildCardMatch' => 3
+        ],
+        'countryBasedOnIp' => [
+            'totalMatch' => 13,
+            'wildCardMatch' => 5
+        ],
+        'actions' => [
+            'referrers' => [
+                'totalMatch' => 7,
+                'wildCardMatch' => 3,
             ]
         ]
     ]
