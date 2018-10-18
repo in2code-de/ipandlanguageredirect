@@ -35,6 +35,9 @@ class IpToCountry
                 break;
             }
         }
+        if (strlen($countryCode) !== 2) {
+            $this->logFailingOfCountryCode($class, new \LogicException('Country could not be determined', 1539888615));
+        }
         return $countryCode;
     }
 

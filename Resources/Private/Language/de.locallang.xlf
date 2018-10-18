@@ -18,8 +18,8 @@
 				<target state="translated">Pfad zur Konfigurationsdatei: Bitte Pfad zur Konfigurationsdatei eintragen (z.B. EXT:template/Configuration/Redirect/Redirect.php)</target>
 			</trans-unit>
 			<trans-unit id="configuration.ipToCountryService">
-				<source>Add names for own IpToCountry Serviceclasses (commaseparated) (e.g. In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi). All classes will be called as long as a countrycode could be determinded.</source>
-				<target state="translated">Hier können Namen für eigene IpToCountry Serviceklassen kommasepariert eingetragen werden (z.B. In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi). Es werden alle Serviceklassen nacheinander aufgerufen, bis ein Ländercode ermittelt werden kann.</target>
+				<source>Add names for own IpToCountry Serviceclasses (commaseparated) (e.g. In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi): All classes will be called step by step as long as a countrycode could be determinded. Available classes are "In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi", "In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\LocalDatabase", "In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApiCom". See documentation for more details.</source>
+				<target state="translated">Hier können Namen für eigene IpToCountry Serviceklassen kommasepariert eingetragen werden (z.B. In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi): Es werden alle Serviceklassen nacheinander aufgerufen, bis ein Ländercode ermittelt werden konnte. Vorhandene Klassen sind "In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi", "In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\LocalDatabase", "In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApiCom". Siehe Dokumentation für Details.</target>
 			</trans-unit>
 		</body>
 	</file>

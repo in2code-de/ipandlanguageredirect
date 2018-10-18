@@ -16,6 +16,25 @@ frontend language
 
 Automaticly redirect or show a note for the visitor to give him the best fitting website version for his/her needs.
 
+### Which way is used to get the country code of the user?
+
+You can choose between different ip2country service classes. There is a local table with ip-ranges and countries on
+the one hand and on the other hand, you can also use external services to convert the visitors ip to a countryCode.
+While the first methods respects all privacy the second method is more current of course.
+Or: You can combine different methods: Because the service of IpApi is for free for 1000 requests a day, you can use
+this and in addition the offline-table variant.
+
+Available classes per default:
+
+* `In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi` - This uses the external service of ipapi.co to convert IP-addresses to a country code. Note: You can set the api key via TypoScript if you want to use more then 1000 requests a day
+* `In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\LocalDatabase` - This uses the local database table `tx_ipandlanguageredirect_domain_model_iptocountry` to convert the ip address to a country - no external service, most privacy
+* `In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApiCom` - This uses the external service of ip-api.com to convert IP-addresses to a country code. Attention: Because https is not possible by this service all request are handled over port 80
+
+Go to the extension manager settings and choose the classes that you want to use or simply add your own service. Example
+string in the extension manager settings for `ipToCountryService` could be
+`In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi,In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\LocalDatabase`
+to use the service of IpApi as long as it is free and then fall back to the local database.
+
 ### What's the difference to other extensions like rmpl_language_detect?
 
 There is a basic difference in the concept. While most of the language-redirect extensions hook into the page rendering
@@ -23,12 +42,6 @@ process via USER_INT, we choose an ansynchronical way with JavaScript and PHP (A
 the one hand but is much faster for high availability and more complex websites on the other hand. This means:
 You can use e.g. [staticfilecache](https://github.com/lochmueller/staticfilecache) or another static solution to improve
 web performance. While it's not possible to use staticfilecache with a USER_INT, which is included on every single page.
-
-### Define your own ip2country service classes
-
-You can simply register and call own classes to get the visitors countrycode. Simply check the settings in the extension
-manager to add some classes. E.g. now it is possible to use ipapi.co as long as the free mode (up to 1000 visitors a day)
-will work. After the 1000 use a local database or something own.
 
 ### Testing!
 

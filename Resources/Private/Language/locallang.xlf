@@ -14,7 +14,7 @@
 				<source>Path to configuration file: Redirect configuration file path (e.g. EXT:template/Configuration/Redirect/Redirect.php)</source>
 			</trans-unit>
 			<trans-unit id="configuration.ipToCountryService">
-				<source>Add names for own IpToCountry Serviceclasses (commaseparated) (e.g. In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi). All classes will be called as long as a countrycode could be determinded.</source>
+				<source>Add names for own IpToCountry Serviceclasses (commaseparated) (e.g. In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi): All classes will be called step by step as long as a countrycode could be determinded. Available classes are "In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi", "In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\LocalDatabase", "In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApiCom"</source>
 			</trans-unit>
 		</body>
 	</file>
