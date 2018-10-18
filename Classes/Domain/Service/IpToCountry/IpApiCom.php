@@ -37,7 +37,7 @@ class IpApiCom extends AbstractIpToCountry implements IpToCountryInterface
         if ($json !== false) {
             $geoInfo = json_decode($json);
             try {
-                return strtolower($geoInfo->countryCode);
+                return strtolower((string)$geoInfo->countryCode);
             } catch (\Exception $exception) {
                 throw new \LogicException('Country could not be determined from ip-api.com', 1539866103);
             }
