@@ -24,6 +24,10 @@ return [
             ]
         ]
     ],
+    'globalConfiguration' => [
+        // show suggest message or do a redirect only if the user visits home (not for subpages)
+        'actionOnHomeOnly' => true
+    ],
     'noMatchingConfiguration' => [
         'identifierUsage' => 'worldwide_english',
         'matchMinQuantifier' => 15

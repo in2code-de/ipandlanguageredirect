@@ -5,6 +5,7 @@ use In2code\Ipandlanguageredirect\Domain\Model\ActionSet;
 use In2code\Ipandlanguageredirect\Domain\Model\Configuration;
 use In2code\Ipandlanguageredirect\Domain\Model\ConfigurationSet;
 use In2code\Ipandlanguageredirect\Utility\ConfigurationUtility;
+use In2code\Ipandlanguageredirect\Utility\FrontendUtility;
 use In2code\Ipandlanguageredirect\Utility\IpUtility;
 use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -259,20 +260,15 @@ class RedirectService
      *      - AND
      *          - if the current language is different to best matching language
      *          - OR if current rootpage is different to best matching rootpage
+     *      - AND if event handling is not turned off
+     *      - AND if actionOnHomeOnly is fullfilled
      *
      * @return boolean
      */
     protected function isActivated(): bool
     {
-        $activated = $this->activated
-            && ($this->isActivatedBecauseOfDifferentLanguages() || $this->isActivatedBecauseOfDifferentRootpages());
-
-        $events = $this->getEvents();
-        if (!empty($events) && $events[0] === 'none') {
-            $activated = false;
-        }
-
-        return $activated;
+        return $this->activated && $this->isActivationNeeded() && $this->isEventhandlingDisabled() === false
+            && $this->isActionOnHomeOnlyFullfilled();
     }
 
     /**
@@ -293,6 +289,45 @@ class RedirectService
         $isDifferent = $this->getBestMatchingRootPage() !== $this->rootpageUid;
         $this->isActivatedBecauseOfDifferentRootpages = $isDifferent;
         return $isDifferent;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isEventhandlingDisabled(): bool
+    {
+        $events = $this->getEvents();
+        return !empty($events) && $events[0] === 'none';
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isActivationNeeded(): bool
+    {
+        return $this->isActivatedBecauseOfDifferentLanguages() || $this->isActivatedBecauseOfDifferentRootpages();
+    }
+
+    /**
+     * Check, if actionOnHomeOnly is turned on, current page is a home page
+     *
+     * @return bool
+     */
+    protected function isActionOnHomeOnlyFullfilled(): bool
+    {
+        if (!empty($this->configuration['globalConfiguration']['actionOnHomeOnly'])
+            && $this->configuration['globalConfiguration']['actionOnHomeOnly'] === true) {
+            return $this->isCurrentPageAHomePage();
+        }
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isCurrentPageAHomePage(): bool
+    {
+        return $this->rootpageUid === FrontendUtility::getCurrentPageIdentifier();
     }
 
     /**
