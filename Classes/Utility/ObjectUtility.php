@@ -1,6 +1,8 @@
 <?php
 namespace In2code\Ipandlanguageredirect\Utility;
 
+use TYPO3\CMS\Core\Log\Logger;
+use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -21,12 +23,12 @@ class ObjectUtility
     }
 
     /**
-     * @return TypoScriptFrontendController
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * @param string $className
+     * @return Logger
      */
-    public static function getTyposcriptFrontendController()
+    public static function getLogger(string $className): Logger
     {
-        return $GLOBALS['TSFE'];
+        return GeneralUtility::makeInstance(LogManager::class)->getLogger($className);
     }
 
     /**
@@ -35,5 +37,14 @@ class ObjectUtility
     public static function getContentObject()
     {
         return self::getObjectManager()->get(ContentObjectRenderer::class);
+    }
+
+    /**
+     * @return TypoScriptFrontendController
+     * @SuppressWarnings(PHPMD.Superglobals)
+     */
+    public static function getTyposcriptFrontendController()
+    {
+        return $GLOBALS['TSFE'];
     }
 }

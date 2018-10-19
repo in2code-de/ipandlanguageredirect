@@ -14,7 +14,33 @@ frontend language
 
 ### In short words
 
-Automaticly redirect or show a note for the visitor to give him the best fitting website version for his/her needs.
+Automaticly **redirect** or **show a note** for the visitor to give him the best fitting website version for his/her needs.
+
+### Screens
+
+Example suggest message in frontend:
+<img src="https://box.everhelper.me/attachment/646846/84725fb7-0b3e-4c40-b52e-29d7620777bb/262407-wlKVfm63J1ZcviVA/screen.png" />
+
+### Which way is used to get the country code of the user?
+
+This is completely your choice now. You can choose between different ip2country service classes.
+There is a local table with ip-ranges and countries on the one hand and on the other hand, you can also use external services
+to convert the visitors ip to a countryCode. While the first methods respects all privacy the second method is more current
+of course.
+
+Or: You can combine different methods: Because the service of IpApi is for free for 1000 requests a day, you can use
+this and in addition the offline-table variant.
+
+Available classes per default:
+
+* `In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi` - This uses the external service of ipapi.co to convert IP-addresses to a country code. Note: You can set the api key via TypoScript if you want to use more then 1000 requests a day
+* `In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\LocalDatabase` - This uses the local database table `tx_ipandlanguageredirect_domain_model_iptocountry` to convert the ip address to a country - no external service, most privacy
+* `In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApiCom` - This uses the external service of ip-api.com to convert IP-addresses to a country code. Attention: Because https is not possible by this service all request are handled over port 80
+
+Go to the extension manager settings and choose the classes that you want to use or simply add your own service. Example
+string in the extension manager settings for `ipToCountryService` could be
+`In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi,In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\LocalDatabase`
+to use the service of IpApi as long as it is free and then fall back to the local database.
 
 ### What's the difference to other extensions like rmpl_language_detect?
 
@@ -24,10 +50,10 @@ the one hand but is much faster for high availability and more complex websites 
 You can use e.g. [staticfilecache](https://github.com/lochmueller/staticfilecache) or another static solution to improve
 web performance. While it's not possible to use staticfilecache with a USER_INT, which is included on every single page.
 
-## Screens
+### Testing!
 
-Suggest another URI because the current page does not fit:
-<img src="https://box.everhelper.me/attachment/646846/84725fb7-0b3e-4c40-b52e-29d7620777bb/262407-wlKVfm63J1ZcviVA/screen.png" />
+This extension allows you to test how your website will react if a visitor from a different country checks out your
+website. See below for a lot of testings possibilities.
 
 ## Installation
 
@@ -43,23 +69,6 @@ Suggest another URI because the current page does not fit:
 ```
 <?php
 return [
-    // Quantifiers for the matches (shouldn't be touched)
-    'quantifier' => [
-        'browserLanguage' => [
-            'totalMatch' => 7,
-            'wildCardMatch' => 3
-        ],
-        'countryBasedOnIp' => [
-            'totalMatch' => 13,
-            'wildCardMatch' => 5
-        ],
-        'actions' => [
-            'referrers' => [
-                'totalMatch' => 7,
-                'wildCardMatch' => 3,
-            ]
-        ]
-    ],
     // Example action
     'actions' => [
         [
@@ -96,6 +105,13 @@ return [
             ],
         ],
     ],
+    'globalConfiguration' => [
+        // don't show suggest or redirect on a subpage
+        'actionOnHomeOnly' => false,
+
+        // always redirect to the home-page, don not try to stay on the same page while changing the language
+        'stayOnCurrentPage' => false
+    ],
     // configuration if nothing matches
     'noMatchingConfiguration' => [
         'identifierUsage' => 'worldwide_english',
@@ -110,6 +126,10 @@ return [
             // Build URI to language 0 if browser language is not defined here
             0 => [
                 'identifier' => 'worldwide_english',
+                'domain' => [
+                    'www.domain.com',
+                    'test.domain.org'
+                ],
                 'browserLanguage' => [
                     '*'
                 ],
@@ -121,6 +141,10 @@ return [
             // Build URI to language 1 if browser language is german "de"
             1 => [
                 'identifier' => 'worldwide_german',
+                'domain' => [
+                    'www.domain.com',
+                    'test.domain.org'
+                ],
                 'browserLanguage' => [
                     'de'
                 ],
@@ -132,6 +156,10 @@ return [
             // Build URI to language 2 if browser language is chinese "cn"
             2 => [
                 'identifier' => 'worldwide_chinese',
+                'domain' => [
+                    'www.domain.com',
+                    'test.domain.org'
+                ],
                 'browserLanguage' => [
                     'cn'
                 ],
@@ -147,6 +175,10 @@ return [
             // Build URI to language 0 if browser language is not defined here
             0 => [
                 'identifier' => 'america_english',
+                'domain' => [
+                    'www.seconddomain.org',
+                    'test.seconddomain.org'
+                ],
                 'browserLanguage' => [
                     '*'
                 ],
@@ -160,6 +192,10 @@ return [
             // Build URI to language 1 if browser language is german "de"
             1 => [
                 'identifier' => 'worldwide_german',
+                'domain' => [
+                    'www.seconddomain.org',
+                    'test.seconddomain.org'
+                ],
                 'browserLanguage' => [
                     'de'
                 ],
@@ -168,6 +204,27 @@ return [
                 ]
             ],
         ],
+    ],
+    // Quantifiers for the matches (shouldn't be touched)
+    'quantifier' => [
+        'browserLanguage' => [
+            'totalMatch' => 7,
+            'wildCardMatch' => 3
+        ],
+        'countryBasedOnIp' => [
+            'totalMatch' => 13,
+            'wildCardMatch' => 5
+        ],
+        'domain' => [
+            'totalMatch' => 10,
+            'wildCardMatch' => 4
+        ],
+        'actions' => [
+            'referrers' => [
+                'totalMatch' => 7,
+                'wildCardMatch' => 3,
+            ]
+        ]
     ]
 ];
 ```
@@ -184,8 +241,16 @@ plugin.tx_ipandlanguageredirect {
 			1 = {$plugin.tx_ipandlanguageredirect.view.templateRootPath}
 		}
 	}
+	features.requireCHashArgumentForActionArguments = 0
+
 	settings {
-		configuration = {$plugin.tx_ipandlanguageredirect.settings.configuration}
+		# Add configuration to your IpToCountry service classes
+		ipToCountry {
+			In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi {
+				# IpApi Key: Please enter your key for ipapi.co (optional), otherwise extension will have limited access to the service (less then 1000 visitors a day). See ipapi.co for details.
+				ipApiKey =
+			}
+		}
 	}
 }
 
@@ -272,6 +337,15 @@ page {
 			htmlSpecialChars = 1
 			required = 1
 		}
+
+		# Fake domain for testing - e.g. &tx_ipandlanguageredirect_pi1[domain]=www.production.org
+		80 = TEXT
+		80 {
+			noTrimWrap = | data-ipandlanguageredirect-domain="|"|
+			data = GP:tx_ipandlanguageredirect_pi1|domain
+			htmlSpecialChars = 1
+			required = 1
+		}
 	}
 }
 
@@ -281,6 +355,7 @@ redirectAjax {
 	typeNum = 1555
 	config {
 		additionalHeaders = Content-Type: application/json
+		additionalHeaders.10.header = Content-Type: application/json
 		no_cache = 1
 		disableAllHeaderCode = 1
 		disablePrefixComment = 1
@@ -318,6 +393,7 @@ http://domain.org/index.php?id=1
 &tx_ipandlanguageredirect_pi1[browserLanguage]=de
 &tx_ipandlanguageredirect_pi1[referrer]=www.google.de
 &tx_ipandlanguageredirect_pi1[countryCode]=af
+&tx_ipandlanguageredirect_pi1[domain]=www.domain.org
 &no_cache=1
 ```
 Note: Be aware that this settings are cached by default. So you have to always add a &no_cache=1
@@ -327,6 +403,31 @@ Note: Be aware that this settings are cached by default. So you have to always a
 ```
 http://domain.org/index.php?id=1
 &ipandlanguagedebug=1
+```
+
+Example answer from your server:
+```
+{
+  "redirectUri": "https:\/\/local.domain.org\/de\/",
+  "activated": true,
+  "events": [
+    "redirect"
+  ],
+  "activatedReasons": {
+    "differentLanguages": true,
+    "differentRootpages": false
+  },
+  "country": "jp",
+  "givenParameters": {
+    "browserLanguage": "de",
+    "referrer": "www.google.de",
+    "ipAddress": "27.121.255.4",
+    "languageUid": 0,
+    "rootpageUid": 209,
+    "countryCodeOverlay": "",
+    "domain": "local.domain.org"
+  }
+}
 ```
 
 ## FAQ
@@ -372,6 +473,7 @@ to accept only bugfixes if I can reproduce the issue.
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 2.0.0 (!)  | 2018-10-18 | Feature    | Multi domain handling, actionOnHomeOnly, offline ip2geo, stayOnCurrentPage   |
 | 1.8.0      | 2018-08-23 | Task       | Add extension icon, add some documentation                                   |
 | 1.7.2      | 2018-01-21 | Task       | Allow ipapi key now without &key=                                            |
 | 1.7.1      | 2018-01-16 | Bugfix     | Don't send "null" for an IP-address value if not testvalue is given          |

@@ -17,9 +17,9 @@
 				<source>Path to configuration file: Redirect configuration file path (e.g. EXT:template/Configuration/Redirect/Redirect.php)</source>
 				<target state="translated">Pfad zur Konfigurationsdatei: Bitte Pfad zur Konfigurationsdatei eintragen (z.B. EXT:template/Configuration/Redirect/Redirect.php)</target>
 			</trans-unit>
-			<trans-unit id="configuration.enterYourKey">
-				<source>IpApi Key: Please enter your key for ipapi.co (optional), otherwise extension will have limited access to the service (less then 1000 visitors a day). See ipapi.co for details.</source>
-				<target state="translated">IpApi Key: Ipapi.co Key hier eintragen (optional). Falls kein Key hinterlegt wird, besteht nur limitierter Zugang zur IP Umwandling (aktuell bis 1000 Besucher pro Tag). Siehe ipapi.com für weitere Details.</target>
+			<trans-unit id="configuration.ipToCountryService">
+				<source>Add names for own IpToCountry Serviceclasses (commaseparated) (e.g. In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi): All classes will be called step by step as long as a countrycode could be determinded. Available classes are "In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi", "In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\LocalDatabase", "In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApiCom". See documentation for more details.</source>
+				<target state="translated">Hier können Namen für eigene IpToCountry Serviceklassen kommasepariert eingetragen werden (z.B. In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi): Es werden alle Serviceklassen nacheinander aufgerufen, bis ein Ländercode ermittelt werden konnte. Vorhandene Klassen sind "In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi", "In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\LocalDatabase", "In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApiCom". Siehe Dokumentation für Details.</target>
 			</trans-unit>
 		</body>
 	</file>
