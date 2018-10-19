@@ -235,7 +235,7 @@ class RedirectService
     protected function getUriToPageAndLanguage($pageIdentifier = 0, $languageParameter = 0): string
     {
         $uriBuilder = ObjectUtility::getObjectManager()->get(UriBuilder::class);
-        $uriBuilder->setTargetPageUid($pageIdentifier);
+        $uriBuilder->setTargetPageUid($this->getTargetPageForUriCreation($pageIdentifier));
         $uriBuilder->setCreateAbsoluteUri(true);
         $uriBuilder->setArguments([$this->languageParameter => $languageParameter]);
         return $uriBuilder->buildFrontendUri();
@@ -254,6 +254,21 @@ class RedirectService
             $events = $this->bestEvents;
         }
         return $events;
+    }
+
+    /**
+     * Decide to select the target page for URI creation
+     *
+     * @param int $pageIdentifier
+     * @return int
+     */
+    protected function getTargetPageForUriCreation(int $pageIdentifier): int
+    {
+        if (!empty($this->configuration['globalConfiguration']['stayOnCurrentPage'])
+            && $this->configuration['globalConfiguration']['stayOnCurrentPage'] === true) {
+            return FrontendUtility::getCurrentPageIdentifier();
+        }
+        return $pageIdentifier;
     }
 
     /**

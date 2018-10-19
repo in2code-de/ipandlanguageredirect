@@ -107,7 +107,10 @@ return [
     ],
     'globalConfiguration' => [
         // don't show suggest or redirect on a subpage
-        'actionOnHomeOnly' => false
+        'actionOnHomeOnly' => false,
+
+        // always redirect to the home-page, don not try to stay on the same page while changing the language
+        'stayOnCurrentPage' => false
     ],
     // configuration if nothing matches
     'noMatchingConfiguration' => [
@@ -470,7 +473,7 @@ to accept only bugfixes if I can reproduce the issue.
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
-| 2.0.0 (!)  | 2018-10-18 | Task       | Add multi domain handling, action on home only, offline ip2geo function      |
+| 2.0.0 (!)  | 2018-10-18 | Feature    | Multi domain handling, actionOnHomeOnly, offline ip2geo, stayOnCurrentPage   |
 | 1.8.0      | 2018-08-23 | Task       | Add extension icon, add some documentation                                   |
 | 1.7.2      | 2018-01-21 | Task       | Allow ipapi key now without &key=                                            |
 | 1.7.1      | 2018-01-16 | Bugfix     | Don't send "null" for an IP-address value if not testvalue is given          |

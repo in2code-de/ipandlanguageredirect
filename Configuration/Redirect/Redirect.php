@@ -26,7 +26,10 @@ return [
     ],
     'globalConfiguration' => [
         // show suggest message or do a redirect only if the user visits home (not for subpages)
-        'actionOnHomeOnly' => true
+        'actionOnHomeOnly' => true,
+
+        // don't redirect to the home-page, try to stay on the same page while changing the language
+        'stayOnCurrentPage' => true
     ],
     'noMatchingConfiguration' => [
         'identifierUsage' => 'worldwide_english',
