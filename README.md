@@ -473,6 +473,7 @@ to accept only bugfixes if I can reproduce the issue.
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 2.1.0      | 2019-01-10 | Task       | Small cleanup, small text changes                                            |
 | 2.0.0 (!)  | 2018-10-18 | Feature    | Multi domain handling, actionOnHomeOnly, offline ip2geo, stayOnCurrentPage   |
 | 1.8.0      | 2018-08-23 | Task       | Add extension icon, add some documentation                                   |
 | 1.7.2      | 2018-01-21 | Task       | Allow ipapi key now without &key=                                            |
