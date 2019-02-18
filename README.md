@@ -28,12 +28,12 @@ There is a local table with ip-ranges and countries on the one hand and on the o
 to convert the visitors ip to a countryCode. While the first methods respects all privacy the second method is more current
 of course.
 
-Or: You can combine different methods: Because the service of IpApi is for free for 1000 requests a day, you can use
+Or: You can combine different methods: Because the service of IpApi is for free for 1000 requests a month, you can use
 this and in addition the offline-table variant.
 
 Available classes per default:
 
-* `In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi` - This uses the external service of ipapi.co to convert IP-addresses to a country code. Note: You can set the api key via TypoScript if you want to use more then 1000 requests a day
+* `In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi` - This uses the external service of ipapi.co to convert IP-addresses to a country code. Note: You can set the api key via TypoScript if you want to use more then 1000 requests a month
 * `In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\LocalDatabase` - This uses the local database table `tx_ipandlanguageredirect_domain_model_iptocountry` to convert the ip address to a country - no external service, most privacy
 * `In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApiCom` - This uses the external service of ip-api.com to convert IP-addresses to a country code. Attention: Because https is not possible by this service all request are handled over port 80
 
