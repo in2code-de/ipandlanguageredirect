@@ -55,7 +55,8 @@ page {
 		20 = TEXT
 		20 {
 			noTrimWrap = | data-ipandlanguageredirect-languageuid="|"|
-			data = GP:L
+			data = sitelanguage:languageId
+			ifEmpty.data = GP:L
 			intval = 1
 		}
 
