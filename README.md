@@ -153,7 +153,7 @@ return [
                 ]
             ],
 
-            // Build URI to language 2 if browser language is chinese "cn"
+            // Build URI to language 2 if browser language is chinese "zh"
             2 => [
                 'identifier' => 'worldwide_chinese',
                 'domain' => [
@@ -161,7 +161,7 @@ return [
                     'test.domain.org'
                 ],
                 'browserLanguage' => [
-                    'cn'
+                    'zh'
                 ],
                 'countryBasedOnIp' => [
                     '*'
