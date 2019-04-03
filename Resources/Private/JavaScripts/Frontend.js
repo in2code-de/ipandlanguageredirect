@@ -181,11 +181,17 @@ function IpandlanguageredirectFrontend() {
 	 * @param jsonObject
 	 */
 	var doAction = function(jsonObject) {
-		if (jsonObject.activated && Array.isArray(jsonObject.events)) {
+		if (Array.isArray(jsonObject.events)) {
 			// iterate through events
 			for (var key in jsonObject.events) {
-				if (jsonObject.events.hasOwnProperty(key)) {
+				if (jsonObject.activated && jsonObject.events.hasOwnProperty(key)) {
 					that[jsonObject.events[key] + 'Event'](jsonObject);
+				} else if (jsonObject.events[key] === 'redirect') {
+					/*
+					 * If a redirect is configured, but not executed for reasons, everything is ok and the redirect
+					 * should not be executed at any later time, even if user manually switches to other language.
+					 */
+					setDisableRedirectCookie();
 				}
 			}
 		}
