@@ -73,7 +73,7 @@ return [
                     'local.domain.org'
                 ],
                 'browserLanguage' => [
-                    'cn'
+                    'zh'
                 ],
                 'countryBasedOnIp' => [
                     '*'
@@ -200,7 +200,7 @@ return [
                     'local.domain.org'
                 ],
                 'browserLanguage' => [
-                    'cn',
+                    'zh',
                 ],
                 'countryBasedOnIp' => [
                     'ae',
@@ -281,7 +281,7 @@ return [
                     'local.domain.org'
                 ],
                 'browserLanguage' => [
-                    'cn',
+                    'zh',
                 ],
                 'countryBasedOnIp' => [
                     'cn'
