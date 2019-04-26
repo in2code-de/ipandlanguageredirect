@@ -474,6 +474,7 @@ to accept only bugfixes if I can reproduce the issue.
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 2.2.0      | 2019-04-26 | Task       | Support language handling in TYPO3 9, small documentation fixes              |
 | 2.1.0      | 2019-01-10 | Task       | Small cleanup, small text changes                                            |
 | 2.0.0 (!)  | 2018-10-18 | Feature    | Multi domain handling, actionOnHomeOnly, offline ip2geo, stayOnCurrentPage   |
 | 1.8.0      | 2018-08-23 | Task       | Add extension icon, add some documentation                                   |
