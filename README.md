@@ -28,12 +28,12 @@ There is a local table with ip-ranges and countries on the one hand and on the o
 to convert the visitors ip to a countryCode. While the first methods respects all privacy the second method is more current
 of course.
 
-Or: You can combine different methods: Because the service of IpApi is for free for 1000 requests a day, you can use
+Or: You can combine different methods: Because the service of IpApi is for free for 1000 requests a month, you can use
 this and in addition the offline-table variant.
 
 Available classes per default:
 
-* `In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi` - This uses the external service of ipapi.co to convert IP-addresses to a country code. Note: You can set the api key via TypoScript if you want to use more then 1000 requests a day
+* `In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi` - This uses the external service of ipapi.co to convert IP-addresses to a country code. Note: You can set the api key via TypoScript if you want to use more then 1000 requests a month
 * `In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\LocalDatabase` - This uses the local database table `tx_ipandlanguageredirect_domain_model_iptocountry` to convert the ip address to a country - no external service, most privacy
 * `In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApiCom` - This uses the external service of ip-api.com to convert IP-addresses to a country code. Attention: Because https is not possible by this service all request are handled over port 80
 
@@ -153,7 +153,7 @@ return [
                 ]
             ],
 
-            // Build URI to language 2 if browser language is chinese "cn"
+            // Build URI to language 2 if browser language is chinese "zh"
             2 => [
                 'identifier' => 'worldwide_chinese',
                 'domain' => [
@@ -161,7 +161,7 @@ return [
                     'test.domain.org'
                 ],
                 'browserLanguage' => [
-                    'cn'
+                    'zh'
                 ],
                 'countryBasedOnIp' => [
                     '*'
@@ -291,7 +291,8 @@ page {
 		20 = TEXT
 		20 {
 			noTrimWrap = | data-ipandlanguageredirect-languageuid="|"|
-			data = GP:L
+			data = sitelanguage:languageId
+			ifEmpty.data = GP:L
 			intval = 1
 		}
 
@@ -473,6 +474,7 @@ to accept only bugfixes if I can reproduce the issue.
 
 | Version    | Date       | State      | Description                                                                  |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- |
+| 2.2.0      | 2019-04-26 | Task       | Support language handling in TYPO3 9, small documentation fixes              |
 | 2.1.0      | 2019-01-10 | Task       | Small cleanup, small text changes                                            |
 | 2.0.0 (!)  | 2018-10-18 | Feature    | Multi domain handling, actionOnHomeOnly, offline ip2geo, stayOnCurrentPage   |
 | 1.8.0      | 2018-08-23 | Task       | Add extension icon, add some documentation                                   |
