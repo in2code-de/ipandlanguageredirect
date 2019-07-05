@@ -104,6 +104,15 @@ return [
                 'none',
             ],
         ],
+        [
+            // Prvent redirect for google pagespeed access
+            'userAgent' => [
+                'Chrome-Lighthouse'
+            ],
+            'events' => [
+                'none'
+            ]
+        ],
     ],
     'globalConfiguration' => [
         // don't show suggest or redirect on a subpage
@@ -223,7 +232,12 @@ return [
             'referrers' => [
                 'totalMatch' => 7,
                 'wildCardMatch' => 3,
-            ]
+            ],
+            'userAgents' => [
+                'totalMatch' => 7,
+                'wildCardMatch' => 3,
+            ],
+            'pidInRootline' => 9999
         ]
     ]
 ];

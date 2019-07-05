@@ -2,6 +2,7 @@
 namespace In2code\Ipandlanguageredirect\Domain\Model;
 
 use In2code\Ipandlanguageredirect\Utility\PageUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class Action
@@ -24,6 +25,11 @@ class Action
     protected $pidInRootline = [];
 
     /**
+     * @var array
+     */
+    protected $userAgents = [];
+
+    /**
      * @var float
      */
     protected $quantifier = 1.0;
@@ -41,6 +47,9 @@ class Action
         }
         if (array_key_exists('pidInRootline', $configuration)) {
             $this->setPidInRootline($configuration['pidInRootline']);
+        }
+        if (array_key_exists('userAgent', $configuration)) {
+            $this->setUserAgents($configuration['userAgent']);
         }
     }
 
@@ -98,6 +107,23 @@ class Action
     }
 
     /**
+     * @return array
+     */
+    public function getUserAgents()
+    {
+        return $this->userAgents;
+    }
+
+    /**
+     * @param array $userAgents
+     * @return void
+     */
+    public function setUserAgents(array $userAgents)
+    {
+        $this->userAgents = $userAgents;
+    }
+
+    /**
      * @return float
      */
     public function getQuantifier()
@@ -112,10 +138,24 @@ class Action
      */
     public function setQuantifier($referrer, array $rawQuantifierConfiguration)
     {
-        $quantifier = 1;
+        $quantifier = $this->getQuantifierForReferrers($referrer, $rawQuantifierConfiguration, 1);
+        $quantifier = $this->getQuantifierForUserAgent($quantifier, $rawQuantifierConfiguration);
+        $quantifier = $this->getQuantifierForPidInRootline($quantifier, $rawQuantifierConfiguration);
+        $this->quantifier = $quantifier;
+        return $this;
+    }
+
+    /**
+     * @param $referrer
+     * @param array $rawQuantifierConfiguration
+     * @param int $quantifier
+     * @return int
+     */
+    protected function getQuantifierForReferrers($referrer, $rawQuantifierConfiguration, $quantifier)
+    {
         foreach ($this->getReferrers() as $referrerPart) {
             $multiplier = 1;
-            if (stristr($referrer, $referrerPart)) {
+            if (stristr($referrer, $referrerPart) !== false) {
                 // direct match
                 $multiplier = (int)$rawQuantifierConfiguration['actions']['referrers']['totalMatch'];
             } elseif ($referrerPart === '*') {
@@ -126,16 +166,49 @@ class Action
                 $quantifier *= $multiplier;
             }
         }
+        return $quantifier;
+    }
+
+    /**
+     * @param int $quantifier
+     * @param array $rawQuantifierConfiguration
+     * @return int
+     */
+    protected function getQuantifierForUserAgent($quantifier, $rawQuantifierConfiguration)
+    {
+        $visitorUserAgent = GeneralUtility::getIndpEnv('HTTP_USER_AGENT');
+        foreach ($this->getUserAgents() as $userAgentPart) {
+            $multiplier = 1;
+            if (stristr($visitorUserAgent, $userAgentPart) !== false) {
+                // direct match
+                $multiplier = (int)$rawQuantifierConfiguration['actions']['userAgents']['totalMatch'];
+            } elseif ($userAgentPart === '*') {
+                // wildcardmatch
+                $multiplier = (int)$rawQuantifierConfiguration['actions']['userAgents']['wildCardMatch'];
+            }
+            if ($multiplier > 0) {
+                $quantifier *= $multiplier;
+            }
+        }
+        return $quantifier;
+    }
+
+    /**
+     * @param int $quantifier
+     * @param array $rawQuantifierConfiguration
+     * @return int
+     */
+    protected function getQuantifierForPidInRootline($quantifier, $rawQuantifierConfiguration)
+    {
         $pidInRootline = $this->getPidInRootline();
         if (!empty($pidInRootline)) {
             foreach ($pidInRootline as $pid) {
                 if (PageUtility::isInCurrentRootline($pid)) {
-                    $quantifier = 9999;
+                    $quantifier = (int)$rawQuantifierConfiguration['actions']['pidInRootline'];
                     break;
                 }
             }
         }
-        $this->quantifier = $quantifier;
-        return $this;
+        return $quantifier;
     }
 }
