@@ -22,6 +22,25 @@ return [
             'events' => [
                 'suggest'
             ]
+        ],
+        [
+            // Disable redirect for pages inside the given pid
+            'pidInRootline' => [
+                '129',
+                '11',
+            ],
+            'events' => [
+                'none'
+            ]
+        ],
+        [
+            // Disable redirect for google page speed
+            'userAgent' => [
+                'LightHouse'
+            ],
+            'events' => [
+                'none'
+            ]
         ]
     ],
     'globalConfiguration' => [
@@ -298,11 +317,20 @@ return [
             'totalMatch' => 13,
             'wildCardMatch' => 5
         ],
+        'domain' => [
+            'totalMatch' => 10,
+            'wildCardMatch' => 4
+        ],
         'actions' => [
             'referrers' => [
                 'totalMatch' => 7,
                 'wildCardMatch' => 3,
-            ]
+            ],
+            'userAgents' => [
+                'totalMatch' => 7,
+                'wildCardMatch' => 3,
+            ],
+            'pidInRootline' => 9999
         ]
     ]
 ];

@@ -184,7 +184,7 @@ function IpandlanguageredirectFrontend() {
 		if (jsonObject.activated && Array.isArray(jsonObject.events)) {
 			// iterate through events
 			for (var key in jsonObject.events) {
-				if (jsonObject.events.hasOwnProperty(key)) {
+				if (jsonObject.events.hasOwnProperty(key) && jsonObject.events[key] !== '') {
 					that[jsonObject.events[key] + 'Event'](jsonObject);
 				}
 			}
