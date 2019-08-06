@@ -30,9 +30,14 @@ class ConfigurationSet
     protected $rawRedirectConfiguration = [];
 
     /**
+     * @var int
+     */
+    protected $rootpageUid = 0;
+
+    /**
      * @param array $configuration
      */
-    public function __construct(array $configuration)
+    public function __construct(array $configuration, int $rootpageUid)
     {
         $this->rawQuantifierConfiguration = $configuration['quantifier'];
         $this->rawNoMatchingConfiguration = $configuration['noMatchingConfiguration'];
@@ -48,6 +53,7 @@ class ConfigurationSet
                 $this->addConfiguration($configuration);
             }
         }
+        $this->rootpageUid = $rootpageUid;
     }
 
     /**
@@ -107,6 +113,20 @@ class ConfigurationSet
     }
 
     /**
+     * @return Configuration[]
+     */
+    public function getConfigurationsForCurrentRootpageUid(): array
+    {
+        $configurations = $this->configurations;
+        foreach (array_keys($configurations) as $key) {
+            if ($configurations[$key]->getRootPage() !== $this->rootpageUid) {
+                unset($configurations[$key]);
+            }
+        }
+        return $configurations;
+    }
+
+    /**
      * @param Configuration[] $configurations
      * @return ConfigurationSet
      */
@@ -134,7 +154,7 @@ class ConfigurationSet
     public function getBestFittingConfiguration()
     {
         $bestConfiguration = null;
-        foreach ($this->getConfigurations() as $configuration) {
+        foreach ($this->getConfigurationsForCurrentRootpageUid() as $configuration) {
             /** @var Configuration $bestConfiguration */
             if ($bestConfiguration === null || $configuration->getQuantifier() > $bestConfiguration->getQuantifier()) {
                 $bestConfiguration = $configuration;

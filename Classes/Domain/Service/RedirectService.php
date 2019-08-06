@@ -214,7 +214,11 @@ class RedirectService
     protected function getBestConfiguration()
     {
         if ($this->bestConfiguration === null) {
-            $configurationSet = ObjectUtility::getObjectManager()->get(ConfigurationSet::class, $this->configuration);
+            $configurationSet = ObjectUtility::getObjectManager()->get(
+                ConfigurationSet::class,
+                $this->configuration,
+                $this->rootpageUid
+            );
             $configurationSet->calculateQuantifiers($this->browserLanguage, $this->countryCode, $this->domain);
             $bestConfiguration = $configurationSet->getBestFittingConfiguration();
             $this->bestConfiguration = $bestConfiguration;
