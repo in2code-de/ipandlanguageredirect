@@ -468,6 +468,19 @@ Example answer from your server:
   * A1: See part testing
   * Q2: Where can I see which parameters are send and received via AJAX?
   * A2: Open your browser console and check the post request to ?type=1555 - check the parameters or answers
+* Typenum will not work
+  * Q1: In TYPO3 9 or higher my requests won't work - what can I do?
+  * Q1: You have to define the used type param in your routing configuration (see following example)
+
+Routing example:
+
+```
+routeEnhancers:
+    PageTypeSuffix:
+        type: PageType
+        map:
+            redirect.json: 1555
+```
 
 ## Your Contribution
 
