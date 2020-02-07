@@ -15,7 +15,6 @@
     "typo3/cms-core": ">=8.7.0 <9.6.0"
   },
   "replace": {
-    "ipandlanguageredirect": "self.version",
     "typo3-ter/ipandlanguageredirect": "self.version"
   },
   "autoload": {
