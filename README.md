@@ -468,6 +468,19 @@ Example answer from your server:
   * A1: See part testing
   * Q2: Where can I see which parameters are send and received via AJAX?
   * A2: Open your browser console and check the post request to ?type=1555 - check the parameters or answers
+* Typenum will not work
+  * Q1: In TYPO3 9 or higher my requests won't work - what can I do?
+  * Q1: You have to define the used type param in your routing configuration (see following example)
+
+Routing example:
+
+```
+routeEnhancers:
+    PageTypeSuffix:
+        type: PageType
+        map:
+            redirect.json: 1555
+```
 
 ## Your Contribution
 
@@ -488,6 +501,7 @@ to accept only bugfixes if I can reproduce the issue.
 
 | Version    | Date       | State      | Description                                                                  | Note                      |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- | ------------------------- |
+| 3.1.0      | 2020-02-07 | Task       | Small update: Move ext icon to Public, clean composer.json, doc update       |                           |
 | 3.0.1      | 2019-08-06 | Bugfix     | Don't use a configuration of a wrong rootpage                                |                           |
 | 3.0.0 (!)  | 2019-07-05 | Feature    | Do actions based on user agent (disable redirect for google page speed)      | Update your configuration |
 | 2.2.0      | 2019-04-26 | Task       | Support language handling in TYPO3 9, small documentation fixes              |                           |
