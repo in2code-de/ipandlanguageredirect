@@ -10,7 +10,7 @@
  * writing. "version" and "dependencies" must not be touched!
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = [
+$EM_CONF['ipandlanguageredirect'] = [
     'title' => 'ipandlanguageredirect',
     'description' => 'TYPO3 extension to redirect a user based on location and browser language.',
     'category' => 'plugin',
@@ -34,7 +34,7 @@ $EM_CONF[$_EXTKEY] = [
     'CGLcompliance_note' => '',
     'constraints' => [
         'depends' => [
-            'typo3' => '8.7.0-9.5.99',
+            'typo3' => '8.7.0-10.99.99',
             'php' => '7.0.0-7.3.99'
         ],
         'conflicts' => [],
