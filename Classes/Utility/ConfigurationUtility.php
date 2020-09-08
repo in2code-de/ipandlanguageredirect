@@ -1,6 +1,7 @@
 <?php
 namespace In2code\Ipandlanguageredirect\Utility;
 
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -29,10 +30,11 @@ class ConfigurationUtility
     public static function getExtensionConfiguration($path = '')
     {
         $configVariables = self::getTypo3ConfigurationVariables();
-        $configuration = unserialize($configVariables['EXT']['extConf']['ipandlanguageredirect']);
+        $configuration = '';
+
         if (!empty($path)) {
             try {
-                $configuration = ArrayUtility::getValueByPath($configuration, $path, '.');
+                $configuration = $configVariables[$path];
             } catch (\Exception $exception) {
                 return '';
             }
@@ -61,6 +63,6 @@ class ConfigurationUtility
      */
     protected static function getTypo3ConfigurationVariables()
     {
-        return $GLOBALS['TYPO3_CONF_VARS'];
+        return GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('ipandlanguageredirect');
     }
 }
