@@ -2,6 +2,7 @@
 namespace In2code\Ipandlanguageredirect\Utility;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
@@ -18,8 +19,7 @@ class PageUtility
      */
     public static function isInCurrentRootline($pid)
     {
-        $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
-        $rootline = $pageRepository->getRootLine(ObjectUtility::getTyposcriptFrontendController()->id);
+        $rootline = GeneralUtility::makeInstance(RootlineUtility::class, ObjectUtility::getTyposcriptFrontendController()->id)->get();
         foreach ($rootline as $page) {
             if ($page['uid'] === $pid) {
                 return true;
