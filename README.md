@@ -19,7 +19,7 @@ Automaticly **redirect** or **show a note** for the visitor to give him the best
 ### Screens
 
 Example suggest message in frontend:
-<img src="https://box.everhelper.me/attachment/646846/84725fb7-0b3e-4c40-b52e-29d7620777bb/262407-wlKVfm63J1ZcviVA/screen.png" />
+![Suggest a language](Documentation/Images/screenshot-frontend-suggest.png "Suggest a language")
 
 ### Which way is used to get the country code of the user?
 
@@ -501,6 +501,7 @@ to accept only bugfixes if I can reproduce the issue.
 
 | Version    | Date       | State      | Description                                                                  | Note                      |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- | ------------------------- |
+| 4.0.0      | 2020-12-31 | Task       | Update for TYPO3 9 and 10                                                    |                           |
 | 3.1.0      | 2020-02-07 | Task       | Small update: Move ext icon to Public, clean composer.json, doc update       |                           |
 | 3.0.1      | 2019-08-06 | Bugfix     | Don't use a configuration of a wrong rootpage                                |                           |
 | 3.0.0 (!)  | 2019-07-05 | Feature    | Do actions based on user agent (disable redirect for google page speed)      | Update your configuration |
