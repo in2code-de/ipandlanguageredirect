@@ -2,7 +2,6 @@
 namespace In2code\Ipandlanguageredirect\Utility;
 
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -45,7 +44,7 @@ class ConfigurationUtility
     /**
      * @return string
      */
-    protected static function getConfigurationLocation()
+    protected static function getConfigurationLocation(): string
     {
         $location = self::CONFIGURATION_PATH;
         $configuredLocation = self::getExtensionConfiguration('configurationFilePath');
@@ -56,13 +55,10 @@ class ConfigurationUtility
     }
 
     /**
-     * Get extension configuration from LocalConfiguration.php
-     *
      * @return array
-     * @SuppressWarnings(PHPMD.Superglobals)
      */
-    protected static function getTypo3ConfigurationVariables()
+    protected static function getTypo3ConfigurationVariables(): array
     {
-        return GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('ipandlanguageredirect');
+        return (array)GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('ipandlanguageredirect');
     }
 }
