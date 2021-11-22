@@ -6,7 +6,9 @@
   "authors": [
     {
       "name": "Alex Kellner",
-      "email": "alexander.kellner@in2code.de"
+      "email": "alexander.kellner@in2code.de",
+      "role": "Product owner",
+      "homepage": "https://www.in2code.de"
     }
   ],
   "type": "typo3-cms-extension",
@@ -20,6 +22,11 @@
   "autoload": {
     "psr-4": {
       "In2code\\Ipandlanguageredirect\\": "Classes/"
+    }
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "ipandlanguageredirect"
     }
   }
 }
