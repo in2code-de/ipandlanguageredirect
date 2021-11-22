@@ -501,6 +501,7 @@ to accept only bugfixes if I can reproduce the issue.
 
 | Version    | Date       | State      | Description                                                                  | Note                      |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- | ------------------------- |
+| 4.0.1      | 2021-11-22 | Task       | Define extension key in composer.json file                                   |                           |
 | 4.0.0      | 2020-12-31 | Task       | Update for TYPO3 9 and 10                                                    |                           |
 | 3.1.0      | 2020-02-07 | Task       | Small update: Move ext icon to Public, clean composer.json, doc update       |                           |
 | 3.0.1      | 2019-08-06 | Bugfix     | Don't use a configuration of a wrong rootpage                                |                           |
