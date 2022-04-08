@@ -501,6 +501,7 @@ to accept only bugfixes if I can reproduce the issue.
 
 | Version    | Date       | State      | Description                                                                  | Note                      |
 | ---------- | ---------- | ---------- | ---------------------------------------------------------------------------- | ------------------------- |
+| 5.0.0      | 2022-04-08 | Task       | Update for TYPO3 11 (9 and 10 support is dropped now)                        |                           |
 | 4.0.1      | 2021-11-22 | Task       | Define extension key in composer.json file                                   |                           |
 | 4.0.0      | 2020-12-31 | Task       | Update for TYPO3 9 and 10                                                    |                           |
 | 3.1.0      | 2020-02-07 | Task       | Small update: Move ext icon to Public, clean composer.json, doc update       |                           |
