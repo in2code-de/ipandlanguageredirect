@@ -1,0 +1,139 @@
+plugin.tx_ipandlanguageredirect {
+    view {
+        templateRootPaths {
+            0 = EXT:ipandlanguageredirect/Resources/Private/Templates/
+            1 = {$plugin.tx_ipandlanguageredirect.view.templateRootPath}
+        }
+    }
+    features.requireCHashArgumentForActionArguments = 0
+
+    settings {
+        # Add configuration to your IpToCountry service classes
+        ipToCountry {
+            In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi {
+                # IpApi Key: Please enter your key for ipapi.co (optional), otherwise extension will have limited access to the service (less then 1000 visitors a day). See ipapi.co for details.
+                ipApiKey = 
+            }
+        }
+    }
+}
+
+page {
+    includeJSFooter.ipandlanguageredirect = EXT:ipandlanguageredirect/Resources/Public/JavaScripts/Frontend.min.js
+    includeCSS.ipandlanguageredirect = EXT:ipandlanguageredirect/Resources/Public/Css/Frontend.min.css
+
+    # Suggest container that can be slided down
+    5 = USER
+    5 {
+        userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+        extensionName = Ipandlanguageredirect
+        pluginName = Pi1
+        vendorName = In2code
+        controller = Redirect
+        action = suggest
+        switchableControllerActions.Redirect.1 = suggest
+    }
+    # Container for informations that will be send to an AJAX service
+    1555 = COA
+    1555 {
+        wrap = <script id="ipandlanguageredirect_container"|></script>
+
+        # Uri to send AJAX request to
+        10 = TEXT
+        10 {
+            noTrimWrap = | data-ipandlanguageredirect-ajaxuri="|"|
+            typolink {
+                parameter.data = TSFE:id
+                additionalParams = &type=1555
+                returnLast = url
+                forceAbsoluteUrl = 1
+            }
+        }
+        # FE language
+        20 = TEXT
+        20 {
+            noTrimWrap = | data-ipandlanguageredirect-languageuid="|"|
+            data = sitelanguage:languageId
+            ifEmpty.data = GP:L
+            intval = 1
+        }
+        # Root page uid
+        30 = TEXT
+        30 {
+            noTrimWrap = | data-ipandlanguageredirect-rootpageuid="|"|
+            data = leveluid:0
+        }
+        # Fake browser language for testing - e.g. &tx_ipandlanguageredirect_pi1[browserLanguage]=en
+        40 = TEXT
+        40 {
+            noTrimWrap = | data-ipandlanguageredirect-browserlanguage="|"|
+            data = GP:tx_ipandlanguageredirect_pi1|browserLanguage
+            htmlSpecialChars = 1
+            required = 1
+        }
+        # Fake ip-address for testing - e.g. &tx_ipandlanguageredirect_pi1[ipAddress]=66.85.131.18 (USA)
+        50 = TEXT
+        50 {
+            noTrimWrap = | data-ipandlanguageredirect-ipaddress="|"|
+            data = GP:tx_ipandlanguageredirect_pi1|ipAddress
+            htmlSpecialChars = 1
+            required = 1
+        }
+        # Fake country for testing (overlays ip-address) - e.g. &tx_ipandlanguageredirect_pi1[countryCode]=us (USA)
+        60 = TEXT
+        60 {
+            noTrimWrap = | data-ipandlanguageredirect-countrycode="|"|
+            data = GP:tx_ipandlanguageredirect_pi1|countryCode
+            htmlSpecialChars = 1
+            required = 1
+        }
+        # Fake referrer for testing - e.g. &tx_ipandlanguageredirect_pi1[referrer]=www.google.de
+        70 = TEXT
+        70 {
+            noTrimWrap = | data-ipandlanguageredirect-referrer="|"|
+            data = GP:tx_ipandlanguageredirect_pi1|referrer
+            htmlSpecialChars = 1
+            required = 1
+        }
+        # Fake domain for testing - e.g. &tx_ipandlanguageredirect_pi1[domain]=www.production.org
+        80 = TEXT
+        80 {
+            noTrimWrap = | data-ipandlanguageredirect-domain="|"|
+            data = GP:tx_ipandlanguageredirect_pi1|domain
+            htmlSpecialChars = 1
+            required = 1
+        }
+    }
+}
+
+# AJAX types
+redirectAjax = PAGE
+redirectAjax {
+    typeNum = 1555
+    config {
+        additionalHeaders.10.header = Content-Type: application/json
+        additionalHeaders.10.header = Content-Type: application/json
+        no_cache = 1
+        disableAllHeaderCode = 1
+        disablePrefixComment = 1
+        xhtml_cleaning = 0
+        admPanel = 0
+        debug = 0
+    }
+    10 = USER
+    10 {
+        userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+        extensionName = Ipandlanguageredirect
+        pluginName = Pi1
+        vendorName = In2code
+        controller = Redirect
+        action = redirect
+        switchableControllerActions.Redirect.1 = redirect
+    }
+}
+testAjax < redirectAjax
+testAjax {
+    typeNum = 1556
+    10.action = test
+    10.switchableControllerActions.Redirect.1 = test
+}
