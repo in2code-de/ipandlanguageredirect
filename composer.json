@@ -14,7 +14,7 @@
   "type": "typo3-cms-extension",
   "license": "GPL-2.0-or-later",
   "require": {
-    "typo3/cms-core": "^9.5 || ^10.4"
+    "typo3/cms-core": "^11.5"
   },
   "replace": {
     "typo3-ter/ipandlanguageredirect": "self.version"

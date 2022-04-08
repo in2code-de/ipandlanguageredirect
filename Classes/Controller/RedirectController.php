@@ -2,6 +2,7 @@
 
 namespace In2code\Ipandlanguageredirect\Controller;
 
+use Psr\Http\Message\ResponseInterface;
 use In2code\Ipandlanguageredirect\Domain\Service\RedirectService;
 use In2code\Ipandlanguageredirect\Utility\FrontendUtility;
 use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
@@ -76,7 +77,7 @@ class RedirectController extends ActionController
         int $rootpageUid = 1,
         string $countryCode = '',
         string $domain = ''
-    ) {
+    ): ResponseInterface {
         /** @noinspection PhpMethodParametersCountMismatchInspection */
         $redirectService = $this->objectManager->get(
             RedirectService::class,
@@ -88,7 +89,7 @@ class RedirectController extends ActionController
             $countryCode,
             $domain
         );
-        return json_encode($redirectService->buildParameters());
+        return $this->jsonResponse(json_encode($redirectService->buildParameters()));
     }
 
     /**
@@ -98,7 +99,7 @@ class RedirectController extends ActionController
      * @param int $set
      * @return void
      */
-    public function testAction($set = 0)
+    public function testAction($set = 0): ResponseInterface
     {
         $configuration = [
             'parameter' => ObjectUtility::getTyposcriptFrontendController()->id,
@@ -107,6 +108,7 @@ class RedirectController extends ActionController
         ];
         $uri = ObjectUtility::getContentObject()->typoLink_URL($configuration);
         HttpUtility::redirect($uri, HttpUtility::HTTP_STATUS_307);
+        return $this->htmlResponse();
     }
 
     /**
@@ -114,7 +116,8 @@ class RedirectController extends ActionController
      *
      * @return void
      */
-    public function suggestAction()
+    public function suggestAction(): ResponseInterface
     {
+        return $this->htmlResponse();
     }
 }
