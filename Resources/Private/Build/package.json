@@ -18,5 +18,10 @@
     "stylelint-config-standard-scss": "^4.0.0",
     "stylelint-scss": "^4.3.0",
     "stylelint-use-logical": "^2.0.0"
+  },
+  "scripts": {
+    "build:--": "---------------------------------------------------------------------------------------",
+    "build:all": "gulp buildAll",
+    "build:watch": "gulp watchAll"
   }
 }
