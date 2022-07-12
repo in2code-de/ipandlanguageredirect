@@ -1,11 +1,16 @@
+:root {
+  --ipandlanguageredirect-backgroundcolor: #FF9900;
+  --ipandlanguageredirect-color: #FFFFFF;
+  --ipandlanguageredirect-innerspacing: 1rem;
+  --ipandlanguageredirect-maxheight: 300px;
+  --ipandlanguageredirect-buttonspacing: 0.5rem;
+}
+
 .ipandlanguageredirect {
-  background: #ff9900;
-  color: white;
+  background: var(--ipandlanguageredirect-backgroundcolor);
+  color: var(--ipandlanguageredirect-color);
   list-style: none;
-  margin: {
-    top: 0;
-    bottom: 0;
-  };
+  margin-block: 0;
   text-align: center;
 
   /**
@@ -14,23 +19,25 @@
    */
   max-height: 0;
   overflow: hidden;
-  transition: max-height .1s ease-out;
+  transition: max-height 0.1s ease-out;
+
   // This class will be set by the extensions JavaScript, so the name is fixed.
   &.fadein {
-    max-height: 300px;
-    padding: 15px;
-    transition: max-height .8s ease-in;
+    max-height: var(--ipandlanguageredirect-maxheight);
+    padding: var(--ipandlanguageredirect-innerspacing);
+    transition: max-height 0.8s ease-in;
   }
 
   &__item {
     display: block;
 
-    &--first {
+    &:not(:last-child) {
+
       &::after {
-        border-bottom: 1px solid white;
+        border-block-end: 1px solid currentcolor;
         content: '';
         display: block;
-        margin: 15px auto;
+        margin: 1rem auto;
         width: 25%;
       }
     }
@@ -39,16 +46,14 @@
   &__button {
     background-color: transparent;
     border: 0;
-    color: white;
-    font-size: 16px;
-    outline: none;
+    color: currentcolor;
     padding: 0;
     text-decoration: none;
 
     &:visited,
     &:hover,
     &:active {
-      color: white;
+      color: currentcolor;
     }
 
     &:hover {
@@ -56,22 +61,19 @@
       text-decoration: underline;
     }
   }
-}
 
-@media (min-width: 680px) {
-  .ipandlanguageredirect {
+  @media (min-width: 680px) {
+    display: flex;
+    justify-content: center;
+
     &__item {
-      display: inline;
+      padding-inline: var(--ipandlanguageredirect-buttonspacing);
 
-      &--first {
+      &:not(:last-child) {
+        border-inline-end: 1px solid currentcolor;
+
         &::after {
-          border: {
-            right: 1px solid white;
-            bottom: 0;
-          };
-          display: inline;
-          margin: 0 15px;
-          width: auto;
+          display: none;
         }
       }
     }
