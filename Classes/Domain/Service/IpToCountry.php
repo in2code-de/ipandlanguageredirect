@@ -79,6 +79,6 @@ class IpToCountry
     protected function logFailingOfCountryCode(string $class, \Exception $exception)
     {
         $logger = ObjectUtility::getLogger($class);
-        $logger->warning('Executing of class failed', [$exception->getMessage()]);
+        $logger->debug('Executing of class failed', [$exception->getMessage()]);
     }
 }
