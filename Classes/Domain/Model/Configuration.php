@@ -49,12 +49,12 @@ class Configuration
      */
     public function __construct(int $rootPage, int $languageParameter, array $setConfiguration)
     {
-        $this->setIdentifier($setConfiguration['identifier']);
+        $this->setIdentifier($setConfiguration['identifier'] ?? '');
         $this->setRootPage($rootPage);
         $this->setLanguageParameter($languageParameter);
-        $this->setBrowserLanguages((array)$setConfiguration['browserLanguage']);
-        $this->setCountries((array)$setConfiguration['countryBasedOnIp']);
-        $this->setDomains((array)$setConfiguration['domain']);
+        $this->setBrowserLanguages($setConfiguration['browserLanguage'] ?? []);
+        $this->setCountries($setConfiguration['countryBasedOnIp'] ?? []);
+        $this->setDomains($setConfiguration['domain'] ?? []);
     }
 
     /**
