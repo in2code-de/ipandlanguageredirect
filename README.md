@@ -499,35 +499,36 @@ to accept only bugfixes if I can reproduce the issue.
 
 ## Changelog
 
-| Version    | Date       | State   | Description                                                                | Note                      |
-|------------|------------|---------|----------------------------------------------------------------------------| ------------------------- |
-| 5.1.1      | 2023-02-07 | Bugfix  | Fixed undefined array key exception in PHP 8                               |                           |
-| 5.1.0      | 2022-07-12 | Task    | Css and frontend toolchain update                                          |                           |
-| 5.0.0      | 2022-04-08 | Task    | Update for TYPO3 11 (9 and 10 support is dropped now)                      |                           |
-| 4.0.1      | 2021-11-22 | Task    | Define extension key in composer.json file                                 |                           |
-| 4.0.0      | 2020-12-31 | Task    | Update for TYPO3 9 and 10                                                  |                           |
-| 3.1.0      | 2020-02-07 | Task    | Small update: Move ext icon to Public, clean composer.json, doc update     |                           |
-| 3.0.1      | 2019-08-06 | Bugfix  | Don't use a configuration of a wrong rootpage                              |                           |
-| 3.0.0 !!!  | 2019-07-05 | Feature | Do actions based on user agent (disable redirect for google page speed)    | Update your configuration |
-| 2.2.0      | 2019-04-26 | Task    | Support language handling in TYPO3 9, small documentation fixes            |                           |
-| 2.1.0      | 2019-01-10 | Task    | Small cleanup, small text changes                                          |                           |
-| 2.0.0 !!!  | 2018-10-18 | Feature | Multi domain handling, actionOnHomeOnly, offline ip2geo, stayOnCurrentPage | Update your configuration |
-| 1.8.0      | 2018-08-23 | Task    | Add extension icon, add some documentation                                 |                           |
-| 1.7.2      | 2018-01-21 | Task    | Allow ipapi key now without &key=                                          |                           |
-| 1.7.1      | 2018-01-16 | Bugfix  | Don't send "null" for an IP-address value if not testvalue is given        |                           |
-| 1.7.0      | 2017-09-25 | Feature | Support paid variant of IpApi.co for more then 1000 visitors a day         |                           |
-| 1.6.4      | 2017-08-11 | Bugfix  | Fix header output in TYPO3 8                                               |                           |
-| 1.6.3      | 2017-07-28 | Bugfix  | Disable cHash check for AJAX requests in T3 8                              |                           |
-| 1.6.2      | 2017-07-12 | Bugfix  | Fix small typo in composer.json                                            |                           |
-| 1.6.1      | 2017-04-12 | Bugfix  | Fix getting browserlanguage from chrome                                    |                           |
-| 1.6.0      | 2017-02-04 | Feature | Redirection should be only once in a session                               |                           |
-| 1.5.3      | 2017-02-01 | Bugfix  | Make code readable for PHP 5.5                                             |                           |
-| 1.5.2      | 2017-01-31 | Task    | Remove unused typoscript                                                   |                           |
-| 1.5.1      | 2017-01-26 | Bugfix  | Avoid JS exception if state == none                                        |                           |
-| 1.5.0      | 2017-01-25 | Feature | New option to disable functions for a pagetree                             |                           |
-| 1.4.1      | 2016-11-15 | Task    | Semantic code cleanup for HTML and CSS                                     |                           |
-| 1.4.0      | 2016-11-15 | Feature | Semantic code cleanup for HTML and CSS                                     |                           |
-| 1.3.0      | 2016-11-07 | Feature | Hide suggest message on GET parameter                                      |                           |
-| 1.2.0      | 2016-11-03 | Feature | Allow hideMessage on multi-links now                                       |                           |
-| 1.1.0      | 2016-11-01 | Feature | Add testing features                                                       |                           |
-| 1.0.0      | 2016-11-01 | Initial | Initial release                                                            |                           |
+| Version   | Date       | State    | Description                                                                | Note                      |
+|-----------|------------|----------|----------------------------------------------------------------------------|---------------------------|
+| 5.1.2     | 2023-06-12 | Security | Fix a possible SQL injection                                               |                           |
+| 5.1.1     | 2023-02-07 | Bugfix   | Fixed undefined array key exception in PHP 8                               |                           |
+| 5.1.0     | 2022-07-12 | Task     | Css and frontend toolchain update                                          |                           |
+| 5.0.0     | 2022-04-08 | Task     | Update for TYPO3 11 (9 and 10 support is dropped now)                      |                           |
+| 4.0.1     | 2021-11-22 | Task     | Define extension key in composer.json file                                 |                           |
+| 4.0.0     | 2020-12-31 | Task     | Update for TYPO3 9 and 10                                                  |                           |
+| 3.1.0     | 2020-02-07 | Task     | Small update: Move ext icon to Public, clean composer.json, doc update     |                           |
+| 3.0.1     | 2019-08-06 | Bugfix   | Don't use a configuration of a wrong rootpage                              |                           |
+| 3.0.0 !!! | 2019-07-05 | Feature  | Do actions based on user agent (disable redirect for google page speed)    | Update your configuration |
+| 2.2.0     | 2019-04-26 | Task     | Support language handling in TYPO3 9, small documentation fixes            |                           |
+| 2.1.0     | 2019-01-10 | Task     | Small cleanup, small text changes                                          |                           |
+| 2.0.0 !!! | 2018-10-18 | Feature  | Multi domain handling, actionOnHomeOnly, offline ip2geo, stayOnCurrentPage | Update your configuration |
+| 1.8.0     | 2018-08-23 | Task     | Add extension icon, add some documentation                                 |                           |
+| 1.7.2     | 2018-01-21 | Task     | Allow ipapi key now without &key=                                          |                           |
+| 1.7.1     | 2018-01-16 | Bugfix   | Don't send "null" for an IP-address value if not testvalue is given        |                           |
+| 1.7.0     | 2017-09-25 | Feature  | Support paid variant of IpApi.co for more then 1000 visitors a day         |                           |
+| 1.6.4     | 2017-08-11 | Bugfix   | Fix header output in TYPO3 8                                               |                           |
+| 1.6.3     | 2017-07-28 | Bugfix   | Disable cHash check for AJAX requests in T3 8                              |                           |
+| 1.6.2     | 2017-07-12 | Bugfix   | Fix small typo in composer.json                                            |                           |
+| 1.6.1     | 2017-04-12 | Bugfix   | Fix getting browserlanguage from chrome                                    |                           |
+| 1.6.0     | 2017-02-04 | Feature  | Redirection should be only once in a session                               |                           |
+| 1.5.3     | 2017-02-01 | Bugfix   | Make code readable for PHP 5.5                                             |                           |
+| 1.5.2     | 2017-01-31 | Task     | Remove unused typoscript                                                   |                           |
+| 1.5.1     | 2017-01-26 | Bugfix   | Avoid JS exception if state == none                                        |                           |
+| 1.5.0     | 2017-01-25 | Feature  | New option to disable functions for a pagetree                             |                           |
+| 1.4.1     | 2016-11-15 | Task     | Semantic code cleanup for HTML and CSS                                     |                           |
+| 1.4.0     | 2016-11-15 | Feature  | Semantic code cleanup for HTML and CSS                                     |                           |
+| 1.3.0     | 2016-11-07 | Feature  | Hide suggest message on GET parameter                                      |                           |
+| 1.2.0     | 2016-11-03 | Feature  | Allow hideMessage on multi-links now                                       |                           |
+| 1.1.0     | 2016-11-01 | Feature  | Add testing features                                                       |                           |
+| 1.0.0     | 2016-11-01 | Initial  | Initial release                                                            |                           |
