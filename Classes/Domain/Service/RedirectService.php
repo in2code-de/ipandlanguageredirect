@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Ipandlanguageredirect\Domain\Service;
 
 use In2code\Ipandlanguageredirect\Domain\Model\ActionSet;
@@ -6,8 +7,6 @@ use In2code\Ipandlanguageredirect\Domain\Model\Configuration;
 use In2code\Ipandlanguageredirect\Domain\Model\ConfigurationSet;
 use In2code\Ipandlanguageredirect\Utility\ConfigurationUtility;
 use In2code\Ipandlanguageredirect\Utility\FrontendUtility;
-use In2code\Ipandlanguageredirect\Utility\IpUtility;
-use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 
@@ -16,7 +15,6 @@ use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
  */
 class RedirectService
 {
-
     /**
      * Redirect configuration
      *
@@ -77,14 +75,14 @@ class RedirectService
     protected $activated = true;
 
     /**
-     * @var null|Configuration
+     * @var Configuration|null
      */
-    protected $bestConfiguration = null;
+    protected $bestConfiguration;
 
     /**
-     * @var null|array
+     * @var array|null
      */
-    protected $bestEvents = null;
+    protected $bestEvents;
 
     /**
      * @var bool
@@ -129,7 +127,7 @@ class RedirectService
         $this->rootpageUid = $rootpageUid;
         $this->countryCodeOverlay = $countryCode;
         if ($this->countryCodeOverlay === '') {
-            $ipToCountry = ObjectUtility::getObjectManager()->get(IpToCountry::class);
+            $ipToCountry = GeneralUtility::makeInstance(IpToCountry::class);
             $this->countryCode = $ipToCountry->getCountryFromIp($ipAddress);
         } else {
             $this->countryCode = $this->countryCodeOverlay;
@@ -214,7 +212,7 @@ class RedirectService
     protected function getBestConfiguration()
     {
         if ($this->bestConfiguration === null) {
-            $configurationSet = ObjectUtility::getObjectManager()->get(
+            $configurationSet = GeneralUtility::makeInstance(
                 ConfigurationSet::class,
                 $this->configuration,
                 $this->rootpageUid
@@ -238,7 +236,7 @@ class RedirectService
      */
     protected function getUriToPageAndLanguage($pageIdentifier = 0, $languageParameter = 0): string
     {
-        $uriBuilder = ObjectUtility::getObjectManager()->get(UriBuilder::class);
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
         $uriBuilder->setTargetPageUid($this->getTargetPageForUriCreation($pageIdentifier));
         $uriBuilder->setCreateAbsoluteUri(true);
         $uriBuilder->setArguments([$this->languageParameter => $languageParameter]);
@@ -251,7 +249,7 @@ class RedirectService
     protected function getEvents()
     {
         if ($this->bestEvents === null) {
-            $actionSet = ObjectUtility::getObjectManager()->get(ActionSet::class, $this->configuration);
+            $actionSet = GeneralUtility::makeInstance(ActionSet::class, $this->configuration);
             $actionSet->calculateQuantifiers($this->referrer);
             $events = $actionSet->getEvents();
         } else {
@@ -284,7 +282,7 @@ class RedirectService
      *      - AND if event handling is not turned off
      *      - AND if actionOnHomeOnly is fullfilled
      *
-     * @return boolean
+     * @return bool
      */
     protected function isActivated(): bool
     {

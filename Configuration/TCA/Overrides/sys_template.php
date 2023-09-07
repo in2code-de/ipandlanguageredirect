@@ -1,5 +1,4 @@
 <?php
-defined('TYPO3') || die();
 
 /**
  * Add TypoScript Static Template

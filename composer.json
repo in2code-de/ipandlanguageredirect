@@ -1,4 +1,5 @@
 {
+	"version": "6.0.0",
   "name": "in2code/ipandlanguageredirect",
   "description": "Redirects TYPO3 visitors automatic or with a suggestlink to another language and/or root page.",
   "keywords": ["typo3", "redirect", "ip address", "browserlanguage"],
@@ -14,7 +15,7 @@
   "type": "typo3-cms-extension",
   "license": "GPL-2.0-or-later",
   "require": {
-    "typo3/cms-core": "^11.5"
+    "typo3/cms-core": "^11.5 || ^12.4"
   },
   "replace": {
     "typo3-ter/ipandlanguageredirect": "self.version"

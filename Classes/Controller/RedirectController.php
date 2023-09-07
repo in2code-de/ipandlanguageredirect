@@ -2,10 +2,10 @@
 
 namespace In2code\Ipandlanguageredirect\Controller;
 
-use Psr\Http\Message\ResponseInterface;
 use In2code\Ipandlanguageredirect\Domain\Service\RedirectService;
 use In2code\Ipandlanguageredirect\Utility\FrontendUtility;
 use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -16,7 +16,6 @@ use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
  */
 class RedirectController extends ActionController
 {
-
     /**
      * @var array
      */
@@ -46,7 +45,7 @@ class RedirectController extends ActionController
     {
         $arguments = $this->request->getArguments();
         if (empty($arguments['ipAddress'])) {
-            $this->request->setArgument('ipAddress', GeneralUtility::getIndpEnv('REMOTE_ADDR'));
+            $this->request = $this->request->withArgument('ipAddress', GeneralUtility::getIndpEnv('REMOTE_ADDR'));
         }
     }
 
@@ -78,8 +77,7 @@ class RedirectController extends ActionController
         string $countryCode = '',
         string $domain = ''
     ): ResponseInterface {
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
-        $redirectService = $this->objectManager->get(
+        $redirectService = GeneralUtility::makeInstance(
             RedirectService::class,
             $browserLanguage,
             $referrer,
@@ -97,7 +95,6 @@ class RedirectController extends ActionController
      *      call index.php?id=2&type=1556&tx_ipandlanguageredirect_pi1[set]=1
      *
      * @param int $set
-     * @return void
      */
     public function testAction($set = 0): ResponseInterface
     {
@@ -107,14 +104,11 @@ class RedirectController extends ActionController
                 FrontendUtility::getParametersStringFromArray($this->testArguments[$set]) . '&type=1555'
         ];
         $uri = ObjectUtility::getContentObject()->typoLink_URL($configuration);
-        HttpUtility::redirect($uri, HttpUtility::HTTP_STATUS_307);
-        return $this->htmlResponse();
+        return $this->redirect($uri, null, null, null, null, null, HttpUtility::HTTP_STATUS_307);
     }
 
     /**
      * Render a suggest container that can be slided down in FE
-     *
-     * @return void
      */
     public function suggestAction(): ResponseInterface
     {

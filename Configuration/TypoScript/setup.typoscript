@@ -1,5 +1,6 @@
 plugin.tx_ipandlanguageredirect {
     view {
+        pluginNamespace = tx_ipandlanguageredirect_pi1
         templateRootPaths {
             0 = EXT:ipandlanguageredirect/Resources/Private/Templates/
             1 = {$plugin.tx_ipandlanguageredirect.view.templateRootPath}
@@ -12,7 +13,7 @@ plugin.tx_ipandlanguageredirect {
         ipToCountry {
             In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpApi {
                 # IpApi Key: Please enter your key for ipapi.co (optional), otherwise extension will have limited access to the service (less then 1000 visitors a day). See ipapi.co for details.
-                ipApiKey = 
+                ipApiKey =
             }
         }
     }
@@ -27,11 +28,10 @@ page {
     5 {
         userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
         extensionName = Ipandlanguageredirect
-        pluginName = Pi1
+        pluginName = Suggest
         vendorName = In2code
         controller = Redirect
         action = suggest
-        switchableControllerActions.Redirect.1 = suggest
     }
     # Container for informations that will be send to an AJAX service
     1555 = COA
@@ -124,16 +124,18 @@ redirectAjax {
     10 {
         userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
         extensionName = Ipandlanguageredirect
-        pluginName = Pi1
+        pluginName = Redirect
         vendorName = In2code
         controller = Redirect
         action = redirect
-        switchableControllerActions.Redirect.1 = redirect
     }
 }
+
 testAjax < redirectAjax
 testAjax {
     typeNum = 1556
-    10.action = test
-    10.switchableControllerActions.Redirect.1 = test
+    10 {
+      pluginName = Test
+      action = test
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Ipandlanguageredirect\Utility;
 
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
