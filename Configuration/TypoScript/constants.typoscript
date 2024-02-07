@@ -1,6 +1,6 @@
 plugin.tx_ipandlanguageredirect {
-	view {
-		# cat=main/file/0000; type=string; label= Path to template root (FE)
-		templateRootPath = EXT:ipandlanguageredirect/Resources/Private/Templates/
-	}
+  view {
+    # cat=main/file/0000; type=string; label= Path to template root (FE)
+    templateRootPath = EXT:ipandlanguageredirect/Resources/Private/Templates/
+  }
 }
