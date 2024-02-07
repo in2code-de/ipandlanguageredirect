@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Ipandlanguageredirect\Domain\Service;
 
 use In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpToCountryInterface;
@@ -63,12 +64,11 @@ class IpToCountry
                 }
             }
             return $classes;
-        } else {
-            throw new \UnexpectedValueException(
-                'No IpToCountryService classes given. Pls check your settings in the extension manager',
-                1539859385
-            );
         }
+        throw new \UnexpectedValueException(
+            'No IpToCountryService classes given. Pls check your settings in the extension manager',
+            1539859385
+        );
     }
 
     /**

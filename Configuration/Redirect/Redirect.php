@@ -1,4 +1,5 @@
 <?php
+
 return [
     'actions' => [
         [
@@ -12,16 +13,16 @@ return [
                 'links.playground.localhost.de',
             ],
             'events' => [
-                'redirect'
-            ]
+                'redirect',
+            ],
         ],
         [
             'referrers' => [
-                '*'
+                '*',
             ],
             'events' => [
-                'suggest'
-            ]
+                'suggest',
+            ],
         ],
         [
             // Disable redirect for pages inside the given pid
@@ -30,29 +31,29 @@ return [
                 '11',
             ],
             'events' => [
-                'none'
-            ]
+                'none',
+            ],
         ],
         [
             // Disable redirect for google page speed
             'userAgent' => [
-                'LightHouse'
+                'LightHouse',
             ],
             'events' => [
-                'none'
-            ]
-        ]
+                'none',
+            ],
+        ],
     ],
     'globalConfiguration' => [
         // show suggest message or do a redirect only if the user visits home (not for subpages)
         'actionOnHomeOnly' => true,
 
         // don't redirect to the home-page, try to stay on the same page while changing the language
-        'stayOnCurrentPage' => true
+        'stayOnCurrentPage' => true,
     ],
     'noMatchingConfiguration' => [
         'identifierUsage' => 'worldwide_english',
-        'matchMinQuantifier' => 15
+        'matchMinQuantifier' => 15,
     ],
     'redirectConfiguration' => [
         // this number means: pid
@@ -63,40 +64,40 @@ return [
                 'identifier' => 'worldwide_english',
                 'domain' => [
                     'www.domain.org',
-                    'local.domain.org'
+                    'local.domain.org',
                 ],
                 'browserLanguage' => [
-                    '*'
+                    '*',
                 ],
                 'countryBasedOnIp' => [
-                    '*'
-                ]
+                    '*',
+                ],
             ],
             1 => [
                 'identifier' => 'worldwide_german',
                 'domain' => [
                     'www.domain.org',
-                    'local.domain.org'
+                    'local.domain.org',
                 ],
                 'browserLanguage' => [
-                    'de'
+                    'de',
                 ],
                 'countryBasedOnIp' => [
-                    '*'
-                ]
+                    '*',
+                ],
             ],
             2 => [
                 'identifier' => 'worldwide_chinese',
                 'domain' => [
                     'www.domain.org',
-                    'local.domain.org'
+                    'local.domain.org',
                 ],
                 'browserLanguage' => [
-                    'zh'
+                    'zh',
                 ],
                 'countryBasedOnIp' => [
-                    '*'
-                ]
+                    '*',
+                ],
             ],
         ],
         // Canada
@@ -105,15 +106,15 @@ return [
                 'identifier' => 'canada_english',
                 'domain' => [
                     'www.domain.org',
-                    'local.domain.org'
+                    'local.domain.org',
                 ],
                 'browserLanguage' => [
-                    '*'
+                    '*',
                 ],
                 'countryBasedOnIp' => [
-                    'ca'
-                ]
-            ]
+                    'ca',
+                ],
+            ],
         ],
         // USA, South America
         22 => [
@@ -121,10 +122,10 @@ return [
                 'identifier' => 'america_english',
                 'domain' => [
                     'www.domain.org',
-                    'local.domain.org'
+                    'local.domain.org',
                 ],
                 'browserLanguage' => [
-                    '*'
+                    '*',
                 ],
                 'countryBasedOnIp' => [
                     'us',
@@ -141,9 +142,9 @@ return [
                     'py',
                     'sr',
                     'uy',
-                    've'
-                ]
-            ]
+                    've',
+                ],
+            ],
         ],
         // Asia (without china), Australia, New Zealand
         26 => [
@@ -151,7 +152,7 @@ return [
                 'identifier' => 'asia_english',
                 'domain' => [
                     'www.domain.org',
-                    'local.domain.org'
+                    'local.domain.org',
                 ],
                 'browserLanguage' => [
                     '*',
@@ -209,14 +210,14 @@ return [
                     'ye',
                     'ps',
                     'au',
-                    'nz'
-                ]
+                    'nz',
+                ],
             ],
             2 => [
                 'identifier' => 'asia_chinese',
                 'domain' => [
                     'www.domain.org',
-                    'local.domain.org'
+                    'local.domain.org',
                 ],
                 'browserLanguage' => [
                     'zh',
@@ -274,9 +275,9 @@ return [
                     'ye',
                     'ps',
                     'au',
-                    'nz'
-                ]
-            ]
+                    'nz',
+                ],
+            ],
         ],
         // China
         30 => [
@@ -284,42 +285,42 @@ return [
                 'identifier' => 'china_english',
                 'domain' => [
                     'www.domain.org',
-                    'local.domain.org'
+                    'local.domain.org',
                 ],
                 'browserLanguage' => [
                     '*',
                 ],
                 'countryBasedOnIp' => [
-                    'cn'
-                ]
+                    'cn',
+                ],
             ],
             2 => [
                 'identifier' => 'china_chinese',
                 'domain' => [
                     'www.domain.org',
-                    'local.domain.org'
+                    'local.domain.org',
                 ],
                 'browserLanguage' => [
                     'zh',
                 ],
                 'countryBasedOnIp' => [
-                    'cn'
-                ]
-            ]
-        ]
+                    'cn',
+                ],
+            ],
+        ],
     ],
     'quantifier' => [
         'browserLanguage' => [
             'totalMatch' => 7,
-            'wildCardMatch' => 3
+            'wildCardMatch' => 3,
         ],
         'countryBasedOnIp' => [
             'totalMatch' => 13,
-            'wildCardMatch' => 5
+            'wildCardMatch' => 5,
         ],
         'domain' => [
             'totalMatch' => 10,
-            'wildCardMatch' => 4
+            'wildCardMatch' => 4,
         ],
         'actions' => [
             'referrers' => [
@@ -330,7 +331,7 @@ return [
                 'totalMatch' => 7,
                 'wildCardMatch' => 3,
             ],
-            'pidInRootline' => 9999
-        ]
-    ]
+            'pidInRootline' => 9999,
+        ],
+    ],
 ];

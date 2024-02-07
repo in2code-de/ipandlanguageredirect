@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Ipandlanguageredirect\Domain\Service;
 
 use In2code\Ipandlanguageredirect\Domain\Model\ActionSet;
@@ -6,7 +7,6 @@ use In2code\Ipandlanguageredirect\Domain\Model\Configuration;
 use In2code\Ipandlanguageredirect\Domain\Model\ConfigurationSet;
 use In2code\Ipandlanguageredirect\Utility\ConfigurationUtility;
 use In2code\Ipandlanguageredirect\Utility\FrontendUtility;
-use In2code\Ipandlanguageredirect\Utility\IpUtility;
 use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
@@ -16,7 +16,6 @@ use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
  */
 class RedirectService
 {
-
     /**
      * Redirect configuration
      *
@@ -77,12 +76,12 @@ class RedirectService
     protected $activated = true;
 
     /**
-     * @var null|Configuration
+     * @var Configuration|null
      */
     protected $bestConfiguration = null;
 
     /**
-     * @var null|array
+     * @var array|null
      */
     protected $bestEvents = null;
 
@@ -101,7 +100,7 @@ class RedirectService
      */
     protected $defaultParameters = [
         'activated' => false,
-        'events' => ['none']
+        'events' => ['none'],
     ];
 
     /**
@@ -166,8 +165,8 @@ class RedirectService
                     'languageUid' => $this->languageUid,
                     'rootpageUid' => $this->rootpageUid,
                     'countryCodeOverlay' => $this->countryCodeOverlay,
-                    'domain' => $this->domain
-                ]
+                    'domain' => $this->domain,
+                ],
             ];
         }
         return $parameters;
@@ -284,7 +283,7 @@ class RedirectService
      *      - AND if event handling is not turned off
      *      - AND if actionOnHomeOnly is fullfilled
      *
-     * @return boolean
+     * @return bool
      */
     protected function isActivated(): bool
     {

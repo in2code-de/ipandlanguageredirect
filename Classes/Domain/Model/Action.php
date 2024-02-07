@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Ipandlanguageredirect\Domain\Model;
 
 use In2code\Ipandlanguageredirect\Utility\PageUtility;

@@ -1,15 +1,14 @@
 <?php
+
 namespace In2code\Ipandlanguageredirect\Domain\Model;
 
 use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
 
 /**
  * Class ActionSet
- * @package In2code\Ipandlanguageredirect\Domain\Model
  */
 class ActionSet
 {
-
     /**
      * @var Action[]
      */

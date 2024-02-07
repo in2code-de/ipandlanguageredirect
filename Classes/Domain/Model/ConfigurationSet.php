@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Ipandlanguageredirect\Domain\Model;
 
 use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
@@ -8,7 +9,6 @@ use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
  */
 class ConfigurationSet
 {
-
     /**
      * @var Configuration[]
      */
