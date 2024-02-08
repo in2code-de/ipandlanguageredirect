@@ -16,4 +16,4 @@ ddev import-db --src=.project/data/db.sql.gz
 cp .build/vendor/typo3/cms-install/Resources/Private/FolderStructureTemplateFiles/root-htaccess .build/public/.htaccess
 mkdir -p config/sites/main && cp .project/typo3/config.yaml config/sites/main/
 mkdir -p config/system && cp .project/typo3/settings.php config/system
-mkdir -p .build/public/config/ipandlanguageredirects && cp .project/typo3/redirect.php .build/public/config/ipandlanguageredirect/
+mkdir -p .build/public/config/ipandlanguageredirect && cp .project/typo3/redirect.php .build/public/config/ipandlanguageredirect/
