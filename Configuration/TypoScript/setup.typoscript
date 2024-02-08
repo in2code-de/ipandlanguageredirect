@@ -28,11 +28,10 @@ page {
   5 {
     userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
     extensionName = Ipandlanguageredirect
-    pluginName = Pi1
+    pluginName = suggest
     vendorName = In2code
     controller = Redirect
     action = suggest
-    switchableControllerActions.Redirect.1 = suggest
   }
 
   # Container for informations that will be send to an AJAX service
@@ -133,11 +132,10 @@ redirectAjax {
   10 {
     userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
     extensionName = Ipandlanguageredirect
-    pluginName = Pi1
+    pluginName = redirect
     vendorName = In2code
     controller = Redirect
     action = redirect
-    switchableControllerActions.Redirect.1 = redirect
   }
 }
 
@@ -145,7 +143,7 @@ testAjax < redirectAjax
 testAjax {
   typeNum = 1556
   10 {
+    pluginName = test
     action = test
-    switchableControllerActions.Redirect.1 = test
   }
 }
