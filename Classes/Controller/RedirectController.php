@@ -36,19 +36,6 @@ class RedirectController extends ActionController
     ];
 
     /**
-     * Enrich call with ip-address if not given
-     *
-     * @throws InvalidArgumentNameException
-     */
-    public function initializeRedirectAction()
-    {
-        $arguments = $this->request->getArguments();
-        if (empty($arguments['ipAddress'])) {
-            $this->request->setArgument('ipAddress', GeneralUtility::getIndpEnv('REMOTE_ADDR'));
-        }
-    }
-
-    /**
      * Can be tested with a direct call:
      *      index.php?id=2&type=1555
      *      &tx_ipandlanguageredirect_pi1[browserLanguage]=de
@@ -79,7 +66,7 @@ class RedirectController extends ActionController
         $redirectService = new RedirectService(
             $browserLanguage,
             $referrer,
-            $ipAddress,
+            empty($ipAddress) ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : $ipAddress,
             $languageUid,
             $rootpageUid,
             $countryCode,
