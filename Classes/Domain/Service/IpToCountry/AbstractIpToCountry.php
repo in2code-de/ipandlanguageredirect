@@ -19,19 +19,16 @@ abstract class AbstractIpToCountry
      */
     protected $ipAddress = '';
 
-    private ConfigurationManagerInterface $configurationManager;
-
     /**
      * @param string $ipAddress
      */
-    public function __construct(string $ipAddress)
+    public function __construct(private ConfigurationManagerInterface $configurationManager)
     {
-        $this->ipAddress = $ipAddress;
     }
 
-    public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager): void
+    public function setIpAddress(string $ipAddress): void
     {
-        $this->configurationManager = $configurationManager;
+        $this->ipAddress = $ipAddress;
     }
 
     /**

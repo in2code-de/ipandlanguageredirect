@@ -31,7 +31,8 @@ class IpToCountry
         $countryCode = '';
         foreach ($this->getClasses() as $class) {
             /** @var IpToCountryInterface $countryFromIp */
-            $countryFromIp = GeneralUtility::makeInstance($class, $ipAddress);
+            $countryFromIp = GeneralUtility::makeInstance($class);
+            $countryFromIp->setIpAddress($ipAddress);
             try {
                 $countryCode = $countryFromIp->getCountryCodeFromIp();
             } catch (\Exception $exception) {
