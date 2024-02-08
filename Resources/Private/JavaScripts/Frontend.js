@@ -325,13 +325,13 @@ function IpandlanguageredirectFrontend() {
 	 */
 	var getParametersForAjaxCall = function() {
 		return {
-			'tx_ipandlanguageredirect_pi1[browserLanguage]': getBrowserLanguage(),
-			'tx_ipandlanguageredirect_pi1[ipAddress]': getIpAddress(),
-			'tx_ipandlanguageredirect_pi1[referrer]': getReferrer(),
-			'tx_ipandlanguageredirect_pi1[languageUid]': getLanguageUid(),
-			'tx_ipandlanguageredirect_pi1[rootpageUid]': getRootpageUid(),
-			'tx_ipandlanguageredirect_pi1[countryCode]': getCountryCode(),
-			'tx_ipandlanguageredirect_pi1[domain]': getDomain()
+			'tx_ipandlanguageredirect_redirect[browserLanguage]': getBrowserLanguage(),
+			'tx_ipandlanguageredirect_redirect[ipAddress]': getIpAddress(),
+			'tx_ipandlanguageredirect_redirect[referrer]': getReferrer(),
+			'tx_ipandlanguageredirect_redirect[languageUid]': getLanguageUid(),
+			'tx_ipandlanguageredirect_redirect[rootpageUid]': getRootpageUid(),
+			'tx_ipandlanguageredirect_redirect[countryCode]': getCountryCode(),
+			'tx_ipandlanguageredirect_redirect[domain]': getDomain()
 		};
 	};
 
