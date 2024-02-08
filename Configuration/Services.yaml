@@ -1,0 +1,9 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
+  In2code\Ipandlanguageredirect\:
+    resource: '../Classes/*'
+    exclude: '../Classes/Domain/Model/*'
