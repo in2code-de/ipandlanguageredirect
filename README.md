@@ -491,6 +491,19 @@ is very helpful to understand what kind of issue the **PR** is going to solve.
 to accept only bugfixes if I can reproduce the issue.
 - Features: Not every feature is relevant for the bulk of extension users. Please discuss a new feature before.
 
+### Contribution with ddev
+
+#### Requirements
+
+1. Install ddev, see: https://ddev.readthedocs.io/en/stable/#installation
+2. Install git-lfs, see: https://git-lfs.github.com/
+
+#### Installation
+
+1. Clone this repository
+2. Run `ddev start`
+3. Run `ddev initialize` to setup configurations and test database
+
 ## What's not (yet?) possible at the moment
 
 * Make wildcard usage available in browserlanguage (like "en*" for all english browserlanguages)
