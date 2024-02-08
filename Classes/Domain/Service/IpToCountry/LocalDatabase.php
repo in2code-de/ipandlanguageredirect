@@ -47,7 +47,7 @@ class LocalDatabase extends AbstractIpToCountry implements IpToCountryInterface
         $sql = 'select countryCode from ' . self::TABLE_NAME
             . ' where inet_aton("' . $this->sanitizeIpAddress($ipAddress) . '") >= inet_aton(ipRangeStart)' .
             ' and inet_aton("' . $this->sanitizeIpAddress($ipAddress) . '") <= inet_aton(ipRangeEnd) limit 1';
-        $result = (string)$connection->query($sql)->fetchColumn(0);
+        $result = (string)$connection->query($sql)->fetchFirstColumn();
         return strtolower($result);
     }
 
