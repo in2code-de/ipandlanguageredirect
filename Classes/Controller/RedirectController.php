@@ -4,12 +4,11 @@ namespace In2code\Ipandlanguageredirect\Controller;
 
 use In2code\Ipandlanguageredirect\Domain\Service\RedirectService;
 use In2code\Ipandlanguageredirect\Utility\FrontendUtility;
-use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Class RedirectController
@@ -100,13 +99,16 @@ class RedirectController extends ActionController
     public function testAction($set = 0): ResponseInterface
     {
         $configuration = [
-            'parameter' => ObjectUtility::getTyposcriptFrontendController()->id,
+            'parameter' => $this->request->getAttribute('routing')->getPageId(),
             'additionalParams' =>
                 FrontendUtility::getParametersStringFromArray($this->testArguments[$set]) . '&type=1555',
         ];
-        $uri = ObjectUtility::getContentObject()->typoLink_URL($configuration);
-        HttpUtility::redirect($uri, HttpUtility::HTTP_STATUS_307);
-        return $this->htmlResponse();
+
+        /** @var ContentObjectRenderer $contentObject */
+        $contentObject = $this->request->getAttribute('currentContentObject');
+        $uri = $contentObject->typoLink_URL($configuration);
+
+        return $this->redirectToUri($uri, 0, 307);
     }
 
     /**
