@@ -77,9 +77,7 @@ class RedirectController extends ActionController
         string $countryCode = '',
         string $domain = ''
     ): ResponseInterface {
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
-        $redirectService = $this->objectManager->get(
-            RedirectService::class,
+        $redirectService = new RedirectService(
             $browserLanguage,
             $referrer,
             $ipAddress,
@@ -88,6 +86,7 @@ class RedirectController extends ActionController
             $countryCode,
             $domain
         );
+
         return $this->jsonResponse(json_encode($redirectService->buildParameters()));
     }
 

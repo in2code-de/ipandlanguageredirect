@@ -4,7 +4,7 @@ namespace In2code\Ipandlanguageredirect\Domain\Service;
 
 use In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpToCountryInterface;
 use In2code\Ipandlanguageredirect\Utility\ConfigurationUtility;
-use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
+use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -17,6 +17,11 @@ class IpToCountry
      */
     protected $interface = IpToCountryInterface::class;
 
+    public function __construct(
+        private readonly LoggerInterface $logger
+    ) {
+    }
+
     /**
      * @param string $ipAddress if given use this (normally for testing), if empty automaticly get current IP
      * @return string
@@ -26,7 +31,7 @@ class IpToCountry
         $countryCode = '';
         foreach ($this->getClasses() as $class) {
             /** @var IpToCountryInterface $countryFromIp */
-            $countryFromIp = ObjectUtility::getObjectManager()->get($class, $ipAddress);
+            $countryFromIp = GeneralUtility::makeInstance($class, $ipAddress);
             try {
                 $countryCode = $countryFromIp->getCountryCodeFromIp();
             } catch (\Exception $exception) {
@@ -78,7 +83,6 @@ class IpToCountry
      */
     protected function logFailingOfCountryCode(string $class, \Exception $exception)
     {
-        $logger = ObjectUtility::getLogger($class);
-        $logger->warning('Executing of class failed', [$exception->getMessage()]);
+        $this->logger->warning('Executing of class failed', [$exception->getMessage()]);
     }
 }

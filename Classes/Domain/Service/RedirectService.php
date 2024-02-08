@@ -128,7 +128,7 @@ class RedirectService
         $this->rootpageUid = $rootpageUid;
         $this->countryCodeOverlay = $countryCode;
         if ($this->countryCodeOverlay === '') {
-            $ipToCountry = ObjectUtility::getObjectManager()->get(IpToCountry::class);
+            $ipToCountry = GeneralUtility::makeInstance(IpToCountry::class);
             $this->countryCode = $ipToCountry->getCountryFromIp($ipAddress);
         } else {
             $this->countryCode = $this->countryCodeOverlay;
@@ -213,7 +213,7 @@ class RedirectService
     protected function getBestConfiguration()
     {
         if ($this->bestConfiguration === null) {
-            $configurationSet = ObjectUtility::getObjectManager()->get(
+            $configurationSet = GeneralUtility::makeInstance(
                 ConfigurationSet::class,
                 $this->configuration,
                 $this->rootpageUid
@@ -237,7 +237,7 @@ class RedirectService
      */
     protected function getUriToPageAndLanguage($pageIdentifier = 0, $languageParameter = 0): string
     {
-        $uriBuilder = ObjectUtility::getObjectManager()->get(UriBuilder::class);
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
         $uriBuilder->setTargetPageUid($this->getTargetPageForUriCreation($pageIdentifier));
         $uriBuilder->setCreateAbsoluteUri(true);
         $uriBuilder->setArguments([$this->languageParameter => $languageParameter]);
@@ -250,7 +250,7 @@ class RedirectService
     protected function getEvents()
     {
         if ($this->bestEvents === null) {
-            $actionSet = ObjectUtility::getObjectManager()->get(ActionSet::class, $this->configuration);
+            $actionSet = GeneralUtility::makeInstance(ActionSet::class, $this->configuration);
             $actionSet->calculateQuantifiers($this->referrer);
             $events = $actionSet->getEvents();
         } else {

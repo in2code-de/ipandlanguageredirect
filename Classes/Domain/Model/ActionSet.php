@@ -2,7 +2,7 @@
 
 namespace In2code\Ipandlanguageredirect\Domain\Model;
 
-use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class ActionSet
@@ -33,10 +33,11 @@ class ActionSet
         $this->rawQuantifierConfiguration = $configuration['quantifier'];
         $this->rawActionsConfiguration = $configuration['actions'];
         foreach ($this->rawActionsConfiguration as $actionConfiguration) {
-            $action = ObjectUtility::getObjectManager()->get(
+            $action = GeneralUtility::makeInstance(
                 Action::class,
                 $actionConfiguration
             );
+
             $this->addAction($action);
         }
     }
