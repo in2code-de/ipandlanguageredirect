@@ -7,7 +7,6 @@ use In2code\Ipandlanguageredirect\Domain\Model\Configuration;
 use In2code\Ipandlanguageredirect\Domain\Model\ConfigurationSet;
 use In2code\Ipandlanguageredirect\Utility\ConfigurationUtility;
 use In2code\Ipandlanguageredirect\Utility\FrontendUtility;
-use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 

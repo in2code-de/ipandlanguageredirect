@@ -20,7 +20,7 @@ class PageUtility
     {
         $rootline = GeneralUtility::makeInstance(
             RootlineUtility::class,
-            ObjectUtility::getTyposcriptFrontendController()->id
+            FrontendUtility::getCurrentPageIdentifier()
         )->get();
         foreach ($rootline as $page) {
             if ($page['uid'] === $pid) {
