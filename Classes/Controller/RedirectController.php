@@ -7,7 +7,6 @@ use In2code\Ipandlanguageredirect\Utility\FrontendUtility;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
