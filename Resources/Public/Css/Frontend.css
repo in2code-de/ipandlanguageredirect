@@ -16,12 +16,12 @@
    * The following block comes from the extensions CSS and is necessary for the
    * slide in and out effect of the suggest message.
    */
-  max-height: 0;
+  max-block-size: 0;
   overflow: hidden;
   transition: max-height 0.1s ease-out;
 }
 .ipandlanguageredirect.fadein {
-  max-height: var(--ipandlanguageredirect-maxheight);
+  max-block-size: var(--ipandlanguageredirect-maxheight);
   padding: var(--ipandlanguageredirect-innerspacing);
   transition: max-height 0.8s ease-in;
 }
@@ -29,12 +29,11 @@
   display: block;
 }
 .ipandlanguageredirect__item:not(:last-child)::after {
-  -webkit-border-after: 1px solid currentcolor;
-          border-block-end: 1px solid currentcolor;
+  border-block-end: 1px solid currentcolor;
   content: "";
   display: block;
   margin: 1rem auto;
-  width: 25%;
+  inline-size: 25%;
 }
 .ipandlanguageredirect__button {
   background-color: transparent;
@@ -59,8 +58,7 @@
     padding-inline: var(--ipandlanguageredirect-buttonspacing);
   }
   .ipandlanguageredirect__item:not(:last-child) {
-    -webkit-border-end: 1px solid currentcolor;
-            border-inline-end: 1px solid currentcolor;
+    border-inline-end: 1px solid currentcolor;
   }
   .ipandlanguageredirect__item:not(:last-child)::after {
     display: none;

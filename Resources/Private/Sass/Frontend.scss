@@ -17,13 +17,13 @@
    * The following block comes from the extensions CSS and is necessary for the
    * slide in and out effect of the suggest message.
    */
-  max-height: 0;
+  max-block-size: 0;
   overflow: hidden;
   transition: max-height 0.1s ease-out;
 
   // This class will be set by the extensions JavaScript, so the name is fixed.
   &.fadein {
-    max-height: var(--ipandlanguageredirect-maxheight);
+    max-block-size: var(--ipandlanguageredirect-maxheight);
     padding: var(--ipandlanguageredirect-innerspacing);
     transition: max-height 0.8s ease-in;
   }
@@ -38,7 +38,7 @@
         content: '';
         display: block;
         margin: 1rem auto;
-        width: 25%;
+        inline-size: 25%;
       }
     }
   }
