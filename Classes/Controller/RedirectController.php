@@ -37,6 +37,11 @@ class RedirectController extends ActionController
         ]
     ];
 
+    public function __construct(
+        private readonly RedirectService $redirectService
+    ) {}
+
+
     /**
      * Enrich call with ip-address if not given
      *
@@ -79,8 +84,7 @@ class RedirectController extends ActionController
         string $domain = ''
     ): ResponseInterface {
         /** @noinspection PhpMethodParametersCountMismatchInspection */
-        $redirectService = $this->objectManager->get(
-            RedirectService::class,
+        $this->redirectService->set(
             $browserLanguage,
             $referrer,
             $ipAddress,
@@ -89,7 +93,7 @@ class RedirectController extends ActionController
             $countryCode,
             $domain
         );
-        return $this->jsonResponse(json_encode($redirectService->buildParameters()));
+        return $this->jsonResponse(json_encode($this->redirectService->buildParameters()));
     }
 
     /**
