@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Ipandlanguageredirect\Domain\Model;
 
 use In2code\Ipandlanguageredirect\Utility\PageUtility;
@@ -99,7 +100,6 @@ class Action
 
     /**
      * @param array $pidInRootline
-     * @return void
      */
     public function setPidInRootline(array $pidInRootline)
     {
@@ -116,7 +116,6 @@ class Action
 
     /**
      * @param array $userAgents
-     * @return void
      */
     public function setUserAgents(array $userAgents)
     {

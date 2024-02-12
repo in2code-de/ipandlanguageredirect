@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Ipandlanguageredirect\Domain\Service\IpToCountry;
 
@@ -7,7 +8,6 @@ namespace In2code\Ipandlanguageredirect\Domain\Service\IpToCountry;
  */
 interface IpToCountryInterface
 {
-
     /**
      * @return string
      */

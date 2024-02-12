@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Ipandlanguageredirect\Domain\Service;
 
 use In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpToCountryInterface;
@@ -25,7 +26,7 @@ class IpToCountry
         $countryCode = '';
         foreach ($this->getClasses() as $class) {
             /** @var IpToCountryInterface $countryFromIp */
-            $countryFromIp = ObjectUtility::getObjectManager()->get($class, $ipAddress);
+            $countryFromIp = GeneralUtility::makeInstance($class, $ipAddress);
             try {
                 $countryCode = $countryFromIp->getCountryCodeFromIp();
             } catch (\Exception $exception) {
@@ -63,18 +64,16 @@ class IpToCountry
                 }
             }
             return $classes;
-        } else {
-            throw new \UnexpectedValueException(
-                'No IpToCountryService classes given. Pls check your settings in the extension manager',
-                1539859385
-            );
         }
+        throw new \UnexpectedValueException(
+            'No IpToCountryService classes given. Pls check your settings in the extension manager',
+            1539859385
+        );
     }
 
     /**
      * @param string $class
      * @param \Exception $exception
-     * @return void
      */
     protected function logFailingOfCountryCode(string $class, \Exception $exception)
     {

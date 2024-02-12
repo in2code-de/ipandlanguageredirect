@@ -1,14 +1,14 @@
 <?php
+
 namespace In2code\Ipandlanguageredirect\Domain\Model;
 
-use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class ConfigurationSet
  */
 class ConfigurationSet
 {
-
     /**
      * @var Configuration[]
      */
@@ -44,7 +44,7 @@ class ConfigurationSet
         $this->rawRedirectConfiguration = $configuration['redirectConfiguration'];
         foreach ($this->rawRedirectConfiguration as $pageIdentifier => $treeConfiguration) {
             foreach ($treeConfiguration as $languageParameter => $setConfiguration) {
-                $configuration = ObjectUtility::getObjectManager()->get(
+                $configuration = GeneralUtility::makeInstance(
                     Configuration::class,
                     $pageIdentifier,
                     $languageParameter,
@@ -60,7 +60,6 @@ class ConfigurationSet
      * @param string $browserLanguage
      * @param string $countryCode
      * @param string $domain
-     * @return void
      */
     public function calculateQuantifiers(string $browserLanguage = '', string $countryCode = '', string $domain = '')
     {

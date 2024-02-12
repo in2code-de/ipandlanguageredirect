@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Ipandlanguageredirect\Domain\Model;
 
 /**
@@ -6,7 +7,6 @@ namespace In2code\Ipandlanguageredirect\Domain\Model;
  */
 class Configuration
 {
-
     /**
      * @var string
      */
