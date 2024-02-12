@@ -255,7 +255,7 @@ class RedirectService
     protected function getEvents()
     {
         if ($this->bestEvents === null) {
-            $actionSet = ObjectUtility::getObjectManager()->get(ActionSet::class, $this->configuration);
+            $actionSet = GeneralUtility::makeInstance(ActionSet::class, $this->configuration);
             $actionSet->calculateQuantifiers($this->referrer);
             $events = $actionSet->getEvents();
         } else {
