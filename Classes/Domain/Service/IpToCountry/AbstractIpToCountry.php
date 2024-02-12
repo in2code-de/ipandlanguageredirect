@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace In2code\Ipandlanguageredirect\Domain\Service\IpToCountry;
 
 use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -10,7 +11,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 /**
  * Class AbstractIpToCountry
  */
-abstract class AbstractIpToCountry
+abstract class AbstractIpToCountry implements SingletonInterface
 {
 
     /**
@@ -23,7 +24,7 @@ abstract class AbstractIpToCountry
     /**
      * @param string $ipAddress
      */
-    public function __construct(string $ipAddress)
+    public function __construct(string $ipAddress = '')
     {
         $this->ipAddress = $ipAddress;
     }
