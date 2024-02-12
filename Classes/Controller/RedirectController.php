@@ -10,6 +10,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Class RedirectController
@@ -38,7 +39,8 @@ class RedirectController extends ActionController
     ];
 
     public function __construct(
-        private readonly RedirectService $redirectService
+        private readonly RedirectService $redirectService,
+        private readonly ContentObjectRenderer $contentObjectRenderer
     ) {}
 
 
@@ -110,7 +112,7 @@ class RedirectController extends ActionController
             'additionalParams' =>
                 FrontendUtility::getParametersStringFromArray($this->testArguments[$set]) . '&type=1555'
         ];
-        $uri = ObjectUtility::getContentObject()->typoLink_URL($configuration);
+        $uri = $this->contentObjectRenderer->typoLink_URL($configuration);
         HttpUtility::redirect($uri, HttpUtility::HTTP_STATUS_307);
         return $this->htmlResponse();
     }
