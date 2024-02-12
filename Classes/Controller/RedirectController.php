@@ -4,38 +4,21 @@ namespace In2code\Ipandlanguageredirect\Controller;
 
 use Psr\Http\Message\ResponseInterface;
 use In2code\Ipandlanguageredirect\Domain\Service\RedirectService;
-use In2code\Ipandlanguageredirect\Utility\FrontendUtility;
-use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Class RedirectController
  */
 class RedirectController extends ActionController
 {
+    public function __construct(
+        private readonly RedirectService $redirectService
+    ) {}
 
-    /**
-     * @var array
-     */
-    protected $testArguments = [
-        [
-            'browserLanguage' => 'de',
-            'referrer' => 'http://www.google.de?foo=bar',
-            'ipAddress' => '192.168.0.1',
-            'languageUid' => '0',
-            'rootpageUid' => '1'
-        ],
-        [
-            'browserLanguage' => 'de',
-            'referrer' => 'http://www.google.de?foo=bar',
-            'ipAddress' => '',
-            'languageUid' => '0',
-            'rootpageUid' => '1'
-        ]
-    ];
 
     /**
      * Enrich call with ip-address if not given
@@ -79,8 +62,7 @@ class RedirectController extends ActionController
         string $domain = ''
     ): ResponseInterface {
         /** @noinspection PhpMethodParametersCountMismatchInspection */
-        $redirectService = $this->objectManager->get(
-            RedirectService::class,
+        $this->redirectService->set(
             $browserLanguage,
             $referrer,
             $ipAddress,
@@ -89,35 +71,6 @@ class RedirectController extends ActionController
             $countryCode,
             $domain
         );
-        return $this->jsonResponse(json_encode($redirectService->buildParameters()));
-    }
-
-    /**
-     * Test the redirectAction directly with some predefined parameters from a given set
-     *      call index.php?id=2&type=1556&tx_ipandlanguageredirect_pi1[set]=1
-     *
-     * @param int $set
-     * @return void
-     */
-    public function testAction($set = 0): ResponseInterface
-    {
-        $configuration = [
-            'parameter' => ObjectUtility::getTyposcriptFrontendController()->id,
-            'additionalParams' =>
-                FrontendUtility::getParametersStringFromArray($this->testArguments[$set]) . '&type=1555'
-        ];
-        $uri = ObjectUtility::getContentObject()->typoLink_URL($configuration);
-        HttpUtility::redirect($uri, HttpUtility::HTTP_STATUS_307);
-        return $this->htmlResponse();
-    }
-
-    /**
-     * Render a suggest container that can be slided down in FE
-     *
-     * @return void
-     */
-    public function suggestAction(): ResponseInterface
-    {
-        return $this->htmlResponse();
+        return $this->jsonResponse(json_encode($this->redirectService->buildParameters()));
     }
 }

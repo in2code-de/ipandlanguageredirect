@@ -4,7 +4,9 @@ namespace In2code\Ipandlanguageredirect\Domain\Service;
 use In2code\Ipandlanguageredirect\Domain\Service\IpToCountry\IpToCountryInterface;
 use In2code\Ipandlanguageredirect\Utility\ConfigurationUtility;
 use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
+use Psr\Container\ContainerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Container\Container as ExtbaseContainer;
 
 /**
  * Class IpToCountry
@@ -25,7 +27,7 @@ class IpToCountry
         $countryCode = '';
         foreach ($this->getClasses() as $class) {
             /** @var IpToCountryInterface $countryFromIp */
-            $countryFromIp = ObjectUtility::getObjectManager()->get($class, $ipAddress);
+            $countryFromIp = GeneralUtility::makeInstance($class, $ipAddress);
             try {
                 $countryCode = $countryFromIp->getCountryCodeFromIp();
             } catch (\Exception $exception) {
