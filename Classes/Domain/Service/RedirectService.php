@@ -134,7 +134,7 @@ class RedirectService
         $this->rootpageUid = $rootpageUid;
         $this->countryCodeOverlay = $countryCode;
         if ($this->countryCodeOverlay === '') {
-            $ipToCountry = ObjectUtility::getObjectManager()->get(IpToCountry::class);
+            $ipToCountry = GeneralUtility::makeInstance(IpToCountry::class);
             $this->countryCode = $ipToCountry->getCountryFromIp($ipAddress);
         } else {
             $this->countryCode = $this->countryCodeOverlay;
@@ -219,7 +219,7 @@ class RedirectService
     protected function getBestConfiguration()
     {
         if ($this->bestConfiguration === null) {
-            $configurationSet = ObjectUtility::getObjectManager()->get(
+            $configurationSet = GeneralUtility::makeInstance(
                 ConfigurationSet::class,
                 $this->configuration,
                 $this->rootpageUid

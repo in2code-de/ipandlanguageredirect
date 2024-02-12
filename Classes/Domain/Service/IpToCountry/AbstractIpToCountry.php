@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace In2code\Ipandlanguageredirect\Domain\Service\IpToCountry;
 
-use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -49,7 +48,7 @@ abstract class AbstractIpToCountry implements SingletonInterface
     protected function getConfiguration(string $className, string $path = '')
     {
         $settings = [];
-        $configurationManager = ObjectUtility::getObjectManager()->get(ConfigurationManagerInterface::class);
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $setup = $configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
             'Ipandlanguageredirect'
