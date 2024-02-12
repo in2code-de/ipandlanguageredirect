@@ -9,3 +9,13 @@ defined('TYPO3') || die();
     'Pi1',
     'Ipandlanguageredirect'
 );
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+    'ipandlanguageredirect',
+    'Test',
+    'Ipandlanguageredirect'
+);
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+    'ipandlanguageredirect',
+    'Redirect',
+    'Ipandlanguageredirect'
+);
