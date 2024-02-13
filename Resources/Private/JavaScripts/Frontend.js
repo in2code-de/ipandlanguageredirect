@@ -407,7 +407,7 @@ function IpandlanguageredirectFrontend() {
 			referrer = document.referrer;
 		}
 
-		return referrer;
+		return encodeURIComponent(referrer);
 	};
 
 	/**
