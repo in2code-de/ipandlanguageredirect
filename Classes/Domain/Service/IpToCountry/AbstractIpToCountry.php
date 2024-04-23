@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Ipandlanguageredirect\Domain\Service\IpToCountry;
 
-use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -12,7 +12,6 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
  */
 abstract class AbstractIpToCountry
 {
-
     /**
      * ip address for testing
      *
@@ -23,7 +22,11 @@ abstract class AbstractIpToCountry
     /**
      * @param string $ipAddress
      */
-    public function __construct(string $ipAddress)
+    public function __construct(private ConfigurationManagerInterface $configurationManager)
+    {
+    }
+
+    public function setIpAddress(string $ipAddress): void
     {
         $this->ipAddress = $ipAddress;
     }
@@ -48,8 +51,7 @@ abstract class AbstractIpToCountry
     protected function getConfiguration(string $className, string $path = '')
     {
         $settings = [];
-        $configurationManager = ObjectUtility::getObjectManager()->get(ConfigurationManagerInterface::class);
-        $setup = $configurationManager->getConfiguration(
+        $setup = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS,
             'Ipandlanguageredirect'
         );

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Ipandlanguageredirect\Domain\Service\IpToCountry;
 
@@ -44,9 +45,14 @@ class LocalDatabase extends AbstractIpToCountry implements IpToCountryInterface
     {
         $connection = DatabaseUtility::getConnectionForTable(self::TABLE_NAME);
         $sql = 'select countryCode from ' . self::TABLE_NAME
-            . ' where inet_aton("' . $ipAddress . '") >= inet_aton(ipRangeStart)' .
-            ' and inet_aton("' . $ipAddress . '") <= inet_aton(ipRangeEnd) limit 1';
-        $result = (string)$connection->query($sql)->fetchColumn(0);
+            . ' where inet_aton("' . $this->sanitizeIpAddress($ipAddress) . '") >= inet_aton(ipRangeStart)' .
+            ' and inet_aton("' . $this->sanitizeIpAddress($ipAddress) . '") <= inet_aton(ipRangeEnd) limit 1';
+        $result = (string)$connection->query($sql)->fetchFirstColumn();
         return strtolower($result);
+    }
+
+    protected function sanitizeIpAddress(string $ipAddress): string
+    {
+        return preg_replace('~[^0-9\.]~', '', $ipAddress);
     }
 }

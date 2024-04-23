@@ -2,21 +2,18 @@
 
 namespace In2code\Ipandlanguageredirect\Controller;
 
-use Psr\Http\Message\ResponseInterface;
 use In2code\Ipandlanguageredirect\Domain\Service\RedirectService;
 use In2code\Ipandlanguageredirect\Utility\FrontendUtility;
-use In2code\Ipandlanguageredirect\Utility\ObjectUtility;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\HttpUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Class RedirectController
  */
 class RedirectController extends ActionController
 {
-
     /**
      * @var array
      */
@@ -26,29 +23,16 @@ class RedirectController extends ActionController
             'referrer' => 'http://www.google.de?foo=bar',
             'ipAddress' => '192.168.0.1',
             'languageUid' => '0',
-            'rootpageUid' => '1'
+            'rootpageUid' => '1',
         ],
         [
             'browserLanguage' => 'de',
             'referrer' => 'http://www.google.de?foo=bar',
             'ipAddress' => '',
             'languageUid' => '0',
-            'rootpageUid' => '1'
-        ]
+            'rootpageUid' => '1',
+        ],
     ];
-
-    /**
-     * Enrich call with ip-address if not given
-     *
-     * @throws InvalidArgumentNameException
-     */
-    public function initializeRedirectAction()
-    {
-        $arguments = $this->request->getArguments();
-        if (empty($arguments['ipAddress'])) {
-            $this->request->setArgument('ipAddress', GeneralUtility::getIndpEnv('REMOTE_ADDR'));
-        }
-    }
 
     /**
      * Can be tested with a direct call:
@@ -78,17 +62,16 @@ class RedirectController extends ActionController
         string $countryCode = '',
         string $domain = ''
     ): ResponseInterface {
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
-        $redirectService = $this->objectManager->get(
-            RedirectService::class,
+        $redirectService = new RedirectService(
             $browserLanguage,
             $referrer,
-            $ipAddress,
+            empty($ipAddress) ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : $ipAddress,
             $languageUid,
             $rootpageUid,
             $countryCode,
             $domain
         );
+
         return $this->jsonResponse(json_encode($redirectService->buildParameters()));
     }
 
@@ -102,13 +85,16 @@ class RedirectController extends ActionController
     public function testAction($set = 0): ResponseInterface
     {
         $configuration = [
-            'parameter' => ObjectUtility::getTyposcriptFrontendController()->id,
+            'parameter' => $this->request->getAttribute('routing')->getPageId(),
             'additionalParams' =>
-                FrontendUtility::getParametersStringFromArray($this->testArguments[$set]) . '&type=1555'
+                FrontendUtility::getParametersStringFromArray($this->testArguments[$set]) . '&type=1555',
         ];
-        $uri = ObjectUtility::getContentObject()->typoLink_URL($configuration);
-        HttpUtility::redirect($uri, HttpUtility::HTTP_STATUS_307);
-        return $this->htmlResponse();
+
+        /** @var ContentObjectRenderer $contentObject */
+        $contentObject = $this->request->getAttribute('currentContentObject');
+        $uri = $contentObject->typoLink_URL($configuration);
+
+        return $this->redirectToUri($uri, 0, 307);
     }
 
     /**

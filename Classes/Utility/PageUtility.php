@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Ipandlanguageredirect\Utility;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -19,7 +20,7 @@ class PageUtility
     {
         $rootline = GeneralUtility::makeInstance(
             RootlineUtility::class,
-            ObjectUtility::getTyposcriptFrontendController()->id
+            FrontendUtility::getCurrentPageIdentifier()
         )->get();
         foreach ($rootline as $page) {
             if ($page['uid'] === $pid) {

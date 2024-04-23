@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Ipandlanguageredirect\Utility;
 
 /**
@@ -9,13 +10,11 @@ class FrontendUtility
     const PLUGIN_NAME = 'tx_ipandlanguageredirect_pi1';
 
     /**
-     * Get current page identifier
-     *
-     * @return int
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public static function getCurrentPageIdentifier()
     {
-        return (int)ObjectUtility::getTyposcriptFrontendController()->id;
+        return $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageId();
     }
 
     /**
