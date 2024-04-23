@@ -514,6 +514,7 @@ to accept only bugfixes if I can reproduce the issue.
 
 | Version   | Date       | State    | Description                                                                | Note                      |
 |-----------|------------|----------|----------------------------------------------------------------------------|---------------------------|
+| 5.2.1     | 2023-04-23 | Bugfix   | Bugfix for correct constraints                                             |                           |
 | 5.2.0     | 2023-04-20 | Feabure  | Support for TYPO3 12                                                       |                           |
 | 5.1.2     | 2023-06-12 | Security | Fix a possible SQL injection                                               |                           |
 | 5.1.1     | 2023-02-07 | Bugfix   | Fixed undefined array key exception in PHP 8                               |                           |
