@@ -84,6 +84,6 @@ class IpToCountry
      */
     protected function logFailingOfCountryCode(string $class, \Exception $exception)
     {
-        $this->logger->warning('Executing of class failed', [$exception->getMessage()]);
+        $this->logger->debug('Executing of class failed', [$exception->getMessage()]);
     }
 }
