@@ -510,10 +510,18 @@ to accept only bugfixes if I can reproduce the issue.
 * Support all browserlanguages and not only the first one
 * Support also continents
 
+## Early Access Programm for TYPO3 13 support
+
+:information_source: **TYPO3 13 compatibility**
+> See [EAP page (DE)](https://www.in2code.de/agentur/typo3-extensions/early-access-programm/) or
+> [EAP page (EN)](https://www.in2code.de/en/agency/typo3-extensions/early-access-program/) for more information how
+> to get access to a TYPO3 13 version
+
 ## Changelog
 
 | Version   | Date       | State    | Description                                                                | Note                      |
 |-----------|------------|----------|----------------------------------------------------------------------------|---------------------------|
+| 13.0.0    | tbd        | Feature  | TYPO3 v13 compatibility - planned                                          |                           |
 | 5.2.1     | 2023-04-23 | Bugfix   | Bugfix for correct constraints                                             |                           |
 | 5.2.0     | 2023-04-20 | Feabure  | Support for TYPO3 12                                                       |                           |
 | 5.1.2     | 2023-06-12 | Security | Fix a possible SQL injection                                               |                           |
