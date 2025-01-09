@@ -53,6 +53,6 @@ class LocalDatabase extends AbstractIpToCountry implements IpToCountryInterface
 
     protected function sanitizeIpAddress(string $ipAddress): string
     {
-        return preg_replace('~[^0-9\.]~', '', $ipAddress);
+        return filter_var($ipAddress, FILTER_VALIDATE_IP);
     }
 }
