@@ -522,6 +522,7 @@ to accept only bugfixes if I can reproduce the issue.
 | Version   | Date       | State    | Description                                                                | Note                      |
 |-----------|------------|----------|----------------------------------------------------------------------------|---------------------------|
 | 13.0.0    | tbd        | Feature  | TYPO3 v13 compatibility - planned                                          |                           |
+| 5.2.2     | 2025-01-10 | Task     | Logging adjustments and small bugfixes                                     |                           |
 | 5.2.1     | 2023-04-23 | Bugfix   | Bugfix for correct constraints                                             |                           |
 | 5.2.0     | 2023-04-20 | Feabure  | Support for TYPO3 12                                                       |                           |
 | 5.1.2     | 2023-06-12 | Security | Fix a possible SQL injection                                               |                           |
