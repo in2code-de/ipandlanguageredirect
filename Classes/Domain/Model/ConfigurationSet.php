@@ -29,15 +29,7 @@ class ConfigurationSet
      */
     protected $rawRedirectConfiguration = [];
 
-    /**
-     * @var int
-     */
-    protected $rootpageUid = 0;
-
-    /**
-     * @param array $configuration
-     */
-    public function __construct(array $configuration, int $rootpageUid)
+    public function __construct(array $configuration, protected int $rootpageUid)
     {
         $this->rawQuantifierConfiguration = $configuration['quantifier'];
         $this->rawNoMatchingConfiguration = $configuration['noMatchingConfiguration'];
@@ -53,16 +45,10 @@ class ConfigurationSet
                 $this->addConfiguration($configuration);
             }
         }
-        $this->rootpageUid = $rootpageUid;
+
     }
 
-    /**
-     * @param string $browserLanguage
-     * @param string $countryCode
-     * @param string $domain
-     * @return void
-     */
-    public function calculateQuantifiers(string $browserLanguage = '', string $countryCode = '', string $domain = '')
+    public function calculateQuantifiers(string $browserLanguage = '', string $countryCode = '', string $domain = ''): void
     {
         $configurations = $this->getConfigurations();
         foreach ($configurations as $configuration) {
@@ -81,9 +67,7 @@ class ConfigurationSet
      * Calculate a single quantifier by given key
      *
      * @param string $key "browserLanguage", "countryBasedOnIp"
-     * @param array $configuration
      * @param string $givenValue - e.g. "*" or "de"
-     * @return int
      */
     protected function getQuantifier(string $key, array $configuration, string $givenValue): int
     {
@@ -97,10 +81,12 @@ class ConfigurationSet
                 // wildcardmatch
                 $multiplier = (int)$this->rawQuantifierConfiguration[$key]['wildCardMatch'];
             }
+
             if ($multiplier > 0) {
                 $quantifier *= $multiplier;
             }
         }
+
         return $quantifier;
     }
 
@@ -123,12 +109,12 @@ class ConfigurationSet
                 unset($configurations[$key]);
             }
         }
+
         return $configurations;
     }
 
     /**
      * @param Configuration[] $configurations
-     * @return ConfigurationSet
      */
     public function setConfigurations(array $configurations): ConfigurationSet
     {
@@ -136,10 +122,6 @@ class ConfigurationSet
         return $this;
     }
 
-    /**
-     * @param Configuration $configuration
-     * @return ConfigurationSet
-     */
     public function addConfiguration(Configuration $configuration): ConfigurationSet
     {
         $this->configurations[] = $configuration;
@@ -160,6 +142,7 @@ class ConfigurationSet
                 $bestConfiguration = $configuration;
             }
         }
+
         $this->getBestFittingConfigurationFromNoMatchingConfiguration($bestConfiguration);
         return $bestConfiguration;
     }
@@ -177,6 +160,7 @@ class ConfigurationSet
                 return $configuration;
             }
         }
+
         return null;
     }
 
@@ -197,6 +181,7 @@ class ConfigurationSet
                 $bestConfiguration = $noMatchingConfiguration;
             }
         }
+
         return $bestConfiguration;
     }
 }

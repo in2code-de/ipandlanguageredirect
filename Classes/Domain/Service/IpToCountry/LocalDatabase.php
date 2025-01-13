@@ -24,21 +24,19 @@ class LocalDatabase extends AbstractIpToCountry implements IpToCountryInterface
     /**
      * Get the countryCode from local database
      *
-     * @return string
      * @throws DBALException
      */
     public function getCountryCodeFromIp(): string
     {
         $countryCode = $this->getCountryCodeFromIpInDatabase($this->getCurrentIpAddress());
         if ($countryCode === 'zz') {
-            $countryCode = $this->testCountry;
+            return $this->testCountry;
         }
+
         return $countryCode;
     }
 
     /**
-     * @param string $ipAddress
-     * @return string
      * @throws DBALException
      */
     protected function getCountryCodeFromIpInDatabase(string $ipAddress): string

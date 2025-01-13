@@ -35,29 +35,25 @@ class ConfigurationUtility
         if (!empty($path)) {
             try {
                 $configuration = $configVariables[$path];
-            } catch (\Exception $exception) {
+            } catch (\Exception) {
                 return '';
             }
         }
+
         return $configuration;
     }
 
-    /**
-     * @return string
-     */
     protected static function getConfigurationLocation(): string
     {
         $location = self::CONFIGURATION_PATH;
         $configuredLocation = self::getExtensionConfiguration('configurationFilePath');
         if (!empty($configuredLocation)) {
-            $location = $configuredLocation;
+            return $configuredLocation;
         }
+
         return $location;
     }
 
-    /**
-     * @return array
-     */
     protected static function getTypo3ConfigurationVariables(): array
     {
         return (array)GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('ipandlanguageredirect');

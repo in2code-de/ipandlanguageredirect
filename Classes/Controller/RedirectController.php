@@ -65,7 +65,7 @@ class RedirectController extends ActionController
         $redirectService = new RedirectService(
             $browserLanguage,
             $referrer,
-            empty($ipAddress) ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : $ipAddress,
+            $ipAddress === '' || $ipAddress === '0' ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : $ipAddress,
             $languageUid,
             $rootpageUid,
             $countryCode,
@@ -80,7 +80,6 @@ class RedirectController extends ActionController
      *      call index.php?id=2&type=1556&tx_ipandlanguageredirect_pi1[set]=1
      *
      * @param int $set
-     * @return void
      */
     public function testAction($set = 0): ResponseInterface
     {
@@ -99,8 +98,6 @@ class RedirectController extends ActionController
 
     /**
      * Render a suggest container that can be slided down in FE
-     *
-     * @return void
      */
     public function suggestAction(): ResponseInterface
     {

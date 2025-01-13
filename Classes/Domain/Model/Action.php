@@ -37,7 +37,6 @@ class Action
 
     /**
      * Action constructor.
-     * @param array $configuration
      */
     public function __construct(array $configuration)
     {
@@ -46,9 +45,11 @@ class Action
         if (array_key_exists('referrers', $configuration)) {
             $this->setReferrers($configuration['referrers']);
         }
+
         if (array_key_exists('pidInRootline', $configuration)) {
             $this->setPidInRootline($configuration['pidInRootline']);
         }
+
         if (array_key_exists('userAgent', $configuration)) {
             $this->setUserAgents($configuration['userAgent']);
         }
@@ -64,9 +65,8 @@ class Action
 
     /**
      * @param array $events
-     * @return Action
      */
-    public function setEvents($events)
+    public function setEvents($events): static
     {
         $this->events = $events;
         return $this;
@@ -82,9 +82,8 @@ class Action
 
     /**
      * @param array $referrers
-     * @return Action
      */
-    public function setReferrers($referrers)
+    public function setReferrers($referrers): static
     {
         $this->referrers = $referrers;
         return $this;
@@ -98,11 +97,7 @@ class Action
         return $this->pidInRootline;
     }
 
-    /**
-     * @param array $pidInRootline
-     * @return void
-     */
-    public function setPidInRootline(array $pidInRootline)
+    public function setPidInRootline(array $pidInRootline): void
     {
         $this->pidInRootline = $pidInRootline;
     }
@@ -115,11 +110,7 @@ class Action
         return $this->userAgents;
     }
 
-    /**
-     * @param array $userAgents
-     * @return void
-     */
-    public function setUserAgents(array $userAgents)
+    public function setUserAgents(array $userAgents): void
     {
         $this->userAgents = $userAgents;
     }
@@ -134,10 +125,9 @@ class Action
 
     /**
      * @param string $referrer
-     * @param array $rawQuantifierConfiguration
      * @return $this
      */
-    public function setQuantifier($referrer, array $rawQuantifierConfiguration)
+    public function setQuantifier($referrer, array $rawQuantifierConfiguration): static
     {
         $quantifier = $this->getQuantifierForReferrers($referrer, $rawQuantifierConfiguration, 1);
         $quantifier = $this->getQuantifierForUserAgent($quantifier, $rawQuantifierConfiguration);
@@ -148,58 +138,59 @@ class Action
 
     /**
      * @param $referrer
-     * @param array $rawQuantifierConfiguration
      * @param int $quantifier
      * @return int
      */
-    protected function getQuantifierForReferrers($referrer, $rawQuantifierConfiguration, $quantifier)
+    protected function getQuantifierForReferrers($referrer, array $rawQuantifierConfiguration, $quantifier)
     {
         foreach ($this->getReferrers() as $referrerPart) {
             $multiplier = 1;
-            if (stristr($referrer, $referrerPart) !== false) {
+            if (stristr((string) $referrer, (string) $referrerPart) !== false) {
                 // direct match
                 $multiplier = (int)$rawQuantifierConfiguration['actions']['referrers']['totalMatch'];
             } elseif ($referrerPart === '*') {
                 // wildcardmatch
                 $multiplier = (int)$rawQuantifierConfiguration['actions']['referrers']['wildCardMatch'];
             }
+
             if ($multiplier > 0) {
                 $quantifier *= $multiplier;
             }
         }
+
         return $quantifier;
     }
 
     /**
      * @param int $quantifier
-     * @param array $rawQuantifierConfiguration
      * @return int
      */
-    protected function getQuantifierForUserAgent($quantifier, $rawQuantifierConfiguration)
+    protected function getQuantifierForUserAgent($quantifier, array $rawQuantifierConfiguration)
     {
         $visitorUserAgent = GeneralUtility::getIndpEnv('HTTP_USER_AGENT');
         foreach ($this->getUserAgents() as $userAgentPart) {
             $multiplier = 1;
-            if (stristr($visitorUserAgent, $userAgentPart) !== false) {
+            if (stristr($visitorUserAgent, (string) $userAgentPart) !== false) {
                 // direct match
                 $multiplier = (int)$rawQuantifierConfiguration['actions']['userAgents']['totalMatch'];
             } elseif ($userAgentPart === '*') {
                 // wildcardmatch
                 $multiplier = (int)$rawQuantifierConfiguration['actions']['userAgents']['wildCardMatch'];
             }
+
             if ($multiplier > 0) {
                 $quantifier *= $multiplier;
             }
         }
+
         return $quantifier;
     }
 
     /**
      * @param int $quantifier
-     * @param array $rawQuantifierConfiguration
      * @return int
      */
-    protected function getQuantifierForPidInRootline($quantifier, $rawQuantifierConfiguration)
+    protected function getQuantifierForPidInRootline($quantifier, array $rawQuantifierConfiguration)
     {
         $pidInRootline = $this->getPidInRootline();
         if (!empty($pidInRootline)) {
@@ -210,6 +201,7 @@ class Action
                 }
             }
         }
+
         return $quantifier;
     }
 }

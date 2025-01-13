@@ -17,16 +17,13 @@ class FrontendUtility
         return $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageId();
     }
 
-    /**
-     * @param array $parameters
-     * @return string
-     */
-    public static function getParametersStringFromArray(array $parameters)
+    public static function getParametersStringFromArray(array $parameters): string
     {
         $string = '';
         foreach ($parameters as $key => $value) {
             $string .= '&' . self::PLUGIN_NAME . '[' . $key . ']=' . $value;
         }
+
         return $string;
     }
 }

@@ -14,7 +14,6 @@ class PageUtility
      * Checks if the given pid is the the rootline of the current page
      *
      * @param int $pid
-     * @return bool
      */
     public static function isInCurrentRootline($pid): bool
     {
@@ -27,6 +26,7 @@ class PageUtility
                 return true;
             }
         }
+
         return false;
     }
 }

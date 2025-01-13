@@ -25,47 +25,14 @@ class RedirectService
     /**
      * @var string
      */
-    protected $browserLanguage = '';
-
-    /**
-     * @var string
-     */
-    protected $referrer = '';
-
-    /**
-     * @var string
-     */
-    protected $ipAddress = '';
-
-    /**
-     * @var string
-     */
     protected $countryCode = '';
 
-    /**
-     * @var string
-     */
-    protected $countryCodeOverlay = '';
-
-    /**
-     * @var string
-     */
-    protected $domain = '';
+    protected array|bool|string|null $domain;
 
     /**
      * @var string
      */
     protected $languageParameter = 'L';
-
-    /**
-     * @var int
-     */
-    protected $languageUid = 0;
-
-    /**
-     * @var int
-     */
-    protected $rootpageUid = 1;
 
     /**
      * Enables/Disables function for JavaScript
@@ -77,12 +44,12 @@ class RedirectService
     /**
      * @var Configuration|null
      */
-    protected $bestConfiguration = null;
+    protected $bestConfiguration;
 
     /**
      * @var array|null
      */
-    protected $bestEvents = null;
+    protected $bestEvents;
 
     /**
      * @var bool
@@ -103,40 +70,27 @@ class RedirectService
     ];
 
     /**
-     * @param string $browserLanguage
-     * @param string $referrer
-     * @param string $ipAddress
      * @param int $languageUid current FE language uid
      * @param int $rootpageUid current rootpage uid
-     * @param string $countryCode
-     * @param string $domain
      */
     public function __construct(
-        string $browserLanguage,
-        string $referrer,
-        string $ipAddress,
-        int $languageUid,
-        int $rootpageUid,
-        string $countryCode,
+        protected string $browserLanguage,
+        protected string $referrer,
+        protected string $ipAddress,
+        protected int $languageUid,
+        protected int $rootpageUid,
+        protected string $countryCodeOverlay,
         string $domain
     ) {
-        $this->browserLanguage = $browserLanguage;
-        $this->referrer = $referrer;
-        $this->ipAddress = $ipAddress;
-        $this->languageUid = $languageUid;
-        $this->rootpageUid = $rootpageUid;
-        $this->countryCodeOverlay = $countryCode;
         if ($this->countryCodeOverlay === '') {
             $ipToCountry = GeneralUtility::makeInstance(IpToCountry::class);
-            $this->countryCode = $ipToCountry->getCountryFromIp($ipAddress);
+            $this->countryCode = $ipToCountry->getCountryFromIp($this->ipAddress);
         } else {
             $this->countryCode = $this->countryCodeOverlay;
         }
-        if ($domain === '') {
-            $this->domain = GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY');
-        } else {
-            $this->domain = $domain;
-        }
+
+        $this->domain = $domain === '' ? GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY') : $domain;
+
         $this->configuration = ConfigurationUtility::getRedirectConfiguration();
     }
 
@@ -146,9 +100,8 @@ class RedirectService
     public function buildParameters()
     {
         $redirectUri = $this->getRedirectUri();
-        $parameters = $this->defaultParameters;
         if (!empty($redirectUri)) {
-            $parameters = [
+            return [
                 'redirectUri' => $redirectUri,
                 'activated' => $this->isActivated(),
                 'events' => $this->getEvents(),
@@ -168,13 +121,11 @@ class RedirectService
                 ],
             ];
         }
-        return $parameters;
+
+        return $this->defaultParameters;
     }
 
-    /**
-     * @return string
-     */
-    protected function getRedirectUri()
+    protected function getRedirectUri(): string
     {
         return $this->getUriToPageAndLanguage(
             $this->getBestMatchingRootPage(),
@@ -191,6 +142,7 @@ class RedirectService
         if ($bestConfiguration !== null) {
             return $this->getBestConfiguration()->getRootPage();
         }
+
         return 1;
     }
 
@@ -203,6 +155,7 @@ class RedirectService
         if ($bestConfiguration !== null) {
             return $this->getBestConfiguration()->getLanguageParameter();
         }
+
         return 0;
     }
 
@@ -226,15 +179,14 @@ class RedirectService
         } else {
             $bestConfiguration = $this->bestConfiguration;
         }
+
         return $bestConfiguration;
     }
 
     /**
-     * @param int $pageIdentifier
      * @param int $languageParameter
-     * @return string
      */
-    protected function getUriToPageAndLanguage($pageIdentifier = 0, $languageParameter = 0): string
+    protected function getUriToPageAndLanguage(int $pageIdentifier = 0, $languageParameter = 0): string
     {
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
         $uriBuilder->setTargetPageUid($this->getTargetPageForUriCreation($pageIdentifier));
@@ -251,18 +203,14 @@ class RedirectService
         if ($this->bestEvents === null) {
             $actionSet = GeneralUtility::makeInstance(ActionSet::class, $this->configuration);
             $actionSet->calculateQuantifiers($this->referrer);
-            $events = $actionSet->getEvents();
-        } else {
-            $events = $this->bestEvents;
+            return $actionSet->getEvents();
         }
-        return $events;
+
+        return $this->bestEvents;
     }
 
     /**
      * Decide to select the target page for URI creation
-     *
-     * @param int $pageIdentifier
-     * @return int
      */
     protected function getTargetPageForUriCreation(int $pageIdentifier): int
     {
@@ -270,6 +218,7 @@ class RedirectService
             && $this->configuration['globalConfiguration']['stayOnCurrentPage'] === true) {
             return FrontendUtility::getCurrentPageIdentifier();
         }
+
         return $pageIdentifier;
     }
 
@@ -281,8 +230,6 @@ class RedirectService
      *          - OR if current rootpage is different to best matching rootpage
      *      - AND if event handling is not turned off
      *      - AND if actionOnHomeOnly is fullfilled
-     *
-     * @return bool
      */
     protected function isActivated(): bool
     {
@@ -290,9 +237,6 @@ class RedirectService
             && $this->isActionOnHomeOnlyFullfilled();
     }
 
-    /**
-     * @return bool
-     */
     protected function isActivatedBecauseOfDifferentLanguages(): bool
     {
         $isDifferent = $this->getBestMatchingLanguageParameter() !== $this->languageUid;
@@ -300,9 +244,6 @@ class RedirectService
         return $isDifferent;
     }
 
-    /**
-     * @return bool
-     */
     protected function isActivatedBecauseOfDifferentRootpages(): bool
     {
         $isDifferent = $this->getBestMatchingRootPage() !== $this->rootpageUid;
@@ -310,27 +251,22 @@ class RedirectService
         return $isDifferent;
     }
 
-    /**
-     * @return bool
-     */
     protected function isEventhandlingDisabled(): bool
     {
         $events = $this->getEvents();
         return !empty($events) && $events[0] === 'none';
     }
 
-    /**
-     * @return bool
-     */
     protected function isActivationNeeded(): bool
     {
-        return $this->isActivatedBecauseOfDifferentLanguages() || $this->isActivatedBecauseOfDifferentRootpages();
+        if ($this->isActivatedBecauseOfDifferentLanguages()) {
+            return true;
+        }
+        return $this->isActivatedBecauseOfDifferentRootpages();
     }
 
     /**
      * Check, if actionOnHomeOnly is turned on, current page is a home page
-     *
-     * @return bool
      */
     protected function isActionOnHomeOnlyFullfilled(): bool
     {
@@ -338,20 +274,15 @@ class RedirectService
             && $this->configuration['globalConfiguration']['actionOnHomeOnly'] === true) {
             return $this->isCurrentPageAHomePage();
         }
+
         return true;
     }
 
-    /**
-     * @return bool
-     */
     protected function isCurrentPageAHomePage(): bool
     {
         return $this->rootpageUid === FrontendUtility::getCurrentPageIdentifier();
     }
 
-    /**
-     * @return RedirectService
-     */
     protected function setDeactivated(): RedirectService
     {
         $this->activated = false;

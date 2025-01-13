@@ -34,7 +34,7 @@ class IpApi extends AbstractIpToCountry implements IpToCountryInterface
         $ipAddress = $this->getCurrentIpAddress();
         $geoInfo = null;
         if (empty($this->ipAddresses[$ipAddress])) {
-            $uri = 'https://ipapi.co/' . $ipAddress . '/json/' . $this->getConfiguration(__CLASS__, 'ipApiKey');
+            $uri = 'https://ipapi.co/' . $ipAddress . '/json/' . $this->getConfiguration(self::class, 'ipApiKey');
             $json = GeneralUtility::getUrl($uri);
             if ($json !== false) {
                 $geoInfo = json_decode($json);
@@ -45,9 +45,11 @@ class IpApi extends AbstractIpToCountry implements IpToCountryInterface
         } else {
             $geoInfo = $this->ipAddresses[$ipAddress];
         }
+
         if ($geoInfo !== null && !empty($geoInfo->country)) {
             return strtolower($geoInfo->country);
         }
+
         throw new \LogicException('Country could not be determined from ipapi.co', 1539860877);
     }
 }

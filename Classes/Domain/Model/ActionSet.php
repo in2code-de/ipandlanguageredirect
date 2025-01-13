@@ -26,7 +26,6 @@ class ActionSet
 
     /**
      * ActionSet constructor.
-     * @param array $configuration
      */
     public function __construct(array $configuration)
     {
@@ -50,8 +49,9 @@ class ActionSet
         $events = ['none'];
         $bestFittingAction = $this->getBestFittingAction();
         if ($bestFittingAction !== null) {
-            $events = $bestFittingAction->getEvents();
+            return $bestFittingAction->getEvents();
         }
+
         return $events;
     }
 
@@ -59,9 +59,8 @@ class ActionSet
      * Calculate quantifiers for Configuration
      *
      * @param string $referrer
-     * @return void
      */
-    public function calculateQuantifiers($referrer = '')
+    public function calculateQuantifiers($referrer = ''): void
     {
         $actions = $this->getActions();
         foreach ($actions as $action) {
@@ -83,6 +82,7 @@ class ActionSet
                 $bestAction = $action;
             }
         }
+
         return $bestAction;
     }
 
@@ -98,17 +98,16 @@ class ActionSet
      * @param $actions
      * @return $this
      */
-    protected function setActions($actions)
+    protected function setActions($actions): static
     {
         $this->actions = $actions;
         return $this;
     }
 
     /**
-     * @param Action $action
      * @return $this
      */
-    protected function addAction(Action $action)
+    protected function addAction(Action $action): static
     {
         $this->actions[] = $action;
         return $this;

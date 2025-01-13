@@ -8,8 +8,5 @@ namespace In2code\Ipandlanguageredirect\Domain\Service\IpToCountry;
  */
 interface IpToCountryInterface
 {
-    /**
-     * @return string
-     */
     public function getCountryCodeFromIp(): string;
 }

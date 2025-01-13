@@ -22,7 +22,7 @@ abstract class AbstractIpToCountry
     /**
      * @param string $ipAddress
      */
-    public function __construct(private ConfigurationManagerInterface $configurationManager)
+    public function __construct(private readonly ConfigurationManagerInterface $configurationManager)
     {
     }
 
@@ -31,15 +31,13 @@ abstract class AbstractIpToCountry
         $this->ipAddress = $ipAddress;
     }
 
-    /**
-     * @return string
-     */
     protected function getCurrentIpAddress(): string
     {
         $ipAddress = $this->ipAddress;
         if ($ipAddress === '') {
-            $ipAddress = GeneralUtility::getIndpEnv('REMOTE_ADDR');
+            return GeneralUtility::getIndpEnv('REMOTE_ADDR');
         }
+
         return $ipAddress;
     }
 
@@ -58,6 +56,7 @@ abstract class AbstractIpToCountry
         if (!empty($setup['ipToCountry'][$className])) {
             $settings = (array)$setup['ipToCountry'][$className];
         }
+
         if ($path !== '') {
             try {
                 $settings = ArrayUtility::getValueByPath($settings, $path, '.');
@@ -65,6 +64,7 @@ abstract class AbstractIpToCountry
                 unset($exception);
             }
         }
+
         return $settings;
     }
 }

@@ -24,7 +24,6 @@ class IpToCountry
 
     /**
      * @param string $ipAddress if given use this (normally for testing), if empty automaticly get current IP
-     * @return string
      */
     public function getCountryFromIp(string $ipAddress = ''): string
     {
@@ -38,20 +37,21 @@ class IpToCountry
             } catch (\Exception $exception) {
                 $this->logFailingOfCountryCode($class, $exception);
             }
+
             if (strlen($countryCode) === 2) {
                 break;
             }
         }
+
         if (strlen($countryCode) !== 2) {
             $this->logFailingOfCountryCode($class, new \LogicException('Country could not be determined', 1539888615));
         }
+
         return $countryCode;
     }
 
     /**
      * Return countryFromIp classes from Extension Manager settings
-     *
-     * @return array
      */
     protected function getClasses(): array
     {
@@ -62,6 +62,7 @@ class IpToCountry
                 if (class_exists($class) === false) {
                     throw new \UnexpectedValueException('Class ' . $class . ' does not exists', 1539859535);
                 }
+
                 if (is_subclass_of($class, $this->interface) === false) {
                     throw new \UnexpectedValueException(
                         'Class ' . $class . ' does not implement needed interface ' . $this->interface,
@@ -69,8 +70,10 @@ class IpToCountry
                     );
                 }
             }
+
             return $classes;
         }
+
         throw new \UnexpectedValueException(
             'No IpToCountryService classes given. Pls check your settings in the extension manager',
             1539859385
@@ -78,8 +81,6 @@ class IpToCountry
     }
 
     /**
-     * @param string $class
-     * @param \Exception $exception
      * @return void
      */
     protected function logFailingOfCountryCode(string $class, \Exception $exception)
