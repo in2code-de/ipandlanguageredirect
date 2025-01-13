@@ -69,7 +69,8 @@ class RedirectController extends ActionController
             $languageUid,
             $rootpageUid,
             $countryCode,
-            $domain
+            $domain,
+            $this->request,
         );
 
         return $this->jsonResponse(json_encode($redirectService->buildParameters()));

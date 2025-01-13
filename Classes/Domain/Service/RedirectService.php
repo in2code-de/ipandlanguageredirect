@@ -7,6 +7,7 @@ use In2code\Ipandlanguageredirect\Domain\Model\Configuration;
 use In2code\Ipandlanguageredirect\Domain\Model\ConfigurationSet;
 use In2code\Ipandlanguageredirect\Utility\ConfigurationUtility;
 use In2code\Ipandlanguageredirect\Utility\FrontendUtility;
+use Psr\Http\Message\RequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 
@@ -80,7 +81,8 @@ class RedirectService
         protected int $languageUid,
         protected int $rootpageUid,
         protected string $countryCodeOverlay,
-        string $domain
+        string $domain,
+        protected RequestInterface $request,
     ) {
         if ($this->countryCodeOverlay === '') {
             $ipToCountry = GeneralUtility::makeInstance(IpToCountry::class);
@@ -189,6 +191,7 @@ class RedirectService
     protected function getUriToPageAndLanguage(int $pageIdentifier = 0, $languageParameter = 0): string
     {
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        $uriBuilder->setRequest($this->request);
         $uriBuilder->setTargetPageUid($this->getTargetPageForUriCreation($pageIdentifier));
         $uriBuilder->setCreateAbsoluteUri(true);
         $uriBuilder->setArguments([$this->languageParameter => $languageParameter]);
