@@ -510,18 +510,19 @@ to accept only bugfixes if I can reproduce the issue.
 * Support all browserlanguages and not only the first one
 * Support also continents
 
-## Early Access Programm for TYPO3 13 support
+## Early Access Programm for TYPO3 14 support
 
-:information_source: **TYPO3 13 compatibility**
+:information_source: **TYPO3 14 compatibility**
 > See [EAP page (DE)](https://www.in2code.de/agentur/typo3-extensions/early-access-programm/) or
 > [EAP page (EN)](https://www.in2code.de/en/agency/typo3-extensions/early-access-program/) for more information how
-> to get access to a TYPO3 13 version
+> to get access to a TYPO3 14 version
+
 
 ## Changelog
 
 | Version   | Date       | State    | Description                                                                | Note                      |
 |-----------|------------|----------|----------------------------------------------------------------------------|---------------------------|
-| 13.0.0    | tbd        | Feature  | TYPO3 v13 compatibility - planned                                          |                           |
+| 13.0.0    | 2025-08-07 | Feature  | TYPO3 v13 compatibility                                                    |                           |
 | 5.2.2     | 2025-01-10 | Task     | Logging adjustments and small bugfixes                                     |                           |
 | 5.2.1     | 2023-04-23 | Bugfix   | Bugfix for correct constraints                                             |                           |
 | 5.2.0     | 2023-04-20 | Feabure  | Support for TYPO3 12                                                       |                           |
