@@ -504,10 +504,9 @@ to accept only bugfixes if I can reproduce the issue.
 2. Run `ddev start`
 3. Run `ddev initialize` to setup configurations and test database
 
-#### Branchen
+#### Branchinfo
 
 * Main Branch - Next Major Version
-* typo3-v12: Version 5.x for TYPO3 12
 * typo3-v13: Version V13 for TYPO3 13
 
 ## What's not (yet?) possible at the moment
