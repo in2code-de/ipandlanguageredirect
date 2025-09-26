@@ -40,7 +40,9 @@ class Action
      */
     public function __construct(array $configuration)
     {
-        $this->setEvents($configuration['events']);
+        if (array_key_exists('events', $configuration)) {
+            $this->setEvents($configuration['events']);
+        }
 
         if (array_key_exists('referrers', $configuration)) {
             $this->setReferrers($configuration['referrers']);
