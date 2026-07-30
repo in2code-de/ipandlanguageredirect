@@ -1,0 +1,23 @@
+{
+  "name": "ipandlanguageredirect",
+  "version": "1.0.0",
+  "description": "TYPO3 FE visitor automatic or manual redirect to another language or another root page.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/in2code-de/ipandlanguageredirect.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/in2code-de/ipandlanguageredirect/issues"
+  },
+  "homepage": "https://github.com/in2code-de/ipandlanguageredirect#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@types/node": "^26.1.0"
+  }
+}
